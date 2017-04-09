@@ -9,7 +9,7 @@ namespace DogCare
 		public App ()
 		{
 			// The root page of your application
-			MainPage = new NavigationPage( new OwnerList());
+			MainPage = new TripMap();
 		}
 
 		protected override void OnStart ()
