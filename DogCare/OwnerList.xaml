@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.OwnerList">
+    <StackLayout>
+        <Entry x:Name="ownerName"
+                  Placeholder="Owner Name" />
+        <Entry x:Name="userName"
+                  Placeholder="user Name" />
+        <Entry x:Name="password" IsPassword="True"
+                  Placeholder="password" />
+        
+        <Button Text="+"
+                  Clicked="Button_Clicked" />
+        <Button Text="Next"
+                Clicked="Button_Clicked_1"/>
+
+    </StackLayout>
+</ContentPage>
