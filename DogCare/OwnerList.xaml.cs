@@ -12,9 +12,8 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OwnerList : ContentPage
     {
+        
         OwnerManager manager;
-        string typedUserName;
-        string typedPassword;
         public OwnerList()
         {
             manager = OwnerManager.DefaultManager;
@@ -28,15 +27,28 @@ namespace DogCare
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
-            var owner = new Owner
+            if ((ownerName.Text) == null || userName.Text == null || password.Text == null)
             {
-                OwnerName = ownerName.Text,
-                UserName = userName.Text,
-                Password = password.Text
+                await DisplayAlert("Opps!", "Please enter all details", "OK");
+            }
+            else
+            {
+                bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
+                if (sure)
+                {
+                    var owner = new Owner
+                    {
+                        OwnerName = ownerName.Text,
+                        UserName = userName.Text,
+                        Password = password.Text
 
-            };
-            await AddItem(owner);
+                    };
+                    await AddItem(owner);
+                    App.typedUserName = userName.Text;
+                    App.typedPassword = password.Text;
+                }
 
+            }
         }
 
         async private void Button_Clicked_1(object sender, EventArgs e)

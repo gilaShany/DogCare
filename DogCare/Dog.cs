@@ -13,9 +13,9 @@ namespace DogCare
 
         string id;
         string dogName;
-        int chipNumber;
         string gender;
         string race;
+        string owner;
         string imageD;
 
         [JsonProperty(PropertyName = "id")]
@@ -30,13 +30,6 @@ namespace DogCare
         {
             get { return dogName; }
             set { dogName = value; }
-        }
-
-        [JsonProperty(PropertyName = "chipNumber")]
-        public int ChipNumber
-        {
-            get { return chipNumber; }
-            set { chipNumber = value; }
         }
 
         [JsonProperty(PropertyName = "gender")]
@@ -58,6 +51,13 @@ namespace DogCare
         {
             get { return imageD; }
             set { imageD = value; }
+        }
+        
+        [JsonProperty(PropertyName = "owner")]
+        public string Owner
+        {
+            get { return owner; }
+            set { owner = value; }
         }
 
         [Version]

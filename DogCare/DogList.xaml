@@ -6,8 +6,6 @@
     <StackLayout>
         <Entry x:Name="newDog"
                   Placeholder="Dog name" />
-        <Entry x:Name="chipNum"
-               Placeholder="chip number" />
         <Entry x:Name="genderS"
                Placeholder="gender" />
         <Entry x:Name="raceS"

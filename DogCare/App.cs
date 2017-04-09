@@ -6,7 +6,10 @@ namespace DogCare
 {
 	public class App : Application
 	{
-		public App ()
+        public static string typedUserName;
+        public static string typedPassword;
+        public static int typedChip;
+        public App ()
 		{
 			// The root page of your application
 			MainPage = new NavigationPage( new OwnerList());

@@ -27,14 +27,22 @@ namespace DogCare
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
-            var dog = new Dog { DogName = newDog.Text,
-                                ChipNumber =Int32.Parse(chipNum.Text),
-                                Gender = genderS.Text,
-                                Race = raceS.Text};
+
+            var dog = new Dog
+            {
+                DogName = newDog.Text,
+                Owner = App.typedUserName,
+                Gender = genderS.Text,
+                Race = raceS.Text
+
+                
+            };
             await AddItem(dog);
 
             newDog.Text = string.Empty;
             newDog.Unfocus();
+
         }
-    }
+        }
+    
 }

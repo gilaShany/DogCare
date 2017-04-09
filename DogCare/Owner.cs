@@ -11,7 +11,6 @@ namespace DogCare
     class Owner
     {
 
-
             string id;
             string ownerName;
             string userName;
