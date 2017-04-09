@@ -8,7 +8,7 @@ namespace DogCare
 	{
         public static string typedUserName;
         public static string typedPassword;
-        public static int typedChip;
+
         public App ()
 		{
 			// The root page of your application

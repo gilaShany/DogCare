@@ -75,5 +75,19 @@ namespace DogCare
                 await ownerTable.UpdateAsync(item);
             }
         }
+
+        public async Task<Owner> Select(string userName)
+        {
+            
+            var items = await ownerTable
+            .Where(owner => owner.UserName == userName)
+            .ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items[0];
+            
+        }
     }
 }
