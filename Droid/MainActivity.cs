@@ -26,9 +26,10 @@ namespace DogCare.Droid
 
 			// Initialize Xamarin Forms
 			global::Xamarin.Forms.Forms.Init (this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
 
-			// Load the main application
-			LoadApplication (new App ());
+            // Load the main application
+            LoadApplication (new App ());
 		}
 	}
 }
