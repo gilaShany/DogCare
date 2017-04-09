@@ -10,6 +10,7 @@ namespace DogCare
 {
     class Dog
     {
+
         string id;
         string dogName;
         int chipNumber;
