@@ -4,36 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-using Xamarin.Forms.Xaml;
 
 namespace DogCare
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TripMap : ContentPage
+    class MapPage : ContentPage
     {
-        public TripMap()
+        Map map;
+
+        public MapPage()
         {
-            InitializeComponent();
-            
-            roudMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37.79752, -122.40183), Distance.FromMiles(1.0)));
-            /*
+            map = new Map
+            {
+                IsShowingUser = true,
+                HeightRequest = 100,
+                WidthRequest = 960,
+                VerticalOptions = LayoutOptions.FillAndExpand
+            };
+
             currentLocation();
-            */
+
         }
 
-        /*
         async void currentLocation()
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
 
             var position = await locator.GetPositionAsync(10000);
-            roudMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
                                              Distance.FromMiles(1)));
         }
-        */
     }
 }
