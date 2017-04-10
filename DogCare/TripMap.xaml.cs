@@ -17,18 +17,18 @@ namespace DogCare
         {
             InitializeComponent();
 
-            var map = new Map(
-           MapSpan.FromCenterAndRadius(
-                   new Position(37, -122), Distance.FromMiles(0.3)))
+            var map = new Map(MapSpan.FromCenterAndRadius(new Position(37, -122), Distance.FromMiles(10)));
+
+            var pin = new Pin()
             {
-                IsShowingUser = true,
-                HeightRequest = 100,
-                WidthRequest = 960,
-                VerticalOptions = LayoutOptions.FillAndExpand
+                Position = new Position(37, -122),
+                Label = "Some Pin!"
             };
-            var stack = new StackLayout { Spacing = 0 };
-            stack.Children.Add(map);
-            Content = stack;
+            map.Pins.Add(pin);
+
+
+            Content = map;
+
         }
     }
 }
