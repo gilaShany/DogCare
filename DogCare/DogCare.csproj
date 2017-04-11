@@ -33,14 +33,14 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DogMiddlePage.xaml.cs">
+    <Compile Include="Pages\DogMiddlePage.xaml.cs">
       <DependentUpon>DogMiddlePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Dog.cs" />
-    <Compile Include="MyDogsPage.xaml.cs">
+    <Compile Include="Pages\MyDogsPage.xaml.cs">
       <DependentUpon>MyDogsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\DogList.xaml.cs">
@@ -60,7 +60,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="Managers\TodoItemManager.cs" />
-    <Compile Include="TabbedLogin.xaml.cs">
+    <Compile Include="Pages\TabbedLogin.xaml.cs">
       <DependentUpon>TabbedLogin.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -124,25 +124,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TabbedLogin.xaml">
+    <EmbeddedResource Include="Pages\TabbedLogin.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Login.xaml">
+    <EmbeddedResource Include="Pages\Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DogMiddlePage.xaml">
+    <EmbeddedResource Include="Pages\DogMiddlePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyDogsPage.xaml">
+    <EmbeddedResource Include="Pages\MyDogsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

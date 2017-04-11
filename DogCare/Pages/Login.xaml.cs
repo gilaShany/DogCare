@@ -35,6 +35,9 @@ namespace DogCare
                 }
                 else
                 {
+                    App.typedPassword = userName.Text;
+                    App.typedPassword = password.Text;
+                    App.typedFullName = method.OwnerName;
                     await Navigation.PushAsync(new DogMiddlePage());
 
                 }
