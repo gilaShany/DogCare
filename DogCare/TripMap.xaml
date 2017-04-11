@@ -3,17 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="DogCare.TripMap">
-    
-    <StackLayout VerticalOptions="StartAndExpand" Padding="30">
-        <maps:Map
-            x:Name="roudMap"
-            WidthRequest="320"
-            HeightRequest="960"
-            IsShowingUser="true" 
-            VerticalOptions="FillAndExpand"
-            />
 
-    </StackLayout>
 
 
 </ContentPage>

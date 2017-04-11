@@ -14,26 +14,40 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TripMap : ContentPage
     {
+        Map map;
+
         public TripMap()
         {
             InitializeComponent();
-            
-            roudMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37.79752, -122.40183), Distance.FromMiles(1.0)));
-            /*
+
+            map = new Map
+            {
+                IsShowingUser = true,
+                HeightRequest = 100,
+                WidthRequest = 960,
+                VerticalOptions = LayoutOptions.FillAndExpand
+            };
+
             currentLocation();
-            */
+           
+
+
+            var stack = new StackLayout { Spacing = 0 };
+            stack.Children.Add(map);
+            Content = stack;
+
         }
 
-        /*
+      
         async void currentLocation()
         {
             var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
+            locator.DesiredAccuracy = 5;
 
             var position = await locator.GetPositionAsync(10000);
-            roudMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
                                              Distance.FromMiles(1)));
         }
-        */
+      
     }
 }
