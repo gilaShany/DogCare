@@ -38,15 +38,19 @@ namespace DogCare
 
         }
 
-      
+
         async void currentLocation()
         {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 5;
+           if (CrossGeolocator.Current.IsGeolocationEnabled == true)
+            {
+           
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 5;
 
-            var position = await locator.GetPositionAsync(10000);
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
-                                             Distance.FromMiles(1)));
+                var position = await locator.GetPositionAsync(10000);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude),
+                                                 Distance.FromMiles(1)));
+            }
         }
       
     }
