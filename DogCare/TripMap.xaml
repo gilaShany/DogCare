@@ -4,6 +4,10 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="DogCare.TripMap">
 
+    <StackLayout x:Name="stack">
+        <Button Text="Start" Clicked="Button_Clicked"/>
+        
 
+    </StackLayout>
 
 </ContentPage>
