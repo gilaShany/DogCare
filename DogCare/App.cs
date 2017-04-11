@@ -8,13 +8,13 @@ namespace DogCare
 	{
         public static string typedUserName;
         public static string typedPassword;
+        public static string typedFullName;
 
-        public App ()
-		{
-			// The root page of your application
-			MainPage = new NavigationPage( new OwnerList());
-		}
-
+        public App()
+        {
+            // The root page of your application
+            MainPage = new NavigationPage(new TabbedLogin());
+        }
 		protected override void OnStart ()
 		{
 			// Handle when your app starts

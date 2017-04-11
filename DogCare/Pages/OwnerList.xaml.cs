@@ -38,17 +38,15 @@ namespace DogCare
                 if (sure)
                 {
                    
-                    var method =  await (manager.Select(userName.Text));
+                    var method =  await (manager.CheckIfOwnerAlreadyExists(userName.Text));
 
-                    await DisplayAlert("Booya!", "Reached so far.", "OK");
                     if (method != null)
                     {
-                        await DisplayAlert("Booya!", method.UserName, "OK");
                         await DisplayAlert("Opps!", "Username is already taken", "OK");
                     }
                     else
                     {
-                        await DisplayAlert("Booooom!", "You have reached else.", "OK");
+                        
                         var owner = new Owner
                         {
                             OwnerName = ownerName.Text,
@@ -59,6 +57,13 @@ namespace DogCare
                         await AddItem(owner);
                         App.typedUserName = userName.Text;
                         App.typedPassword = password.Text;
+                        App.typedFullName = ownerName.Text;
+                        bool next =await DisplayAlert("", "Your account added succefully", "Next", "Cancel");
+
+                        if (next)
+                        {
+                            await Navigation.PushAsync(new DogList());
+                        }
                     }
                 }
             }

@@ -76,7 +76,7 @@ namespace DogCare
             }
         }
 
-        public async Task<Owner> Select(string userName)
+        public async Task<Owner> CheckIfOwnerAlreadyExists(string userName)
         {
             
             var items = await ownerTable
@@ -88,6 +88,20 @@ namespace DogCare
 
             return items[0];
             
+        }
+        public async Task<Owner> CheckUserNameAndPassword(string userName,string password)
+        {
+
+            var items = await ownerTable
+            .Where(owner => owner.UserName == userName)
+            .Where(owner => owner.Password == password)
+            .ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items[0];
+
         }
     }
 }
