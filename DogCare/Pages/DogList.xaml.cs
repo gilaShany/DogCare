@@ -34,13 +34,17 @@ namespace DogCare
                 Owner = App.typedUserName,
                 Gender = genderS.Text,
                 Race = raceS.Text
-
-                
+  
             };
             await AddItem(dog);
             await DisplayAlert("", string.Format("{0} added successfully",dog.DogName), "OK");
 
-            await Navigation.PushAsync(new MainPage(dog));
+            MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
+            {
+                Master = new MenuPage(),
+                Detail = new NavigationPage(new MainPage(dog))
+            };
+            await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
         }
         public async Task<List<Dog>> GetDogsByOwner(string owner)
         {

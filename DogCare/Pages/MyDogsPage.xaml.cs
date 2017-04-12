@@ -29,7 +29,8 @@ namespace DogCare
                     Detail = new NavigationPage(new MainPage(dog))
 
                 };
-                await Navigation.PushAsync(MasterDetailSideMenucs.MasterDetailPage);
+                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+
             }
             listView.SelectedItem = null;
         }

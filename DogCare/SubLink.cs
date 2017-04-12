@@ -12,7 +12,7 @@ namespace DogCare
         public SubLink(string name)
         {
             Text = name;
-            Command = new Command(o => MasterDetailSideMenucs.MasterDetailPage.Detail.Navigation.PushAsync(new LinkPage(name)));
+            Command = new Command(o => App.MasterDetailPage.Detail.Navigation.PushAsync(new LinkPage(name)));
         }
     }
 }

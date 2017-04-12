@@ -17,9 +17,8 @@ namespace DogCare
             InitializeComponent();
             Title = "Master";
             BackgroundColor = Color.Gray.WithLuminosity(0.9);
-            Icon = Device.OS == TargetPlatform.iOS ? "menu.png" : null;
+            Icon = Device.OS == TargetPlatform.Android ? "menu.png" : null;
             DisplayAlert("", "reached here", "OK");
-
         }
     }
 }
