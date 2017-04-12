@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DogCare
 {
-    class Dog
+    public class Dog
     {
 
         string id;

@@ -38,12 +38,22 @@ namespace DogCare
                 
             };
             await AddItem(dog);
-
+            await DisplayAlert("", string.Format("{0} was added successfully",dog.DogName), "OK");
             newDog.Text = string.Empty;
             newDog.Unfocus();
 
         }
-        public 
+         public async Task<List<Dog>> GetDogsByOwner(string owner)
+        {
+            
+            List < Dog > listOfDogs = await manager.CheckOwnerDogs(owner);
+
+            if(listOfDogs == null)
+            {
+                return null;
+            }
+            return listOfDogs;
+        }
         }
     
 }

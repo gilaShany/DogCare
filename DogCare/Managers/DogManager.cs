@@ -75,7 +75,7 @@ namespace DogCare
                 await dogTable.UpdateAsync(item);
             }
         }
-        public async Task<Dog> CheckOwnerDogs(string userName)
+        public async Task<List<Dog>> CheckOwnerDogs(string userName)
         {
 
             var items = await dogTable
@@ -85,7 +85,7 @@ namespace DogCare
             if (items == null || items.Count == 0)
                 return null;
 
-            return items[0];
+            return items;
 
         }
     }

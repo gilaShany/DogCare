@@ -12,8 +12,8 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MyDogsPage : ContentPage
     {
-        
-         void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        DogManager manager;
+        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
@@ -27,10 +27,18 @@ namespace DogCare
         {
             
             InitializeComponent();
-            listView.ItemsSource = new List<Dog> {
-                new Dog { DogName = "Mosh", Image = "http://lorempixel.com/100/100/people/1" },
-                new Dog { DogName = "John", Image = "http://lorempixel.com/100/100/people/2" }
-            };
+            manager = DogManager.DefaultManager;
+            GetDogsByOwner(App.typedUserName);
+        }
+        public async void GetDogsByOwner(string owner)
+        {
+            List<Dog> listOfDogs = await manager.CheckOwnerDogs(owner);
+            if (listOfDogs != null)
+            {
+                listView.ItemsSource = new List<Dog>();
+                listView.ItemsSource = await manager.CheckOwnerDogs(owner);
+
+            }
         }
     }
 }
