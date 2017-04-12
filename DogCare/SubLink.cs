@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace DogCare
+{
+    public class SubLink : Button
+    {
+        public SubLink(string name)
+        {
+            Text = name;
+            Command = new Command(o => MasterDetailSideMenucs.MasterDetailPage.Detail.Navigation.PushAsync(new LinkPage(name)));
+        }
+    }
+}

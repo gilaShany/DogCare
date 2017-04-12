@@ -25,7 +25,7 @@ namespace DogCare
             await manager.SaveTaskAsync(item);
         }
 
-        async private void Button_Clicked(object sender, EventArgs e)
+        async private void CreateNewAccount_Clicked(object sender, EventArgs e)
         {
             if ((ownerName.Text) == null || userName.Text == null || password.Text == null)
             {
@@ -43,6 +43,10 @@ namespace DogCare
                     if (method != null)
                     {
                         await DisplayAlert("Opps!", "Username is already taken", "OK");
+                        userName.Text = string.Empty;
+                        userName.Unfocus();
+                        password.Text = string.Empty;
+                        password.Unfocus();
                     }
                     else
                     {
@@ -69,7 +73,7 @@ namespace DogCare
             }
         }
 
-        async private void Button_Clicked_1(object sender, EventArgs e)
+        async private void Next_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new DogList());
         }

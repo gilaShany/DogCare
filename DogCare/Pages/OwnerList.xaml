@@ -11,9 +11,9 @@
                   Placeholder="password" />
 
         <Button Text="+"
-                  Clicked="Button_Clicked" />
+                  Clicked="CreateNewAccount_Clicked" />
         <Button Text="Next"
-                  Clicked="Button_Clicked_1" />
+                  Clicked="Next_Clicked" />
 
     </StackLayout>
 </ContentPage>

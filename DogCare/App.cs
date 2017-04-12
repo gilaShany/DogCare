@@ -9,11 +9,13 @@ namespace DogCare
         public static string typedUserName;
         public static string typedPassword;
         public static string typedFullName;
-
+        public static MasterDetailPage MasterDetailPage;
         public App()
         {
             // The root page of your application
             MainPage = new NavigationPage(new TabbedLogin());
+
+           // MainPage = MasterDetailPage;
         }
 		protected override void OnStart ()
 		{

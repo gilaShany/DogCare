@@ -13,14 +13,25 @@ namespace DogCare
     public partial class MyDogsPage : ContentPage
     {
         DogManager manager;
-        void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        async void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
-
+           
             var dog = e.SelectedItem as Dog;
-           // await Navigation.PushAsync(new MyDogsDetailPage(dog));
-          //  listView.SelectedItem = null;
+
+            bool answer = await DisplayAlert("", string.Format("{0} is selected", dog.DogName),"OK","Cancel");
+            if (answer)
+            {
+                MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
+                {
+                    Master = new MenuPage(),
+                    Detail = new NavigationPage(new MainPage(dog))
+
+                };
+                await Navigation.PushAsync(MasterDetailSideMenucs.MasterDetailPage);
+            }
+            listView.SelectedItem = null;
         }
         
         public MyDogsPage()
