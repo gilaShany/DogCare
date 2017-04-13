@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.MenuPage">
+    <StackLayout>
+        <StackLayout BackgroundColor="Aquamarine">
+            <Label Text="Hello!"/>
+        </StackLayout>
+        <Button Text="Edit my profile" Clicked="EditProfile_Clicked"/>
+        <Button Text="Edit my dog's profile" Clicked="EditDog_Clicked"/>
+        <Button Text="My dogs" Clicked="MyDogs_Clicked"/>
+
+    </StackLayout>
+</ContentPage>

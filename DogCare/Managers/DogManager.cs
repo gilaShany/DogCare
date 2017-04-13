@@ -88,5 +88,10 @@ namespace DogCare
             return items;
 
         }
+
+        public async Task UpdateDog(Dog dog)
+        {
+            await dogTable.UpdateAsync(dog);
+        }
     }
 }

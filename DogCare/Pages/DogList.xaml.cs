@@ -38,11 +38,12 @@ namespace DogCare
             };
             await AddItem(dog);
             await DisplayAlert("", string.Format("{0} added successfully",dog.DogName), "OK");
+            App.currentDog = dog;
 
             MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
             {
                 Master = new MenuPage(),
-                Detail = new NavigationPage(new MainPage(dog))
+                Detail = new NavigationPage(new MainPage())
             };
             await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
         }

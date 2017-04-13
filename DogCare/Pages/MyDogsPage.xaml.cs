@@ -26,9 +26,10 @@ namespace DogCare
                 MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
                 {
                     Master = new MenuPage(),
-                    Detail = new NavigationPage(new MainPage(dog))
+                    Detail = new NavigationPage(new MainPage())
 
                 };
+                App.currentDog = dog;
                 await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
 
             }

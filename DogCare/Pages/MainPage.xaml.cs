@@ -12,7 +12,7 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        public MainPage(Dog dog)
+        public MainPage()
         {
 
             InitializeComponent();

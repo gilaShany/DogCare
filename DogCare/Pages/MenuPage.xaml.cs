@@ -18,7 +18,21 @@ namespace DogCare
             Title = "Master";
             BackgroundColor = Color.Gray.WithLuminosity(0.9);
             Icon = Device.OS == TargetPlatform.Android ? "menu.png" : null;
-            DisplayAlert("", "reached here", "OK");
+        }
+
+        async private void MyDogs_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new MyDogsPage());
+        }
+
+        async private void EditDog_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new EditMyDogProfile());
+        }
+
+        async private void EditProfile_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new EditMyProfile());
         }
     }
 }

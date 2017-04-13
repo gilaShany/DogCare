@@ -9,7 +9,7 @@ namespace DogCare
         public static string typedUserName;
         public static string typedPassword;
         public static string typedFullName;
-        public static MasterDetailPage MasterDetailPage;
+        public static Dog currentDog;
         public App()
         {
             // The root page of your application
