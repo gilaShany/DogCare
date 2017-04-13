@@ -33,12 +33,12 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomMap.cs" />
     <Compile Include="Dog.cs" />
     <Compile Include="DogList.xaml.cs">
       <DependentUpon>DogList.xaml</DependentUpon>
     </Compile>
     <Compile Include="DogManager.cs" />
-    <Compile Include="MapPage.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="OwnerList.xaml.cs">
       <DependentUpon>OwnerList.xaml</DependentUpon>

@@ -26,9 +26,26 @@ namespace DogCare
         public TripMap()
         {
             InitializeComponent();
+            map.RouteCoordinates.Add(new Position(37.797534, -122.401827));
+            map.RouteCoordinates.Add(new Position(37.797510, -122.402060));
+            map.RouteCoordinates.Add(new Position(37.790269, -122.400589));
+            map.RouteCoordinates.Add(new Position(37.790265, -122.400474));
+            map.RouteCoordinates.Add(new Position(37.790228, -122.400391));
+            map.RouteCoordinates.Add(new Position(37.790126, -122.400360));
+            map.RouteCoordinates.Add(new Position(37.789250, -122.401451));
+            map.RouteCoordinates.Add(new Position(37.788440, -122.400396));
+            map.RouteCoordinates.Add(new Position(37.787999, -122.399780));
+            map.RouteCoordinates.Add(new Position(37.786736, -122.398202));
+            map.RouteCoordinates.Add(new Position(37.786345, -122.397722));
+            map.RouteCoordinates.Add(new Position(37.785983, -122.397295));
+            map.RouteCoordinates.Add(new Position(37.785559, -122.396728));
+            map.RouteCoordinates.Add(new Position(37.780624, -122.390541));
+            map.RouteCoordinates.Add(new Position(37.777113, -122.394983));
+            map.RouteCoordinates.Add(new Position(37.776831, -122.394627));
 
-            currentLocation();
-    
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37.79752, -122.40183), Distance.FromMiles(0.2)));
+            //currentLocation();
+
         }
 
 

@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:DogCare;assembly=DogCare"
              x:Class="DogCare.TripMap">
 
     <StackLayout x:Name="stack">
-        <maps:Map x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
+        <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
         <StackLayout Spacing="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Button Text="Start" Clicked="ButtonStartClicked"/>
             <Button Text="poop" Clicked="ButtonPoopClicked"/>
