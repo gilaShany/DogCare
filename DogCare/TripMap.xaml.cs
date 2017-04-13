@@ -20,7 +20,6 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TripMap : ContentPage
     {
-        Map map;
 
         public object LabelGeolocation { get; private set; }
 
@@ -28,18 +27,8 @@ namespace DogCare
         {
             InitializeComponent();
 
-            map = new Map
-            {
-                IsShowingUser = true,
-                HeightRequest = 100,
-                WidthRequest = 960,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            };
-
             currentLocation();
-
-            stack.Children.Add(map);
-            Content = stack;
+    
         }
 
 
@@ -59,7 +48,7 @@ namespace DogCare
             }
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void ButtonStartClicked(object sender, EventArgs e)
         {
             currentLocation();
         }
@@ -71,6 +60,21 @@ namespace DogCare
             Device.BeginInvokeOnMainThread(() => {
                 DisplayAlert(message, title, button1);
             });
+        }
+
+        private void ButtonPoopClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonPeeClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonFinishClicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
