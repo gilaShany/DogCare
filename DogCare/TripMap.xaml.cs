@@ -21,30 +21,11 @@ namespace DogCare
     public partial class TripMap : ContentPage
     {
 
-        public object LabelGeolocation { get; private set; }
-
         public TripMap()
         {
             InitializeComponent();
-            map.RouteCoordinates.Add(new Position(37.797534, -122.401827));
-            map.RouteCoordinates.Add(new Position(37.797510, -122.402060));
-            map.RouteCoordinates.Add(new Position(37.790269, -122.400589));
-            map.RouteCoordinates.Add(new Position(37.790265, -122.400474));
-            map.RouteCoordinates.Add(new Position(37.790228, -122.400391));
-            map.RouteCoordinates.Add(new Position(37.790126, -122.400360));
-            map.RouteCoordinates.Add(new Position(37.789250, -122.401451));
-            map.RouteCoordinates.Add(new Position(37.788440, -122.400396));
-            map.RouteCoordinates.Add(new Position(37.787999, -122.399780));
-            map.RouteCoordinates.Add(new Position(37.786736, -122.398202));
-            map.RouteCoordinates.Add(new Position(37.786345, -122.397722));
-            map.RouteCoordinates.Add(new Position(37.785983, -122.397295));
-            map.RouteCoordinates.Add(new Position(37.785559, -122.396728));
-            map.RouteCoordinates.Add(new Position(37.780624, -122.390541));
-            map.RouteCoordinates.Add(new Position(37.777113, -122.394983));
-            map.RouteCoordinates.Add(new Position(37.776831, -122.394627));
-
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(37.79752, -122.40183), Distance.FromMiles(0.2)));
-            //currentLocation();
+   
+            currentLocation();
 
         }
 
@@ -65,10 +46,39 @@ namespace DogCare
             }
         }
 
-        private void ButtonStartClicked(object sender, EventArgs e)
+        async private void ButtonStartClicked(object sender, EventArgs e)
         {
-            currentLocation();
+            if (CrossGeolocator.Current.IsGeolocationEnabled == false)
+            {
+                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+            }
+            else
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 5;
+                var position = await locator.GetPositionAsync(10000);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
+                map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
+                System.Diagnostics.Debug.WriteLine("111111111111111111111111111111111111111111111111111                          " + map.RouteCoordinates[0]);
+                await locator.StartListeningAsync(100,0.1);
+                locator.PositionChanged += Current_PositionChanged;
+            }
         }
+
+
+        private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var newPosition = e.Position;
+                var list = new List<Position>();
+                list = map.RouteCoordinates;
+                list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
+                map.RouteCoordinates = list;
+                System.Diagnostics.Debug.WriteLine("22222222222222222222222222222222222222222222222                          " + map.RouteCoordinates[1]);
+            });
+        }
+
 
 
 
