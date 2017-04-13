@@ -55,8 +55,9 @@ namespace DogCare.Droid
             base.OnElementPropertyChanged(sender, e);
             if (this.Element == null || this.Control == null)
                 return;
-
-            if (e.PropertyName == CustomMap.RouteCoordinatesProperty.PropertyName)
+            string name = CustomMap.RouteCoordinatesProperty.PropertyName;
+            string name2 = e.PropertyName;
+            if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
             {
                 UpdatePolyLine();
             }

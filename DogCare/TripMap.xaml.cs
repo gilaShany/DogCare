@@ -71,8 +71,7 @@ namespace DogCare
             Device.BeginInvokeOnMainThread(() =>
             {
                 var newPosition = e.Position;
-                var list = new List<Position>();
-                list = map.RouteCoordinates;
+                var list = new List<Position>(map.RouteCoordinates);
                 list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                 map.RouteCoordinates = list;
                 System.Diagnostics.Debug.WriteLine("22222222222222222222222222222222222222222222222                          " + map.RouteCoordinates[1]);
