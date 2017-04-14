@@ -5,13 +5,12 @@
 
         <StackLayout>
             <Entry x:Name="newDog"
-                  Placeholder="Dog name" />
+                  Placeholder="{Binding DogName}" />
             <Entry x:Name="genderS"
-               Placeholder="gender" />
-            <Entry x:Name="raceS"
-               Placeholder="race" />
-
-            <Button Text="Update"
+               Placeholder="{Binding Gender}" />
+        <Entry x:Name="raceS"
+               Placeholder="{Binding Race}" />
+        <Button Text="Update"
                   Clicked="Edit_Clicked" />
 
         </StackLayout>

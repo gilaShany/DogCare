@@ -11,5 +11,14 @@ namespace DogCare
     {
         public static MasterDetailPage MasterDetailPage;
 
-    }
+        public static void CreateMasterPage()
+        {
+            MasterDetailPage = new MasterDetailPage
+            {
+                Master = new MenuPage(),
+                Detail = new NavigationPage(new MainPage())
+
+            };
+        }
+}
 }

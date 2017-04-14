@@ -4,7 +4,7 @@
              x:Class="DogCare.EditMyProfile">
     <StackLayout>
         <Entry x:Name="ownerName"
-                  Placeholder="Owner Name" />
+                  Placeholder="{Binding OwnerName}" />
 
         <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
 

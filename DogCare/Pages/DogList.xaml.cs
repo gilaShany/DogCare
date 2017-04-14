@@ -31,20 +31,15 @@ namespace DogCare
             var dog = new Dog
             {
                 DogName = newDog.Text,
-                Owner = App.typedUserName,
+                Owner = App.currentOwner.UserName,
                 Gender = genderS.Text,
                 Race = raceS.Text
-  
-            };
+              };
             await AddItem(dog);
             await DisplayAlert("", string.Format("{0} added successfully",dog.DogName), "OK");
             App.currentDog = dog;
 
-            MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
-            {
-                Master = new MenuPage(),
-                Detail = new NavigationPage(new MainPage())
-            };
+            MasterDetailSideMenucs.CreateMasterPage();
             await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
         }
         public async Task<List<Dog>> GetDogsByOwner(string owner)

@@ -21,11 +21,10 @@ namespace DogCare
 
         async private void ChangePassword_Clicked(object sender, EventArgs e)
         {
-            Owner owner = await manager.CheckIfOwnerAlreadyExists(App.typedUserName);
 
             bool wrongOldPassword = false;
             bool noMatch = false;
-            if(App.typedPassword != old.Text)
+            if(App.currentOwner.Password != old.Text)
             {
                 await DisplayAlert("Opps!", "Wrong old password", "OK");
                 wrongOldPassword = true;
@@ -44,10 +43,16 @@ namespace DogCare
             }
             if(!noMatch && !wrongOldPassword)
             {
-                owner.Password = newP.Text;
-                App.typedPassword = newP.Text;
+                var owner = new Owner
+                {
+                    OwnerName = App.currentOwner.OwnerName,
+                    UserName = App.currentOwner.UserName,
+                    Password = newP.Text
+                };
+
+                manager.Delete(App.currentOwner);
                 await manager.SaveTaskAsync(owner);
-                await DisplayAlert("", owner.Password, "Ok");
+                App.currentOwner = owner;
 
                 await DisplayAlert("", "Your password updated succefully", "Ok");
             }

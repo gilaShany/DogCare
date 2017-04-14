@@ -6,10 +6,9 @@ namespace DogCare
 {
 	public class App : Application
 	{
-        public static string typedUserName;
-        public static string typedPassword;
-        public static string typedFullName;
+        //public static string typedFullName;
         public static Dog currentDog;
+        public static Owner currentOwner;
         public App()
         {
             // The root page of your application

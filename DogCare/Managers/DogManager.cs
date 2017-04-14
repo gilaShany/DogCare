@@ -22,7 +22,6 @@ namespace DogCare
             this.dogTable = client.GetTable<Dog>();
         }
 
-
         public static DogManager DefaultManager
         {
             get
@@ -89,9 +88,5 @@ namespace DogCare
 
         }
 
-        public async Task UpdateDog(Dog dog)
-        {
-            await dogTable.UpdateAsync(dog);
-        }
     }
 }

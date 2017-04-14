@@ -23,12 +23,7 @@ namespace DogCare
             bool answer = await DisplayAlert("", string.Format("{0} is selected", dog.DogName),"OK","Cancel");
             if (answer)
             {
-                MasterDetailSideMenucs.MasterDetailPage = new MasterDetailPage
-                {
-                    Master = new MenuPage(),
-                    Detail = new NavigationPage(new MainPage())
-
-                };
+                MasterDetailSideMenucs.CreateMasterPage();
                 App.currentDog = dog;
                 await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
 
@@ -41,7 +36,7 @@ namespace DogCare
             
             InitializeComponent();
             manager = DogManager.DefaultManager;
-            GetDogsByOwner(App.typedUserName);
+            GetDogsByOwner(App.currentOwner.UserName);
         }
         public async void GetDogsByOwner(string owner)
         {

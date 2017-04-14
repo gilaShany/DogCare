@@ -14,9 +14,11 @@ namespace DogCare
     {
         
         OwnerManager manager;
+        DogManager dManager;
         public OwnerList()
         {
             manager = OwnerManager.DefaultManager;
+            dManager = DogManager.DefaultManager;
             InitializeComponent();
         }
 
@@ -33,7 +35,6 @@ namespace DogCare
             }
             else
             {
-                
                 bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
                 if (sure)
                 {
@@ -59,14 +60,17 @@ namespace DogCare
 
                         };
                         await AddItem(owner);
-                        App.typedUserName = userName.Text;
-                        App.typedPassword = password.Text;
-                        App.typedFullName = ownerName.Text;
+                        App.currentOwner = owner;
+
                         bool next =await DisplayAlert("", "Your account added succefully", "Next", "Cancel");
 
                         if (next)
                         {
-                            await Navigation.PushAsync(new DogList());
+                            List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
+                            if (dogsList.Count > 1)
+                                await Navigation.PushAsync(new DogList());
+                            else
+                                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
                         }
                     }
                 }

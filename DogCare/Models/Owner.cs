@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DogCare
 {
-    class Owner
+    public class Owner
     {
 
             string id;

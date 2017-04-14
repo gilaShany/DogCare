@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace DogCare
 {
@@ -42,7 +43,7 @@ namespace DogCare
 
         public bool IsOfflineEnabled
         {
-            get { return ownerTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Dog>; }
+            get { return ownerTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Owner>; }
         }
 
         public async Task<ObservableCollection<Owner>> GetOwnerItemsAsync(bool syncItems = false)
@@ -89,6 +90,11 @@ namespace DogCare
             return items[0];
             
         }
+        public async void Delete(Owner owner)
+        {
+
+            await ownerTable.DeleteAsync(owner);
+        }
         public async Task<Owner> CheckUserNameAndPassword(string userName,string password)
         {
 
@@ -101,7 +107,6 @@ namespace DogCare
                 return null;
 
             return items[0];
-
         }
     }
 }

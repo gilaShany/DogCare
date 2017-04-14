@@ -34,5 +34,10 @@ namespace DogCare
         {
             await Navigation.PushModalAsync(new EditMyProfile());
         }
+
+        async private void AddNewDog_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new DogList());
+        }
     }
 }

@@ -15,19 +15,23 @@ namespace DogCare
         OwnerManager manager;
         public EditMyProfile()
         {
-            InitializeComponent();
-            //BindingContext = App.typedFullName;
             manager = OwnerManager.DefaultManager;
+            InitializeComponent();
+            BindingContext = App.currentOwner;
+
         }
         async private void Edit_Clicked(object sender, EventArgs e)
         {
-            Owner owner = await manager.CheckIfOwnerAlreadyExists(App.typedUserName);
-            if (ownerName.Text != null)
-            {
-                owner.OwnerName = ownerName.Text;
-                App.typedFullName = ownerName.Text;
-            }
+                var owner = new Owner
+                {
+                    OwnerName = ownerName.Text,
+                    UserName = App.currentOwner.UserName,
+                    Password = App.currentOwner.Password
+                };
+
+            manager.Delete(App.currentOwner);
             await manager.SaveTaskAsync(owner);
+            App.currentOwner = owner;
             await DisplayAlert("", "Your profile updated succefully", "Ok");
         }
 

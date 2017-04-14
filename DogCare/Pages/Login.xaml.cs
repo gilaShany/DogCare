@@ -13,9 +13,12 @@ namespace DogCare
     public partial class Login : ContentPage
     {
         OwnerManager manager;
+        DogManager dManager;
         public Login()
         {
             manager = OwnerManager.DefaultManager;
+            dManager = DogManager.DefaultManager;
+
             InitializeComponent();
         }
 
@@ -35,11 +38,15 @@ namespace DogCare
                 }
                 else
                 {
-                    App.typedUserName = userName.Text;
-                    App.typedPassword = password.Text;
-                    App.typedFullName = method.OwnerName;
-                    await Navigation.PushAsync(new DogMiddlePage());
-
+                    App.currentOwner= method;
+                    List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
+                    if (dogsList.Count > 1)
+                        await Navigation.PushAsync(new DogMiddlePage());
+                    else
+                    {
+                        MasterDetailSideMenucs.CreateMasterPage();
+                        await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                    }
                 }
             }
         }
