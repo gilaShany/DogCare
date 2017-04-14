@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Syncfusion.SfSchedule.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace DogCare
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public partial class Schedule : ContentPage
     {
-        public MainPage()
+        public Schedule()
         {
-
             InitializeComponent();
-
-        }
-
-        async private void Calendar_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new Schedule());
+            SfSchedule meetingRoomScheduler = new SfSchedule();
+            this.Content = meetingRoomScheduler;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace DogCare
         string race;
         string owner;
         string imageD;
-
+        int walk;
         [JsonProperty(PropertyName = "id")]
         public string Id
         {
@@ -59,7 +59,12 @@ namespace DogCare
             get { return owner; }
             set { owner = value; }
         }
-
+        [JsonProperty(PropertyName = "walk")]
+        public int Walk
+        {
+            get { return walk; }
+            set { walk = value; }
+        }
         [Version]
         public string Version { get; set; }
     }

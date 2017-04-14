@@ -1948,6 +1948,9 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f02004c
 			public const int design_snackbar_background = 2130837580;
 			
+			// aapt resource value: 0x7f0200a3
+			public const int focused = 2130837667;
+			
 			// aapt resource value: 0x7f02004d
 			public const int ic_audiotrack = 2130837581;
 			
@@ -2205,6 +2208,9 @@ namespace DogCare.Droid
 			
 			// aapt resource value: 0x7f0200a2
 			public const int notification_template_icon_bg = 2130837666;
+			
+			// aapt resource value: 0x7f0200a4
+			public const int selected = 2130837668;
 			
 			static Drawable()
 			{
@@ -2928,6 +2934,9 @@ namespace DogCare.Droid
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f080026
+			public const int No_Appointments = 2131230758;
+			
 			// aapt resource value: 0x7f08000f
 			public const int abc_action_bar_home_description = 2131230735;
 			
@@ -2984,6 +2993,12 @@ namespace DogCare.Droid
 			
 			// aapt resource value: 0x7f080021
 			public const int abc_toolbar_collapse_description = 2131230753;
+			
+			// aapt resource value: 0x7f080027
+			public const int all_day = 2131230759;
+			
+			// aapt resource value: 0x7f080028
+			public const int app_name = 2131230760;
 			
 			// aapt resource value: 0x7f080023
 			public const int appbar_scrolling_view_behavior = 2131230755;

@@ -33,7 +33,8 @@ namespace DogCare
                 DogName = newDog.Text,
                 Owner = App.currentOwner.UserName,
                 Gender = genderS.Text,
-                Race = raceS.Text
+                Race = raceS.Text,
+                Walk = 0
               };
             await AddItem(dog);
             await DisplayAlert("", string.Format("{0} added successfully",dog.DogName), "OK");
