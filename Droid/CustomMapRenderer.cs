@@ -71,7 +71,6 @@ namespace DogCare.Droid
                 var marker = new MarkerOptions();
                 marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
                 marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pee));
-
                 map.AddMarker(marker);
             }
 
@@ -85,7 +84,8 @@ namespace DogCare.Droid
                 return;
       
 
-            if ((e.PropertyName.Equals("VisibleRegion") && !isDrawn) || (e.PropertyName.Equals(CustomMap.PinsPeeProperty.PropertyName)) || (e.PropertyName.Equals(CustomMap.PinsPoopProperty.PropertyName)))
+            if ((e.PropertyName.Equals("VisibleRegion") && !isDrawn) || (e.PropertyName.Equals(CustomMap.PinsPeeProperty.PropertyName)) || 
+                (e.PropertyName.Equals(CustomMap.PinsPoopProperty.PropertyName)))
             {
                 UpdatePins();
             }

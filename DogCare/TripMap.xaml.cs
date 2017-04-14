@@ -32,32 +32,31 @@ namespace DogCare
 
 
         async void currentLocation()
-        {           
-            if (CrossGeolocator.Current.IsGeolocationEnabled == true)
+        {
+            locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 5;
+            var nPosition = await map.GetCurrentLocation(locator);
+            if (nPosition == null)
             {
-                locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 5;
-                var position = await locator.GetPositionAsync(10000);
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
+                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
             }
             else
             {
-
-                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                var position = (Position)nPosition;
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
             }
         }
 
         async private void ButtonStartClicked(object sender, EventArgs e)
         {
-            if (CrossGeolocator.Current.IsGeolocationEnabled == false)
+            var nPosition = await map.GetCurrentLocation(locator);
+            if (nPosition == null)
             {
                 DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
             }
             else
             {
-                locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 5;
-                var position = await locator.GetPositionAsync(10000);
+                var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
                 map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
                 await locator.StartListeningAsync(100,0.1);
@@ -71,14 +70,12 @@ namespace DogCare
             Device.BeginInvokeOnMainThread(() =>
             {
                 var newPosition = e.Position;
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(newPosition.Latitude, newPosition.Longitude), Distance.FromMiles(0.05)));
                 var list = new List<Position>(map.RouteCoordinates);
                 list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                 map.RouteCoordinates = list;
             });
         }
-
-
-
 
         public void DisplayAlertGPS(string message, string title, string button1)
         {
@@ -89,26 +86,30 @@ namespace DogCare
 
         async private void ButtonPoopClicked(object sender, EventArgs e)
         {
-            var poopPosition = CrossGeolocator.Current;
-            poopPosition.DesiredAccuracy = 5;
-            var position = await poopPosition.GetPositionAsync(10000);
-            var list = new List<Pin>(map.PinsPoop);
-            var pin = new Pin();
-            pin.Position = new Position(position.Latitude, position.Longitude);
-            list.Add(pin);
-            map.PinsPoop = list;
+            var nPosition = await map.GetCurrentLocation(locator);
+            if (nPosition == null)
+            {
+                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+            }
+            else
+            {
+                var position = (Position)nPosition;
+                map.AddPoop(position);
+            }
         }
 
         async private void ButtonPeeClicked(object sender, EventArgs e)
         {
-            var peePosition = CrossGeolocator.Current;
-            peePosition.DesiredAccuracy = 5;
-            var position = await peePosition.GetPositionAsync(10000);
-            var list = new List<Pin>(map.PinsPee);
-            var pin = new Pin();
-            pin.Position = new Position(position.Latitude, position.Longitude);
-            list.Add(pin);
-            map.PinsPee = list;
+            var nPosition = await map.GetCurrentLocation(locator);
+            if (nPosition == null)
+            {
+                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+            }
+            else
+            {
+                var position = (Position)nPosition;
+                map.AddPee(position);
+            }
         }
 
         async private void ButtonFinishClicked(object sender, EventArgs e)
