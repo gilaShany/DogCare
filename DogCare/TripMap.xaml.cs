@@ -20,6 +20,7 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TripMap : ContentPage
     {
+        Plugin.Geolocator.Abstractions.IGeolocator locator;
 
         public TripMap()
         {
@@ -34,7 +35,7 @@ namespace DogCare
         {           
             if (CrossGeolocator.Current.IsGeolocationEnabled == true)
             {
-                var locator = CrossGeolocator.Current;
+                locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 5;
                 var position = await locator.GetPositionAsync(10000);
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
@@ -54,12 +55,11 @@ namespace DogCare
             }
             else
             {
-                var locator = CrossGeolocator.Current;
+                locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 5;
                 var position = await locator.GetPositionAsync(10000);
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
                 map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
-                System.Diagnostics.Debug.WriteLine("111111111111111111111111111111111111111111111111111                          " + map.RouteCoordinates[0]);
                 await locator.StartListeningAsync(100,0.1);
                 locator.PositionChanged += Current_PositionChanged;
             }
@@ -74,7 +74,6 @@ namespace DogCare
                 var list = new List<Position>(map.RouteCoordinates);
                 list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                 map.RouteCoordinates = list;
-                System.Diagnostics.Debug.WriteLine("22222222222222222222222222222222222222222222222                          " + map.RouteCoordinates[1]);
             });
         }
 
@@ -88,19 +87,33 @@ namespace DogCare
             });
         }
 
-        private void ButtonPoopClicked(object sender, EventArgs e)
+        async private void ButtonPoopClicked(object sender, EventArgs e)
         {
-
+            var poopPosition = CrossGeolocator.Current;
+            poopPosition.DesiredAccuracy = 5;
+            var position = await poopPosition.GetPositionAsync(10000);
+            var list = new List<Pin>(map.PinsPoop);
+            var pin = new Pin();
+            pin.Position = new Position(position.Latitude, position.Longitude);
+            list.Add(pin);
+            map.PinsPoop = list;
         }
 
-        private void ButtonPeeClicked(object sender, EventArgs e)
+        async private void ButtonPeeClicked(object sender, EventArgs e)
         {
-
+            var peePosition = CrossGeolocator.Current;
+            peePosition.DesiredAccuracy = 5;
+            var position = await peePosition.GetPositionAsync(10000);
+            var list = new List<Pin>(map.PinsPee);
+            var pin = new Pin();
+            pin.Position = new Position(position.Latitude, position.Longitude);
+            list.Add(pin);
+            map.PinsPee = list;
         }
 
-        private void ButtonFinishClicked(object sender, EventArgs e)
+        async private void ButtonFinishClicked(object sender, EventArgs e)
         {
-
+            await locator.StopListeningAsync();
         }
     }
 }

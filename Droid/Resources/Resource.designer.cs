@@ -2458,8 +2458,14 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f0200ca
 			public const int mr_ic_play_light = 2130837706;
 			
+			// aapt resource value: 0x7f0200cd
+			public const int notification_template_icon_bg = 2130837709;
+			
 			// aapt resource value: 0x7f0200cb
-			public const int notification_template_icon_bg = 2130837707;
+			public const int pee = 2130837707;
+			
+			// aapt resource value: 0x7f0200cc
+			public const int poop = 2130837708;
 			
 			static Drawable()
 			{

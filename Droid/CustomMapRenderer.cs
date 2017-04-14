@@ -15,6 +15,7 @@ namespace DogCare.Droid
     {
         GoogleMap map;
         Polyline polyline;
+        bool isDrawn;
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Map> e)
         {
@@ -27,6 +28,7 @@ namespace DogCare.Droid
 
             if (e.NewElement != null)
             {
+                var formsMap = (CustomMap)e.NewElement;
                 ((MapView)Control).GetMapAsync(this);
             }
         }
@@ -50,14 +52,45 @@ namespace DogCare.Droid
             polyline = map.AddPolyline(polylineOptions);
         }
 
+        private void UpdatePins()
+        {
+            map.Clear();
+            // map clear deletes polyline
+            UpdatePolyLine();
+
+            foreach (var pin in ((CustomMap)this.Element).PinsPoop)
+            {
+                var marker = new MarkerOptions();
+                marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+                marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.poop));
+                map.AddMarker(marker);
+            }
+
+            foreach (var pin in ((CustomMap)this.Element).PinsPee)
+            {
+                var marker = new MarkerOptions();
+                marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+                marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pee));
+
+                map.AddMarker(marker);
+            }
+
+            isDrawn = true;
+        }
+
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
             if (this.Element == null || this.Control == null)
                 return;
-            string name = CustomMap.RouteCoordinatesProperty.PropertyName;
-            string name2 = e.PropertyName;
-            if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
+      
+
+            if ((e.PropertyName.Equals("VisibleRegion") && !isDrawn) || (e.PropertyName.Equals(CustomMap.PinsPeeProperty.PropertyName)) || (e.PropertyName.Equals(CustomMap.PinsPoopProperty.PropertyName)))
+            {
+                UpdatePins();
+            }
+
+            else if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
             {
                 UpdatePolyLine();
             }
