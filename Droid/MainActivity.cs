@@ -35,8 +35,6 @@ namespace DogCare.Droid
 		}
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            System.Diagnostics.Debug.WriteLine("555555555555555555555555555555555555555555555555555555555555555555555555555555555555  ");
-
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

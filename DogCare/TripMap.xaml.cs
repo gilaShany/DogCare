@@ -26,12 +26,12 @@ namespace DogCare
         {
             InitializeComponent();
    
-            currentLocation();
+            InitLocation();
 
         }
 
 
-        async void currentLocation()
+        async void InitLocation()
         {
             locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 5;
@@ -101,6 +101,7 @@ namespace DogCare
         async private void ButtonPeeClicked(object sender, EventArgs e)
         {
             var nPosition = await map.GetCurrentLocation(locator);
+
             if (nPosition == null)
             {
                 DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
