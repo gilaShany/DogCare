@@ -12,9 +12,9 @@ namespace DogCare.Utils
     {
         public static double GetAngle(Position a, Position b, Position c)
         {
-            double p12 = GetDistance(a, b);
-            double p13 = GetDistance(a, c);
-            double p23 = GetDistance(b, c);
+            double p12 = GetDistanceInMeters(a, b);
+            double p13 = GetDistanceInMeters(a, c);
+            double p23 = GetDistanceInMeters(b, c);
             //arccos((P122 + P132 - P232) / (2 * P12 * P13))
             if (p12 == 0 || p13 == 0)
             {
@@ -26,7 +26,7 @@ namespace DogCare.Utils
             }
         }
 
-        public static double GetDistance(Position pos1, Position pos2)
+        public static double GetDistanceInMeters(Position pos1, Position pos2)
         {
             // returns the distance between two positions in meters
             var R = 6371; // Radius of the earth in km
@@ -44,6 +44,12 @@ namespace DogCare.Utils
     
         public static double deg2rad(double deg) {
             return deg * (Math.PI / 180);
+        }
+
+        public static double KPHtoMPS(double kph)
+        {
+            // converts speed from Kilometer/Hour to Meter/Second
+            return kph / 3.6;
         }
 
     }

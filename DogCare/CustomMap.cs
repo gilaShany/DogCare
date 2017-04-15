@@ -76,14 +76,17 @@ namespace DogCare
             // going to be parameters
             //  int n_last_locations = 3;
             //int angle_threshold = 90;
-            int speedThreshold = 1;
+
+            // Maximum speed of trip
+            int speedThresholdKMH = 6;
             try
             {
                 /* Getting current location */
+                //var currentSampledPosition = await GetMedeanPosition(locator, nSamples);
                 var geoPosition = await locator.GetPositionAsync(10000);
                 Position currentSampledPosition = new Position(geoPosition.Latitude, geoPosition.Longitude);
 
-                this.UpdateCurrentPosition(currentSampledPosition, speedThreshold);
+                this.UpdateCurrentPosition(currentSampledPosition, Utils.Utils.KPHtoMPS(speedThresholdKMH));
                 return this.currentPosition;
             }
             catch
@@ -91,7 +94,7 @@ namespace DogCare
                 return null;
             }
         }
-        private void UpdateCurrentPosition(Position currentSampledPosition, double speedThreshold)
+        private void UpdateCurrentPosition(Position currentSampledPosition, double speedThresholdInMeters)
         {
             int current_epoch_time = (int)(DateTime.UtcNow - (new DateTime(1970, 1, 1))).TotalSeconds;
             Debug.WriteLine("------------------------------------------------------- " + current_epoch_time);
@@ -105,11 +108,11 @@ namespace DogCare
             }
             else
             {
-                double distance = Utils.Utils.GetDistance(this.lastPositions.Last(), currentSampledPosition);
+                double distance = Utils.Utils.GetDistanceInMeters(this.lastPositions.Last(), currentSampledPosition);
                 int time_past = current_epoch_time - this.currentTime;
                 Debug.WriteLine("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + distance);
                 Debug.WriteLine("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + time_past);
-                if (distance / time_past < speedThreshold)
+                if (distance / time_past < speedThresholdInMeters)
                 {
                     // this location cannot happen
                     this.currentPosition = (Position?)(currentSampledPosition);
@@ -135,28 +138,6 @@ namespace DogCare
             this.lastPositions.Add(currentSampledPosition);
         }
         
-        private static async Task<Position> GetMedeanPosition(Plugin.Geolocator.Abstractions.IGeolocator locator, int n_samples)
-        {
-            // gets the median of the current location,fail most of the times because
-            // await locator.GetPositionAsync(10000) works some of the times
-            // TODO FIX
-            List<Plugin.Geolocator.Abstractions.Position> positions = new List<Plugin.Geolocator.Abstractions.Position>();
-            List<double> positionsLongtitude = new List<double>();
-            List<double> positionsLatitude = new List<double>();
-            for (int i = 0; i < n_samples; i++)
-            {
-                positions.Add(await locator.GetPositionAsync(10000));
-            }
-            foreach (var position in positions)
-            {
-                positionsLatitude.Add(position.Latitude);
-                positionsLongtitude.Add(position.Longitude);
-            }
-            positionsLatitude.Sort();
-            positionsLongtitude.Sort();
-            double meanLatitude = positionsLatitude[(int)(n_samples / 2)];
-            double meanLongtitude = positionsLongtitude[(int)(n_samples / 2)];
-            return new Position(meanLatitude, meanLongtitude);
-        }
+
     }
 }

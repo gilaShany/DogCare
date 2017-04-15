@@ -12,6 +12,7 @@
             <Button Text="poop" Clicked="ButtonPoopClicked"/>
             <Button Text="pee" Clicked="ButtonPeeClicked"/>
             <Button Text="finish" Clicked="ButtonFinishClicked"/>
+            
         </StackLayout>
 
     </StackLayout>
