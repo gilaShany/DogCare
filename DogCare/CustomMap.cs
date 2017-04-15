@@ -85,7 +85,7 @@ namespace DogCare
                 //var currentSampledPosition = await GetMedeanPosition(locator, nSamples);
                 var geoPosition = await locator.GetPositionAsync(10000);
                 Position currentSampledPosition = new Position(geoPosition.Latitude, geoPosition.Longitude);
-
+                Debug.WriteLine("-------------------------------------------------------(" + currentSampledPosition.Longitude + ", " + currentSampledPosition.Latitude + ")");
                 this.UpdateCurrentPosition(currentSampledPosition, Utils.Utils.KPHtoMPS(speedThresholdKMH));
                 return this.currentPosition;
             }
@@ -96,48 +96,60 @@ namespace DogCare
         }
         private void UpdateCurrentPosition(Position currentSampledPosition, double speedThresholdInMeters)
         {
-            int current_epoch_time = (int)(DateTime.UtcNow - (new DateTime(1970, 1, 1))).TotalSeconds;
-            Debug.WriteLine("------------------------------------------------------- " + current_epoch_time);
-            Debug.WriteLine("-------------------------------------------------------(" + currentSampledPosition.Longitude + ", " + currentSampledPosition.Latitude + ")");
+            int currentEpochTime = (int)(DateTime.UtcNow - (new DateTime(1970, 1, 1))).TotalSeconds;
+            Debug.WriteLine("------------------------------------------------------- " + currentEpochTime);
+
             /* Camparing to last Locations */
             if (this.currentPosition == null)
             {
-                this.currentTime = current_epoch_time;
                 this.currentPosition = (Position?)(currentSampledPosition);
                 this.lastPositions = new List<Position>();
             }
             else
             {
-                double distance = Utils.Utils.GetDistanceInMeters(this.lastPositions.Last(), currentSampledPosition);
-                int time_past = current_epoch_time - this.currentTime;
-                Debug.WriteLine("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + distance);
-                Debug.WriteLine("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + time_past);
-                if (distance / time_past < speedThresholdInMeters)
+                if (CheckPositionSpeed(currentEpochTime, currentSampledPosition, speedThresholdInMeters))
                 {
-                    // this location cannot happen
+                    // the speed of the dog walker is reasonable
+                    // we can update the coordinates accordingly
                     this.currentPosition = (Position?)(currentSampledPosition);
                 }
-                /*if (this.lastPositions.Count + 1 >= n_last_locations)
-                {
-                    // Looking at the last 3 locations -TODO change to N locations
-
-                    var last = current_sampled_position;
-                    var last2 = this.lastPositions[this.lastPositions.Count - 1];
-                    var last3 = this.lastPositions[this.lastPositions.Count - 2];
-                    var angle = Utils.Utils.GetAngle(last, last2, last3);
-                    Debug.WriteLine("Angle: " + angle);
-                    if (angle > angle_threshold)
-                    {
-                        this.currentPosition = (Position?)(current_sampled_position);
-                    }
-                }*/
-
-                this.currentTime = current_epoch_time;
             }
-
+            this.currentTime = currentEpochTime;
+            // Updating the list of last positions - the one that were used, and the one that weren't
             this.lastPositions.Add(currentSampledPosition);
         }
-        
 
+        private bool CheckPositionAngle(int nLastLocations, Position currentSampledPosition, double angleThreshold)
+        {
+            // Checking if the angle of the samples from GPS is high -> going in the same direction.
+            // return true if the answer is yes
+            if (this.lastPositions.Count + 1 >= nLastLocations)
+            {
+                // Looking at the last 3 locations -TODO change to N locations
+                var last = currentSampledPosition;
+                var last2 = this.lastPositions[this.lastPositions.Count - 1];
+                var last3 = this.lastPositions[this.lastPositions.Count - 2];
+                var angle = Utils.Utils.GetAngle(last, last2, last3);
+                Debug.WriteLine("Angle: " + angle);
+                if (angle < angleThreshold)
+                {
+                    // the 3 positions created a little angle. probably sample mistake. 
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CheckPositionSpeed(int currentEpochTime, Position currentSampledPosition, double speedThresholdInMeters)
+        {
+            double distance = Utils.Utils.GetDistanceInMeters(this.lastPositions.Last(), currentSampledPosition);
+            int time_past = currentEpochTime - this.currentTime;
+            Debug.WriteLine("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + distance);
+            Debug.WriteLine("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + time_past);
+            if (distance / time_past < speedThresholdInMeters)
+                return true;
+            else
+                return false;
+         }
     }
 }
