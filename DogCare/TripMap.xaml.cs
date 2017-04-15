@@ -67,13 +67,23 @@ namespace DogCare
 
         private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                var newPosition = e.Position;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(newPosition.Latitude, newPosition.Longitude), Distance.FromMiles(0.05)));
-                var list = new List<Position>(map.RouteCoordinates);
-                list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
-                map.RouteCoordinates = list;
+                var nPosition = await map.GetCurrentLocation(locator);
+
+                if (nPosition == null)
+                {
+                    int x = 1;
+                    //DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                }
+                else
+                {
+                    var newPosition = (Position)nPosition;
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(newPosition.Latitude, newPosition.Longitude), Distance.FromMiles(0.05)));
+                    var list = new List<Position>(map.RouteCoordinates);
+                    list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
+                    map.RouteCoordinates = list;
+                }                
             });
         }
 
