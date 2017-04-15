@@ -74,60 +74,65 @@ namespace DogCare
         async public Task<Nullable<Position>> GetCurrentLocation(Plugin.Geolocator.Abstractions.IGeolocator locator)
         {
             // going to be parameters
-          //  int n_last_locations = 3;
+            //  int n_last_locations = 3;
             //int angle_threshold = 90;
-            int speed_threshold = 1;
+            int speedThreshold = 1;
             try
             {
                 /* Getting current location */
-                var geoposition = await locator.GetPositionAsync(10000);
-                int current_epoch_time = (int)(DateTime.UtcNow - (new DateTime(1970, 1, 1))).TotalSeconds;
-                Position current_sampled_position = new Position(geoposition.Latitude, geoposition.Longitude);
-                Debug.WriteLine("------------------------------------------------------- " + current_epoch_time);
-                Debug.WriteLine("-------------------------------------------------------(" + current_sampled_position.Longitude + ", " + current_sampled_position.Latitude + ")");
-                /* Camparing to last Locations */
-                if (this.currentPosition == null)
-                {
-                    this.currentTime = current_epoch_time;
-                    this.currentPosition = (Position?)(current_sampled_position);
-                    this.lastPositions = new List<Position>();
-                }
-                else
-                {
-                    double distance = Utils.Utils.GetDistance(this.lastPositions.Last(), current_sampled_position);
-                    int time_past = current_epoch_time - this.currentTime;
-                    Debug.WriteLine("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + distance);
-                    Debug.WriteLine("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + time_past);
-                    if (distance / time_past < speed_threshold)
-                    {
-                        // this location cannot happen
-                        this.currentPosition = (Position?)(current_sampled_position);
-                    }
-                    /*if (this.lastPositions.Count + 1 >= n_last_locations)
-                    {
-                        // Looking at the last 3 locations -TODO change to N locations
-                        
-                        var last = current_sampled_position;
-                        var last2 = this.lastPositions[this.lastPositions.Count - 1];
-                        var last3 = this.lastPositions[this.lastPositions.Count - 2];
-                        var angle = Utils.Utils.GetAngle(last, last2, last3);
-                        Debug.WriteLine("Angle: " + angle);
-                        if (angle > angle_threshold)
-                        {
-                            this.currentPosition = (Position?)(current_sampled_position);
-                        }
-                    }*/
+                var geoPosition = await locator.GetPositionAsync(10000);
+                Position currentSampledPosition = new Position(geoPosition.Latitude, geoPosition.Longitude);
 
-                    this.currentTime = current_epoch_time;
-                }
-                
-                this.lastPositions.Add(current_sampled_position);
+                this.UpdateCurrentPosition(currentSampledPosition, speedThreshold);
                 return this.currentPosition;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }
+        }
+        private void UpdateCurrentPosition(Position currentSampledPosition, double speedThreshold)
+        {
+            int current_epoch_time = (int)(DateTime.UtcNow - (new DateTime(1970, 1, 1))).TotalSeconds;
+            Debug.WriteLine("------------------------------------------------------- " + current_epoch_time);
+            Debug.WriteLine("-------------------------------------------------------(" + currentSampledPosition.Longitude + ", " + currentSampledPosition.Latitude + ")");
+            /* Camparing to last Locations */
+            if (this.currentPosition == null)
+            {
+                this.currentTime = current_epoch_time;
+                this.currentPosition = (Position?)(currentSampledPosition);
+                this.lastPositions = new List<Position>();
+            }
+            else
+            {
+                double distance = Utils.Utils.GetDistance(this.lastPositions.Last(), currentSampledPosition);
+                int time_past = current_epoch_time - this.currentTime;
+                Debug.WriteLine("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + distance);
+                Debug.WriteLine("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + time_past);
+                if (distance / time_past < speedThreshold)
+                {
+                    // this location cannot happen
+                    this.currentPosition = (Position?)(currentSampledPosition);
+                }
+                /*if (this.lastPositions.Count + 1 >= n_last_locations)
+                {
+                    // Looking at the last 3 locations -TODO change to N locations
+
+                    var last = current_sampled_position;
+                    var last2 = this.lastPositions[this.lastPositions.Count - 1];
+                    var last3 = this.lastPositions[this.lastPositions.Count - 2];
+                    var angle = Utils.Utils.GetAngle(last, last2, last3);
+                    Debug.WriteLine("Angle: " + angle);
+                    if (angle > angle_threshold)
+                    {
+                        this.currentPosition = (Position?)(current_sampled_position);
+                    }
+                }*/
+
+                this.currentTime = current_epoch_time;
+            }
+
+            this.lastPositions.Add(currentSampledPosition);
         }
         
         private static async Task<Position> GetMedeanPosition(Plugin.Geolocator.Abstractions.IGeolocator locator, int n_samples)
