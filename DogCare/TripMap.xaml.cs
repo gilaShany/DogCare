@@ -13,7 +13,7 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 using Android.Content.PM;
-
+using System.Diagnostics;
 
 namespace DogCare
 {
@@ -22,8 +22,10 @@ namespace DogCare
     {
         Plugin.Geolocator.Abstractions.IGeolocator locator;
         Distance distanceFromMapInMiles;
-        int locatorDesiredAccuracy;   
-        
+        int locatorDesiredAccuracy;
+        bool isListening;
+        bool hasGPS;
+
         public TripMap()
         {
             // Consts
@@ -38,6 +40,8 @@ namespace DogCare
         async private void InitMap(double speedThresholdKMH)
         {
             map.speedThresholdKMH = speedThresholdKMH;
+            isListening = false;
+            hasGPS = false;
             locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = locatorDesiredAccuracy;
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(31.771959, 34.87018), Distance.FromMiles(50)));
@@ -51,24 +55,29 @@ namespace DogCare
             {
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
-            }    
-        }
-
-        async private void ButtonStartClicked(object sender, EventArgs e)
-        {
-            var nPosition = await map.GetCurrentPosition(locator);
-            if (nPosition == null)
-            {
-                DisplayAlertGPS();
             }
-            else
-            {
-                var position = (Position)nPosition;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
-                map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
-                await locator.StartListeningAsync(100,0.1);
-                locator.PositionChanged += Current_PositionChanged;
-            }
+            TimeSpan t = new TimeSpan(0, 0, 1);
+            Device.StartTimer(t, () => {
+                if (locator.IsGeolocationEnabled == false)
+                {
+                    hasGPS = false;
+                }
+                else
+                {
+                    if (hasGPS == false && isListening == true)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                            DisplayAlert("Retriving GPS location", "GPS", "OK");
+                        });
+                        locator.StartListeningAsync(100, 0.1);
+                        locator.PositionChanged += Current_PositionChanged;
+                    }
+                    hasGPS = true;
+                }
+                // call your method to check for notifications here
+                // Returning true means you want to repeat this timer
+                return true;
+            });
         }
 
         private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
@@ -91,6 +100,8 @@ namespace DogCare
             });
         }
 
+        
+    
         public void DisplayAlertGPS()
         {
             string title = "DogCare Require location";
@@ -99,6 +110,30 @@ namespace DogCare
             Device.BeginInvokeOnMainThread(() => {
                 DisplayAlert(message, title, button1);
             });
+        }
+        
+        /* ------------------------------------------------------ */
+        // --------------------- Buttoms ------------------------ */
+        /* ------------------------------------------------------ */
+
+        async private void ButtonStartClicked(object sender, EventArgs e)
+        {
+            var nPosition = await map.GetCurrentPosition(locator);
+            if (nPosition == null)
+            {
+                DisplayAlertGPS();
+            }
+            else
+            {
+                var position = (Position)nPosition;
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
+                map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
+                await locator.StartListeningAsync(100, 0.1);
+                locator.PositionChanged += Current_PositionChanged;
+                hasGPS = true;
+                isListening = true;
+                
+            }
         }
 
         async private void ButtonPoopClicked(object sender, EventArgs e)
@@ -133,6 +168,7 @@ namespace DogCare
         async private void ButtonFinishClicked(object sender, EventArgs e)
         {
             await locator.StopListeningAsync();
+            isListening = false;
         }
     }
 }
