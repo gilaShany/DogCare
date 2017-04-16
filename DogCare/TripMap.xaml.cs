@@ -21,65 +21,67 @@ namespace DogCare
     public partial class TripMap : ContentPage
     {
         Plugin.Geolocator.Abstractions.IGeolocator locator;
+        Distance distanceFromMapInMiles;
+        int locatorDesiredAccuracy;   
 
         public TripMap()
         {
-            InitializeComponent();
-   
-            InitLocation();
+            // Consts
+            locatorDesiredAccuracy = 5;
+            distanceFromMapInMiles = Distance.FromMiles(0.05);
+            double speedThresholdKMH = 8;
 
+            InitializeComponent();
+            InitMap(speedThresholdKMH);
         }
 
-
-        async void InitLocation()
+        async private void InitMap(double speedThresholdKMH)
         {
+            map.speedThresholdKMH = speedThresholdKMH;
             locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 5;
-            var nPosition = await map.GetCurrentLocation(locator);
+            locator.DesiredAccuracy = locatorDesiredAccuracy;
+            var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
-                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                DisplayAlertGPS();
             }
             else
             {
                 var position = (Position)nPosition;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
             }
         }
 
         async private void ButtonStartClicked(object sender, EventArgs e)
         {
-            var nPosition = await map.GetCurrentLocation(locator);
+            var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
-                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                DisplayAlertGPS();
             }
             else
             {
                 var position = (Position)nPosition;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), Distance.FromMiles(0.05)));
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
                 map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
                 await locator.StartListeningAsync(100,0.1);
                 locator.PositionChanged += Current_PositionChanged;
             }
         }
 
-
         private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var nPosition = await map.GetCurrentLocation(locator);
-
+                var nPosition = await map.GetCurrentPosition(locator);
                 if (nPosition == null)
                 {
-                    int x = 1;
-                    //DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                    DisplayAlertGPS();
                 }
                 else
                 {
                     var newPosition = (Position)nPosition;
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(newPosition.Latitude, newPosition.Longitude), Distance.FromMiles(0.05)));
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(newPosition.Latitude, newPosition.Longitude), distanceFromMapInMiles));
                     var list = new List<Position>(map.RouteCoordinates);
                     list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                     map.RouteCoordinates = list;
@@ -87,8 +89,11 @@ namespace DogCare
             });
         }
 
-        public void DisplayAlertGPS(string message, string title, string button1)
+        public void DisplayAlertGPS()
         {
+            string title = "DogCare Require location";
+            string button1 = "ok";
+            string message = "Please turn on location";
             Device.BeginInvokeOnMainThread(() => {
                 DisplayAlert(message, title, button1);
             });
@@ -96,10 +101,10 @@ namespace DogCare
 
         async private void ButtonPoopClicked(object sender, EventArgs e)
         {
-            var nPosition = await map.GetCurrentLocation(locator);
+            var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
-                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                DisplayAlertGPS();
             }
             else
             {
@@ -110,11 +115,11 @@ namespace DogCare
 
         async private void ButtonPeeClicked(object sender, EventArgs e)
         {
-            var nPosition = await map.GetCurrentLocation(locator);
+            var nPosition = await map.GetCurrentPosition(locator);
 
             if (nPosition == null)
             {
-                DisplayAlertGPS("DogCare Require location", "Please turn on location", "ok");
+                DisplayAlertGPS();
             }
             else
             {

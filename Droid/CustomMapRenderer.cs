@@ -83,7 +83,6 @@ namespace DogCare.Droid
             if (this.Element == null || this.Control == null)
                 return;
       
-
             if ((e.PropertyName.Equals("VisibleRegion") && !isDrawn) || (e.PropertyName.Equals(CustomMap.PinsPeeProperty.PropertyName)) || 
                 (e.PropertyName.Equals(CustomMap.PinsPoopProperty.PropertyName)))
             {
