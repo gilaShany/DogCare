@@ -23,7 +23,7 @@ namespace DogCare
         Plugin.Geolocator.Abstractions.IGeolocator locator;
         Distance distanceFromMapInMiles;
         int locatorDesiredAccuracy;   
-
+        
         public TripMap()
         {
             // Consts
@@ -40,6 +40,8 @@ namespace DogCare
             map.speedThresholdKMH = speedThresholdKMH;
             locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = locatorDesiredAccuracy;
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(31.771959, 34.87018), Distance.FromMiles(50)));
+
             var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
@@ -49,7 +51,7 @@ namespace DogCare
             {
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
-            }
+            }    
         }
 
         async private void ButtonStartClicked(object sender, EventArgs e)

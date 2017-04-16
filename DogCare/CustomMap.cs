@@ -137,27 +137,5 @@ namespace DogCare
                 return false;
          }
 
-        private bool CheckChangePositionAngle(int nLastLocations, Position currentSampledPosition, double angleThreshold)
-        {
-            // Checking if the angle of the samples from GPS is high -> going in the same direction.
-            // return true if the answer is yes
-            int len = this.lastPositions.Count;
-            if (lastPositions.Count + 1 >= nLastLocations)
-            {
-                double angle = Utils.Utils.GetAngle(currentSampledPosition, lastPositions[len - 1], lastPositions[len - 2]);
-                if (angle < angleThreshold)
-                    return false;
-                // checking the other locations angle
-                for (int i = 0; i < nLastLocations - 2; i++)
-                {
-                    angle = Utils.Utils.GetAngle(lastPositions[len - 1 - i], lastPositions[len - 2 - i], lastPositions[len - 3 - i]);
-                    if (angle < angleThreshold)
-                        return false;
-                }
-            }
-            else
-                return false;
-            return true;
-        }
     }
 }

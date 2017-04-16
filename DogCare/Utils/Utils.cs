@@ -10,22 +10,6 @@ namespace DogCare.Utils
 {
     class Utils
     {
-        public static double GetAngle(Position a, Position b, Position c)
-        {
-            double p12 = GetDistanceInMeters(a, b);
-            double p13 = GetDistanceInMeters(a, c);
-            double p23 = GetDistanceInMeters(b, c);
-            //arccos((P122 + P132 - P232) / (2 * P12 * P13))
-            if (p12 == 0 || p13 == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return Math.Acos((Math.Pow(p12, 2) + Math.Pow(p13, 2) - Math.Pow(p23, 2)) / (2 * p12 * p13)) * 180 / Math.PI;
-            }
-        }
-
         public static double GetDistanceInMeters(Position pos1, Position pos2)
         {
             // returns the distance between two positions in meters
