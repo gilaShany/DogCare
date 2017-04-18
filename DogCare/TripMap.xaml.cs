@@ -56,6 +56,8 @@ namespace DogCare
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
             }
+
+            //dealing with GPS that was turned off and then start working 
             TimeSpan t = new TimeSpan(0, 0, 1);
             Device.StartTimer(t, () => {
                 if (locator.IsGeolocationEnabled == false)
@@ -74,8 +76,6 @@ namespace DogCare
                     }
                     hasGPS = true;
                 }
-                // call your method to check for notifications here
-                // Returning true means you want to repeat this timer
                 return true;
             });
         }
@@ -132,7 +132,11 @@ namespace DogCare
                 locator.PositionChanged += Current_PositionChanged;
                 hasGPS = true;
                 isListening = true;
-                
+
+                startButton.IsEnabled = false;
+                poopButton.IsEnabled = true;
+                peeButton.IsEnabled = true;
+                FinishButton.IsEnabled = true;
             }
         }
 
@@ -169,6 +173,9 @@ namespace DogCare
         {
             await locator.StopListeningAsync();
             isListening = false;
+            poopButton.IsEnabled = false;
+            peeButton.IsEnabled = false;
+            FinishButton.IsEnabled = false;
         }
     }
 }

@@ -8,10 +8,10 @@
     <StackLayout x:Name="stack">
         <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
         <StackLayout Spacing="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button Text="Start" Clicked="ButtonStartClicked"/>
-            <Button Text="poop" Clicked="ButtonPoopClicked"/>
-            <Button Text="pee" Clicked="ButtonPeeClicked"/>
-            <Button Text="finish" Clicked="ButtonFinishClicked"/>
+            <Button x:Name="startButton" Text="Start" Clicked="ButtonStartClicked"/>
+            <Button x:Name="poopButton" Text="poop" Clicked="ButtonPoopClicked" IsEnabled="False"/>
+            <Button x:Name="peeButton" Text="pee" Clicked="ButtonPeeClicked" IsEnabled="False"/>
+            <Button x:Name="FinishButton" Text="finish" Clicked="ButtonFinishClicked" IsEnabled="False"/>
             
         </StackLayout>
 
