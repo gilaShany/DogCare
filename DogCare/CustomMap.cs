@@ -43,6 +43,8 @@ namespace DogCare
         // The maximum expected speed of the dog walker, Used to fix location variance
         // currently set to 8 kilometers per hour
         public double speedThresholdKMH { get; set; }
+        //The total distance that the dog walker went in meters. 
+        public double totalDistance { get; set; }
 
         // The coordinates we add to the polyline. Every time it is updated, changing the polyline.
         public static readonly BindableProperty RouteCoordinatesProperty =
@@ -63,6 +65,7 @@ namespace DogCare
             this.PinsPee = new List<Pin>();
             this.PinsPoop = new List<Pin>();
             this.lastPositions = new List<Position>();
+            this.totalDistance = 0;
         }
 
         public void AddPoop(Position position)
@@ -119,6 +122,7 @@ namespace DogCare
                 if (CheckChangePositionSpeed(currentEpochTime, currentSampledPosition, speedThresholdInMeters))
                 {
                     // the speed of the dog walker is reasonable. Update current position
+                   // this.totalDistance +=  Utils.Utils.GetDistanceInMeters((Position)this.currentPosition, currentSampledPosition);
                     this.currentPosition = (Position?)(currentSampledPosition);
                 }
             }

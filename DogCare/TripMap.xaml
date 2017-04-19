@@ -6,6 +6,8 @@
              x:Class="DogCare.TripMap">
 
     <StackLayout x:Name="stack">
+        <Label Text="Distance" />
+        <Label x:Name="distance" />
         <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
         <StackLayout Spacing="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Button x:Name="startButton" Text="Start" Clicked="ButtonStartClicked"/>

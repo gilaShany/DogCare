@@ -8,7 +8,7 @@ using Xamarin.Forms.Maps;
 
 namespace DogCare.Utils
 {
-    class Utils
+    public class Utils
     {
         public static double GetDistanceInMeters(Position pos1, Position pos2)
         {

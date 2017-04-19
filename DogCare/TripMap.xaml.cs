@@ -69,7 +69,7 @@ namespace DogCare
                     if (hasGPS == false && isListening == true)
                     {
                         Device.BeginInvokeOnMainThread(() => {
-                            DisplayAlert("Retriving GPS location", "GPS", "OK");
+                            DisplayAlert("GPS", "Retriving GPS location", "OK");
                         });
                         locator.StartListeningAsync(100, 0.1);
                         locator.PositionChanged += Current_PositionChanged;
@@ -96,12 +96,11 @@ namespace DogCare
                     var list = new List<Position>(map.RouteCoordinates);
                     list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                     map.RouteCoordinates = list;
+                    distance.Text = System.Convert.ToString((int)map.totalDistance + " m");
                 }                
             });
         }
 
-        
-    
         public void DisplayAlertGPS()
         {
             string title = "DogCare Require location";
@@ -125,6 +124,11 @@ namespace DogCare
             }
             else
             {
+                startButton.IsEnabled = false;
+                poopButton.IsEnabled = true;
+                peeButton.IsEnabled = true;
+                FinishButton.IsEnabled = true;
+
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
                 map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
@@ -132,11 +136,6 @@ namespace DogCare
                 locator.PositionChanged += Current_PositionChanged;
                 hasGPS = true;
                 isListening = true;
-
-                startButton.IsEnabled = false;
-                poopButton.IsEnabled = true;
-                peeButton.IsEnabled = true;
-                FinishButton.IsEnabled = true;
             }
         }
 

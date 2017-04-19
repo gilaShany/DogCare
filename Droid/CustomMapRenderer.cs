@@ -52,6 +52,16 @@ namespace DogCare.Droid
             polyline = map.AddPolyline(polylineOptions);
         }
 
+        private void UpdateDistance()
+        {
+            List<Position> coordinates = ((CustomMap)this.Element).RouteCoordinates;
+            int size = ((CustomMap)this.Element).RouteCoordinates.Count;
+            if (size > 1)
+            {
+                ((CustomMap)this.Element).totalDistance += Utils.Utils.GetDistanceInMeters(coordinates[size - 2], coordinates[size - 1]);
+            }
+        }
+
         private void UpdatePins()
         {
             map.Clear();
@@ -92,6 +102,7 @@ namespace DogCare.Droid
             else if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
             {
                 UpdatePolyLine();
+                UpdateDistance();
             }
         }
 
