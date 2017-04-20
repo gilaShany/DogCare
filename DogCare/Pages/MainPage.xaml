@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.MainPage">
+    <StackLayout>
+        <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
+        <Button Text="Go on a walk"/>
+        <Button Text="Competition"/>
+        <Button Text="My walks"/>
+    </StackLayout>
+</ContentPage>

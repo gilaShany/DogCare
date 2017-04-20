@@ -9,21 +9,20 @@ using System.Threading.Tasks;
 
 namespace DogCare
 {
-    class OwnerManager
+    class DogManager
     {
-        static OwnerManager defaultInstance = new OwnerManager();
+        static DogManager defaultInstance = new DogManager();
         MobileServiceClient client;
-        IMobileServiceTable<Owner> ownerTable;
+        IMobileServiceTable<Dog> dogTable;
 
-        private OwnerManager()
+        private DogManager()
         {
             this.client = new MobileServiceClient(Constants.ApplicationURL);
 
-            this.ownerTable = client.GetTable<Owner>();
+            this.dogTable = client.GetTable<Dog>();
         }
 
-
-        public static OwnerManager DefaultManager
+        public static DogManager DefaultManager
         {
             get
             {
@@ -42,16 +41,16 @@ namespace DogCare
 
         public bool IsOfflineEnabled
         {
-            get { return ownerTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Dog>; }
+            get { return dogTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Dog>; }
         }
 
-        public async Task<ObservableCollection<Owner>> GetOwnerItemsAsync(bool syncItems = false)
+        public async Task<ObservableCollection<Dog>> GetDogItemsAsync(bool syncItems = false)
         {
             try
             {
-                IEnumerable<Owner> items = await ownerTable.ToEnumerableAsync();
+                IEnumerable<Dog> items = await dogTable.ToEnumerableAsync();
 
-                return new ObservableCollection<Owner>(items);
+                return new ObservableCollection<Dog>(items);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -64,16 +63,30 @@ namespace DogCare
             return null;
         }
 
-        public async Task SaveTaskAsync(Owner item)
+        public async Task SaveTaskAsync(Dog item)
         {
             if (item.Id == null)
             {
-                await ownerTable.InsertAsync(item);
+                await dogTable.InsertAsync(item);
             }
             else
             {
-                await ownerTable.UpdateAsync(item);
+                await dogTable.UpdateAsync(item);
             }
         }
+        public async Task<List<Dog>> CheckOwnerDogs(string userName)
+        {
+
+            var items = await dogTable
+            .Where(dog => dog.Owner == userName)
+            .ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items;
+
+        }
+
     }
 }
