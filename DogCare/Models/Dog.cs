@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace DogCare
 {
-    class Dog
+    public class Dog
     {
 
         string id;
         string dogName;
-        int chipNumber;
         string gender;
         string race;
+        string owner;
         string imageD;
-
+        int walk;
         [JsonProperty(PropertyName = "id")]
         public string Id
         {
@@ -30,13 +30,6 @@ namespace DogCare
         {
             get { return dogName; }
             set { dogName = value; }
-        }
-
-        [JsonProperty(PropertyName = "chipNumber")]
-        public int ChipNumber
-        {
-            get { return chipNumber; }
-            set { chipNumber = value; }
         }
 
         [JsonProperty(PropertyName = "gender")]
@@ -59,7 +52,19 @@ namespace DogCare
             get { return imageD; }
             set { imageD = value; }
         }
-
+        
+        [JsonProperty(PropertyName = "owner")]
+        public string Owner
+        {
+            get { return owner; }
+            set { owner = value; }
+        }
+        [JsonProperty(PropertyName = "walk")]
+        public int Walk
+        {
+            get { return walk; }
+            set { walk = value; }
+        }
         [Version]
         public string Version { get; set; }
     }
