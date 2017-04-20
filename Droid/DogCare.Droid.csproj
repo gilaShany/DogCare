@@ -67,18 +67,6 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-
-    <Reference Include="Syncfusion.SfSchedule.Android, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.Android.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfSchedule.XForms, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.XForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfSchedule.XForms.Android, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.XForms.Android.dll</HintPath>
-
     <Reference Include="Plugin.CurrentActivity, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
       <Private>True</Private>
@@ -97,7 +85,18 @@
     </Reference>
     <Reference Include="Plugin.Permissions.Abstractions, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Plugin.Permissions.1.1.7\lib\MonoAndroid10\Plugin.Permissions.Abstractions.dll</HintPath>
-
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfSchedule.Android, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.Android.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfSchedule.XForms, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfSchedule.XForms.Android, Version=15.1451.0.41, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Xamarin.SfSchedule.15.1.0.41\lib\MonoAndroid10\Syncfusion.SfSchedule.XForms.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -214,14 +213,11 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-
     <AndroidResource Include="Resources\drawable\menu.png" />
-
     <AndroidResource Include="Resources\drawable\poop.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\pee.jpg" />
-
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
