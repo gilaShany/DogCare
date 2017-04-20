@@ -25,6 +25,8 @@ namespace DogCare
         int locatorDesiredAccuracy;
         bool isListening;
         bool hasGPS;
+        bool isPoopClicked;
+        bool isPeeClicked;
 
         public TripMap()
         {
@@ -42,6 +44,8 @@ namespace DogCare
             map.speedThresholdKMH = speedThresholdKMH;
             isListening = false;
             hasGPS = false;
+            isPeeClicked = false;
+            isPoopClicked = false;
             locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = locatorDesiredAccuracy;
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(31.771959, 34.87018), Distance.FromMiles(50)));
@@ -150,6 +154,7 @@ namespace DogCare
             {
                 var position = (Position)nPosition;
                 map.AddPoop(position);
+                isPoopClicked = true;
             }
         }
 
@@ -165,6 +170,7 @@ namespace DogCare
             {
                 var position = (Position)nPosition;
                 map.AddPee(position);
+                isPeeClicked = true;
             }
         }
 
