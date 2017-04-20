@@ -7,12 +7,14 @@ namespace DogCare
 {
 	public class App : Application
 	{
+
         public static Dog currentDog;
         public static Owner currentOwner;
         public static StackLayout mainStack = new StackLayout();
         public static ScheduleAppointmentCollection AppointmentCollection;
         public static bool isNewAppointment;
         public static bool isNewCalendar = false;
+
 
         public App()
         {

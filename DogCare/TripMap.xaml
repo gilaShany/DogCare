@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:local="clr-namespace:DogCare;assembly=DogCare"
+             x:Class="DogCare.TripMap">
+
+    <StackLayout x:Name="stack">
+        <Label Text="Distance" />
+        <Label x:Name="distance" />
+        <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
+        <StackLayout Spacing="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Button x:Name="startButton" Text="Start" Clicked="ButtonStartClicked"/>
+            <Button x:Name="poopButton" Text="poop" Clicked="ButtonPoopClicked" IsEnabled="False"/>
+            <Button x:Name="peeButton" Text="pee" Clicked="ButtonPeeClicked" IsEnabled="False"/>
+            <Button x:Name="FinishButton" Text="finish" Clicked="ButtonFinishClicked" IsEnabled="False"/>
+            
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>
