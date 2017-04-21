@@ -23,5 +23,11 @@ namespace DogCare
         {
             await Navigation.PushModalAsync(new Schedule());
         }
+
+        async private void Map_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new TripMap());
+
+        }
     }
 }

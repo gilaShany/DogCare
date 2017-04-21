@@ -4,7 +4,7 @@
              x:Class="DogCare.MainPage">
     <StackLayout>
         <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
-        <Button Text="Go on a walk"/>
+        <Button Text="Go on a walk" Clicked="Map_Clicked"/>
         <Button Text="Competition"/>
         <Button Text="My walks"/>
     </StackLayout>

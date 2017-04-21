@@ -39,14 +39,23 @@ namespace DogCare
                 else
                 {
                     App.currentOwner= method;
+
                     List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
-                    if (dogsList.Count > 1)
-                        await Navigation.PushAsync(new DogMiddlePage());
+                    if (dogsList != null)
+                    {
+                        if (dogsList.Count > 1)
+                            await Navigation.PushAsync(new DogMiddlePage());
+                        else
+                        {
+                            MasterDetailSideMenucs.CreateMasterPage();
+                            await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                        }
+                    }
                     else
                     {
-                        MasterDetailSideMenucs.CreateMasterPage();
-                        await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                        await Navigation.PushAsync(new DogMiddlePage());
                     }
+
                 }
             }
         }
