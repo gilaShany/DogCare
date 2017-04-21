@@ -14,6 +14,8 @@ using Xamarin.Forms.Xaml;
 
 using Android.Content.PM;
 using System.Diagnostics;
+using DogCare.Models;
+using DogCare.Managers;
 
 namespace DogCare
 {
@@ -27,7 +29,9 @@ namespace DogCare
         bool hasGPS;
         bool isPoopClicked;
         bool isPeeClicked;
-        DogManager manager;
+        DateTime currentDateTime;
+        DogManager dogManager;
+        TripsManager tripsManager;
 
         public TripMap()
         {
@@ -37,7 +41,8 @@ namespace DogCare
             double speedThresholdKMH = 8;
 
             InitializeComponent();
-            manager = DogManager.DefaultManager;
+            dogManager = DogManager.DefaultManager;
+            tripsManager = TripsManager.DefaultManager;
             InitMap(speedThresholdKMH);
         }
 
@@ -142,6 +147,7 @@ namespace DogCare
                 locator.PositionChanged += Current_PositionChanged;
                 hasGPS = true;
                 isListening = true;
+                currentDateTime = DateTime.Now;
             }
         }
 
@@ -184,12 +190,28 @@ namespace DogCare
             peeButton.IsEnabled = false;
             FinishButton.IsEnabled = false;
             AddDistanceToDogTatalWalk();
+            UpdateMyTrips();
         }
 
        async private void AddDistanceToDogTatalWalk()
         {
            App.currentDog.Walk += (int)map.totalDistance;
-           await manager.SaveTaskAsync(App.currentDog);
+           await dogManager.SaveTaskAsync(App.currentDog);
+        }
+
+        async private void UpdateMyTrips()
+        {
+            var trip = new Trips
+            {
+                DateTime = this.currentDateTime,
+                Distance = (int)map.totalDistance,
+                DogName = App.currentDog.DogName,
+                Owner = App.currentOwner.UserName,
+                Pee = isPeeClicked,
+                Poop = isPoopClicked
+            };
+           
+            await tripsManager.SaveTaskAsync(trip);
         }
     }
 }
