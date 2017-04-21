@@ -20,7 +20,7 @@ namespace DogCare
         {
             // The root page of your application
             MainPage = new NavigationPage(new TabbedLogin());
-            //MainPage = new Schedule();
+            //MainPage = new TripMap();
         }
 		protected override void OnStart ()
 		{

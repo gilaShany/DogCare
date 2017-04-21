@@ -27,6 +27,7 @@ namespace DogCare
         bool hasGPS;
         bool isPoopClicked;
         bool isPeeClicked;
+        DogManager manager;
 
         public TripMap()
         {
@@ -36,6 +37,7 @@ namespace DogCare
             double speedThresholdKMH = 8;
 
             InitializeComponent();
+            manager = DogManager.DefaultManager;
             InitMap(speedThresholdKMH);
         }
 
@@ -181,6 +183,13 @@ namespace DogCare
             poopButton.IsEnabled = false;
             peeButton.IsEnabled = false;
             FinishButton.IsEnabled = false;
+            AddDistanceToDogTatalWalk();
+        }
+
+       async private void AddDistanceToDogTatalWalk()
+        {
+           App.currentDog.Walk += (int)map.totalDistance;
+           await manager.SaveTaskAsync(App.currentDog);
         }
     }
 }
