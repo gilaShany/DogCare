@@ -1,4 +1,5 @@
-﻿using Syncfusion.SfSchedule.XForms;
+﻿
+using Syncfusion.SfSchedule.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,13 @@ namespace DogCare
         public Button cancel_button { get; set; }
         public Button save_button { get; set; }
 
-        public SfSchedule Schedule;
+        public SfSchedule SfSchedule;
         #endregion
 
         public Appointment(ScheduleAppointment appointment)
         {
             CreatingEditorSettingsLayout();
-            //selected_appointment = appointment;
+            selected_appointment = appointment;
         }
 
         #region Methods
@@ -107,7 +108,7 @@ namespace DogCare
             int index = -1;
             for (int i = 0; i < appointmentCollection.Count; i++)
             {
-                if (appointmentCollection[i].Subject == appointment.Subject && appointmentCollection[i].StartTime == appointment.StartTime && appointmentCollection[i].EndTime == appointment.EndTime)
+                if (appointmentCollection[i].Subject == appointment.Subject && appointmentCollection[i].StartTime == appointment.StartTime)
                 {
                     index = i;
                 }
@@ -267,8 +268,10 @@ namespace DogCare
             App.mainStack.Children[0].IsVisible = true;
 
         }
-        public void SaveButton_Clicked(object sender, EventArgs e)
+        async public void SaveButton_Clicked(object sender, EventArgs e)
         {
+            Meeting meet = new Meeting();
+
             if (selected_appointment == null)
             {
                 selected_appointment = new ScheduleAppointment();
@@ -278,19 +281,25 @@ namespace DogCare
             if (location_text.Text != null )
             {
                 selected_appointment.Location = location_text.Text.ToString();
+                meet.Location = location_text.Text.ToString();
             }
             if (subject_text.Text != null )
             {
                 selected_appointment.Subject = subject_text.Text.ToString() + " for " + App.currentDog.DogName;
+                meet.Subject = selected_appointment.Subject;
             }
             selected_appointment.StartTime = start_date_picker.Date.Add(start_time_picker.Time);
             selected_appointment.EndTime = end_date_picker.Date.Add(end_time_picker.Time);
+            meet.From = selected_appointment.StartTime.ToString();
+            meet.To = selected_appointment.EndTime.ToString();
+
             if (App.isNewAppointment)
             {
-                App.AppointmentCollection.Add(selected_appointment);
-                //App._connection.InsertAsync(selected_appointment);
-               // App._ScheduleAppointments.Add(selected_appointment);
                 index_of_appointment++;
+                meet.Id = index_of_appointment;
+                await SqliteConnectionSet._connection.InsertAsync(meet);
+                SqliteConnectionSet._appointments.Add(meet);
+                Schedule.AddNewMeetingToSchedule(meet);
             }
 
             this.IsVisible = false;
@@ -321,7 +330,7 @@ namespace DogCare
                 DateTime end_time = selected_appointment.EndTime;
                 subject_text.Text = selected_appointment.Subject;
                 location_text.Text = selected_appointment.Location;
-                index_of_appointment = getIndexOfAppointment(selected_appointment, (Schedule.DataSource as ScheduleAppointmentCollection)); ;
+                index_of_appointment = getIndexOfAppointment(selected_appointment, (SfSchedule.DataSource as ScheduleAppointmentCollection)); ;
                 start_date_picker.Date = new DateTime(start_time.Year, start_time.Month, start_time.Day);
                 start_time_picker.Time = new TimeSpan(start_time.Hour, start_time.Minute, start_time.Second);
                 end_date_picker.Date = new DateTime(end_time.Year, end_time.Month, end_time.Day);
@@ -405,6 +414,5 @@ namespace DogCare
 
         public double widthAlloc { get; set; }
         public double heightAlloc { get; set; }
-
     }
 }
