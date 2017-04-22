@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.Pages.MyWalksPage">
 
-    <ListView x:Name="tripsList"    
+    <StackLayout>
+        <Label x:Name="emptyList" Text="There are not recorded walks." IsVisible="False"/>
+        <ListView x:Name="tripsList"    
               ItemsSource="{Binding}" 
               HasUnevenRows="True"
               IsGroupingEnabled="True"
@@ -37,25 +39,5 @@
  
         
     </ListView>
-
+    </StackLayout>
 </ContentPage>
-<!--
-       
-
-
-    
-
-
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Padding="5">
-                        <Label Text="{Binding Time}"/>
-                        <Label Text="{Binding Distance}"/>
-                        <Label Text="{Binding Pee}"/>
-                        <Label Text="{Binding Poop}"/>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        -->

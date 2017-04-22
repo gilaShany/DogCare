@@ -40,7 +40,7 @@ namespace DogCare.Pages
             }
             else
             {
-
+                emptyList.IsVisible = true;
             }
         }
     }
