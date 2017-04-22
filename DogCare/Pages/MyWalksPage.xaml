@@ -3,30 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.Pages.MyWalksPage">
 
-    <ListView x:Name="tripsList"
+    <ListView x:Name="tripsList"    
               ItemsSource="{Binding}" 
               HasUnevenRows="True"
               IsGroupingEnabled="True"
               GroupDisplayBinding="{Binding Key}">
-        
+
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Time}" Detail="{Binding Distance}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <!--      
-        <ListView.GroupHeaderTemplate>
-            <DataTemplate>
                 <ViewCell>
-                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                     BackgroundColor="Navy">
-                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <Label Text="{Binding Key}" FontSize="Small" TextColor="Lime" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="Time:" />
+                            <Label Text="{Binding Time}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="Distance:" />
+                            <Label Text="{Binding Distance}" />
+                            <Label Text="m" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="Pee:" />
+                            <Label Text="{Binding Pee}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="Poop:" />
+                            <Label Text="{Binding Poop}" />
+                        </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-        </ListView.GroupHeaderTemplate>
+        </ListView.ItemTemplate>
+ 
+        
+    </ListView>
+
+</ContentPage>
+<!--
+       
+
+
+    
+
 
         <ListView.ItemTemplate>
             <DataTemplate>
@@ -41,6 +59,3 @@
             </DataTemplate>
         </ListView.ItemTemplate>
         -->
-    </ListView>
-    
-</ContentPage>

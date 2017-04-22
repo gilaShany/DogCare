@@ -40,7 +40,7 @@
     <Compile Include="Managers\TripsManager.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="Models\Trips.cs" />
-    <Compile Include="ObservableGroupCollection.cs" />
+    <Compile Include="Utils\ObservableGroupCollection.cs" />
     <Compile Include="Pages\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
     </Compile>

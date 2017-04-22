@@ -38,6 +38,10 @@ namespace DogCare.Pages
 
                 BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
             }
+            else
+            {
+
+            }
         }
     }
 }
