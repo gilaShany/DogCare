@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.Pages.MyWalksPage">
+
+    <ListView x:Name="tripsList"
+              ItemsSource="{Binding}" 
+              HasUnevenRows="True"
+              IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Key}">
+        
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Time}" Detail="{Binding Distance}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <!--      
+        <ListView.GroupHeaderTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                     BackgroundColor="Navy">
+                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding Key}" FontSize="Small" TextColor="Lime" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Padding="5">
+                        <Label Text="{Binding Time}"/>
+                        <Label Text="{Binding Distance}"/>
+                        <Label Text="{Binding Pee}"/>
+                        <Label Text="{Binding Poop}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        -->
+    </ListView>
+    
+</ContentPage>

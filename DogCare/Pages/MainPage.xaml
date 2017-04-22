@@ -6,6 +6,6 @@
         <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
         <Button Text="Go on a walk" Clicked="Walk_Clicked"/>
         <Button Text="Competition"/>
-        <Button Text="My walks"/>
+        <Button Text="My walks" Clicked="MyWalks_Clicked"/>
     </StackLayout>
 </ContentPage>

@@ -74,5 +74,19 @@ namespace DogCare.Managers
                 await tripsTable.UpdateAsync(item);
             }
         }
+
+        public async Task<List<Trips>> GetTripsByDogAndOwner(string userName, string dogName)
+        {
+
+            var items = await tripsTable
+            .Where(trips => trips.Owner == userName && trips.DogName == dogName)
+            .ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items;
+
+        }
     }
 }

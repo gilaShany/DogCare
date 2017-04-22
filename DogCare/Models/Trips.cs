@@ -15,7 +15,8 @@ namespace DogCare.Models
         int distance;
         bool poop;
         bool pee;
-        DateTime dateTime;
+        string date;
+        string time;
 
         [JsonProperty(PropertyName = "id")]
         public string Id
@@ -59,11 +60,19 @@ namespace DogCare.Models
             set { pee = value; }
         }
 
-        [JsonProperty(PropertyName = "dateTime")]
-        public DateTime DateTime
+        [JsonProperty(PropertyName = "date")]
+        public string Date
         {
-            get { return dateTime; }
-            set { dateTime = value; }
+            get { return date; }
+            set { date = value; }
+        }
+
+
+        [JsonProperty(PropertyName = "time")]
+        public string Time
+        {
+            get { return time; }
+            set { time = value; }
         }
 
     }

@@ -128,14 +128,15 @@ namespace DogCare
 
         async private void ButtonStartClicked(object sender, EventArgs e)
         {
+            startButton.IsEnabled = false;
             var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
                 DisplayAlertGPS();
+                startButton.IsEnabled = true;
             }
             else
             {
-                startButton.IsEnabled = false;
                 poopButton.IsEnabled = true;
                 peeButton.IsEnabled = true;
                 FinishButton.IsEnabled = true;
@@ -203,7 +204,8 @@ namespace DogCare
         {
             var trip = new Trips
             {
-                DateTime = this.currentDateTime,
+                Date = this.currentDateTime.ToString("MM/dd/yyyy"),
+                Time = this.currentDateTime.ToString("HH:mm"),
                 Distance = (int)map.totalDistance,
                 DogName = App.currentDog.DogName,
                 Owner = App.currentOwner.UserName,
