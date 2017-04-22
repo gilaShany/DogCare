@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Collections.Generic;
 using SQLite;
+using System.Threading.Tasks;
 
 namespace DogCare
 {
@@ -47,13 +48,16 @@ namespace DogCare
             appointment.StartTime = Convert.ToDateTime(meet.From);
             appointment.EndTime = Convert.ToDateTime(meet.To);
             App.AppointmentCollection.Add(appointment);
+
         }
-        public void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
+        public async void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
         {
             meet.Location = appointment.Location ;
             meet.Subject = appointment.Subject ;
             meet.From = appointment.StartTime.ToString();
             meet.To = appointment.EndTime.ToString();
+            await SqliteConnectionSet._connection.UpdateAsync(meet);
+
         }
         void InitializeSchedule()
         {
@@ -75,6 +79,11 @@ namespace DogCare
             schedule.DataSource = App.AppointmentCollection;
             schedule.ScheduleCellTapped += schedule_ScheduleCellTapped;
         }
+        async Task<Meeting> GetMeeting(int index)
+        {
+            return await SqliteConnectionSet._connection.Table<Meeting>().Where(m => m.Id == index).FirstOrDefaultAsync();
+        }
+
         async void schedule_ScheduleCellTapped(object sender, ScheduleTappedEventArgs args)
         {
             appointment = new Appointment((ScheduleAppointment)args.selectedAppointment);
@@ -88,15 +97,21 @@ namespace DogCare
             }
             else
             {
-                var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
-                int index = appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection) + 1;
-                Meeting meet = appointments[index];
+
+                int index = appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection);
+
+                Meeting meet = await GetMeeting(index);
+                await DisplayAlert("nooo", "crash" + index, "c");
 
                 App.isNewAppointment = false;
                 this.schedule.IsVisible = false;
-                App.mainStack.Children[appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection) + 1].IsVisible = true;
-                appointment.CreatingEditorSettingsLayout();
+
+                App.mainStack.Children.Add(appointment);
+                App.mainStack.Children[App.mainStack.Children.Count - 1].IsVisible = true;
+                //appointment.CreatingEditorSettingsLayout();
+
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
+
                 UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
 
             }

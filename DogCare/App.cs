@@ -19,8 +19,8 @@ namespace DogCare
         public App()
         {
             // The root page of your application
-            MainPage = new NavigationPage(new TabbedLogin());
-            //MainPage = new Schedule();
+            //MainPage = new NavigationPage(new TabbedLogin());
+            MainPage = new Schedule();
         }
 		protected override void OnStart ()
 		{
