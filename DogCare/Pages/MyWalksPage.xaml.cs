@@ -24,11 +24,12 @@ namespace DogCare.Pages
             GetTripsList(App.currentOwner.UserName, App.currentDog.DogName);
         }
 
-        async private void GetTripsList (string owner, string dogName)
+        async private void GetTripsList (string owner, string dogName, string searchText = null)
         {
             List<Trips> listOfTrips = await tripsManager.GetTripsByDogAndOwner(owner, dogName);
             if (listOfTrips != null)
             {
+                searchBar.IsVisible = true;
                 //grouping the list according to date
                 var groupedData =
                         listOfTrips.OrderBy(trip => trip.Date)
@@ -36,12 +37,20 @@ namespace DogCare.Pages
                             .Select(trip => new ObservableGroupCollection<string, Trips>(trip))
                             .ToList();
 
-                BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
+                if (String.IsNullOrWhiteSpace(searchText))
+                    BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
+                else
+                    BindingContext = groupedData.Where(c => c.Key.StartsWith(searchText));
             }
             else
             {
                 emptyList.IsVisible = true;
             }
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetTripsList(App.currentOwner.UserName, App.currentDog.DogName,e.NewTextValue);
         }
     }
 }
