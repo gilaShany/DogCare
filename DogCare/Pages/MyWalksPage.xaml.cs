@@ -16,7 +16,7 @@ namespace DogCare.Pages
     public partial class MyWalksPage : ContentPage
     {
         TripsManager tripsManager;
-
+        
         public MyWalksPage()
         {
             InitializeComponent();

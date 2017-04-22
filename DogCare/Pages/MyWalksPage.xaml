@@ -8,7 +8,7 @@
         <SearchBar x:Name="searchBar" Placeholder="Search by date..." PlaceholderColor="Purple"
                    TextChanged="SearchBar_TextChanged" IsVisible="False"
                   />
-        <ListView x:Name="tripsList"    
+        <ListView    
               ItemsSource="{Binding}" 
               HasUnevenRows="True"
               IsGroupingEnabled="True"
@@ -26,13 +26,9 @@
                                 <Label Text="{Binding Distance}" />
                                 <Label Text="m" />
                             </StackLayout>
-                            <StackLayout Orientation="Horizontal" Padding="5">
-                                <Label Text="Pee:" />
-                                <Label Text="{Binding Pee}" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal" Padding="5">
-                                <Label Text="Poop:" />
-                                <Label Text="{Binding Poop}" />
+                            <StackLayout>
+                                <Image Source="poop.png" IsVisible="{Binding Poop}"/>
+                                <Image Source="pee.png" IsVisible="{Binding Pee}"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
