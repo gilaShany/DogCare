@@ -32,7 +32,7 @@ namespace DogCare.Pages
                 searchBar.IsVisible = true;
                 //grouping the list according to date
                 var groupedData =
-                        listOfTrips.OrderBy(trip => trip.Date)
+                        listOfTrips.OrderByDescending(trip => trip.Date)
                             .GroupBy(trip => trip.Date)
                             .Select(trip => new ObservableGroupCollection<string, Trips>(trip))
                             .ToList();
