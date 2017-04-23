@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DogCare.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DogCare.Pages
     public partial class CompetitionPage : ContentPage
     {
         DogManager dogManager;
-
+        
         public CompetitionPage()
         {
             InitializeComponent();
@@ -26,7 +27,17 @@ namespace DogCare.Pages
         async private void ShowCompetitionList()
         {
             List<Dog> dogsList = await dogManager.GetTopThreeDogsByTotalWalk();
-            BindingContext = dogsList;
+            List<Competition> topThreeList = new List<Competition>();
+            int counter = 1;
+            foreach (Dog dog in dogsList)
+            {
+                Competition c = new Competition();
+                c.Dog = dog;
+                c.Index = counter;
+                counter++;
+                topThreeList.Add(c);
+            }
+            BindingContext = topThreeList;
         }
 
         private void ListView_Refreshing(object sender, EventArgs e)

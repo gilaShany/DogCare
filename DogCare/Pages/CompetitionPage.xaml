@@ -10,19 +10,24 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal" Padding="5">
-                            <Label Text="{Binding Owner}"/>
-                            <Label Text=", Dog's name:" />
-                            <Label Text="{Binding DogName}" />
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <StackLayout VerticalOptions="Center">
+                                <Label Text="{Binding Index}"  FontSize="Medium"/>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="{Binding Dog.Owner}"/>
+                                    <Label Text=", Dog's name:" />
+                                    <Label Text="{Binding Dog.DogName}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="Total distance: " />
+                                    <Label Text="{Binding Dog.Walk}"/>
+                                    <Label Text="m" />
+                                </StackLayout>
+                            </StackLayout>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal" Padding="5">
-                            <Label Text="Total distance: " />
-                            <Label Text="{Binding Walk}"/>
-                            <Label Text="m" />
-                        </StackLayout>
-                    </StackLayout>
-                </ViewCell>
+                    </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
