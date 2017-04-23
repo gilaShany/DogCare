@@ -26,5 +26,11 @@ namespace DogCare.Pages
             List<Dog> dogsList = await dogManager.GetTopThreeDogsByTotalWalk();
             BindingContext = dogsList;
         }
+
+        private void ListView_Refreshing(object sender, EventArgs e)
+        {
+            GetCompetitionList();
+            listView.EndRefresh();
+        }
     }
 }
