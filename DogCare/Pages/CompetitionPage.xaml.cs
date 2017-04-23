@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,11 @@ namespace DogCare.Pages
         {
             InitializeComponent();
             dogManager = DogManager.DefaultManager;
-            GetCompetitionList();
+            ShowCompetitionList();
+            UpdateYourPositionInCompetition();
         }
 
-        async private void GetCompetitionList()
+        async private void ShowCompetitionList()
         {
             List<Dog> dogsList = await dogManager.GetTopThreeDogsByTotalWalk();
             BindingContext = dogsList;
@@ -29,8 +31,20 @@ namespace DogCare.Pages
 
         private void ListView_Refreshing(object sender, EventArgs e)
         {
-            GetCompetitionList();
+            ShowCompetitionList();
+            UpdateYourPositionInCompetition();
             listView.EndRefresh();
         }
+
+        async private void UpdateYourPositionInCompetition()
+        {
+            List<Dog> allDogs = new List<Dog>(await dogManager.GetDogItemsAsync());
+            allDogs = allDogs.OrderByDescending(dog => dog.Walk).ToList();
+            var position = allDogs.FindIndex(d => d.DogName == App.currentDog.DogName && d.Owner == App.currentOwner.UserName);
+            placeInCompetition.Text = (position + 1).ToString();
+            numOfParticipants.Text = allDogs.Count.ToString();
+            myTotalDistance.Text = allDogs[position].Walk.ToString();
+        }
+
     }
 }

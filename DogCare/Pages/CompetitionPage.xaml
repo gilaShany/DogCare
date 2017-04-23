@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.Pages.CompetitionPage">
 
+    <StackLayout>
     <ListView x:Name="listView"
               ItemsSource="{Binding}" HasUnevenRows="True"
               IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing">
@@ -25,5 +26,22 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-    
+
+        <StackLayout Orientation="Horizontal" Padding="3">
+            <Label Text="You are in place" />
+            <Label x:Name="placeInCompetition"/>
+            <Label Text="out of" />
+            <Label x:Name="numOfParticipants"/>
+            <Label Text="!" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" Padding="3">
+            <Label Text="You have accumulated" />
+            <Label x:Name="myTotalDistance"/>
+            <Label Text="m." />
+         
+        </StackLayout>
+
+
+    </StackLayout>
 </ContentPage>
