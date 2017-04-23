@@ -88,5 +88,18 @@ namespace DogCare
 
         }
 
+        public async Task<List<Dog>> GetTopThreeDogsByTotalWalk()
+        {
+            var items = await dogTable
+                .OrderByDescending(dog => dog.Walk)
+                .Take(3)
+                .ToListAsync();
+
+            if (items == null || items.Count == 0)
+                return null;
+
+            return items;
+        }
+
     }
 }

@@ -34,5 +34,10 @@ namespace DogCare
         {
             await Navigation.PushModalAsync(new MyWalksPage());
         }
+
+        async private void Competition_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new CompetitionPage());
+        }
     }
 }

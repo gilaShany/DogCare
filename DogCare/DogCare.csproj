@@ -40,6 +40,9 @@
     <Compile Include="Managers\TripsManager.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="Models\Trips.cs" />
+    <Compile Include="Pages\CompetitionPage.xaml.cs">
+      <DependentUpon>CompetitionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ObservableGroupCollection.cs" />
     <Compile Include="Pages\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
@@ -261,6 +264,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MyWalksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\CompetitionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

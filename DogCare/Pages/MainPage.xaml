@@ -5,7 +5,7 @@
     <StackLayout>
         <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
         <Button Text="Go on a walk" Clicked="Walk_Clicked"/>
-        <Button Text="Competition"/>
+        <Button Text="Competition" Clicked="Competition_Clicked"/>
         <Button Text="My walks" Clicked="MyWalks_Clicked"/>
     </StackLayout>
 </ContentPage>
