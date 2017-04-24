@@ -14,7 +14,6 @@ namespace DogCare
 
         #region Properties
         public ScheduleAppointment selected_appointment;
-        public int index_of_appointment = 1;
         public StackLayout editor_layout = new StackLayout();
         public StackLayout appointmenteditor_main_layout = new StackLayout();
         public Entry subject_text, location_text;
@@ -108,9 +107,9 @@ namespace DogCare
             int index = -1;
             for (int i = 0; i < appointmentCollection.Count; i++)
             {
-                if (appointmentCollection[i].Subject == appointment.Subject && appointmentCollection[i].StartTime == appointment.StartTime)
+                if (appointmentCollection[i].Subject == appointment.Subject && appointmentCollection[i].StartTime == appointment.StartTime && appointmentCollection[i].EndTime == appointment.EndTime)
                 {
-                    index = i;
+                    index = i+1;
                 }
             }
 
@@ -277,6 +276,7 @@ namespace DogCare
                 selected_appointment = new ScheduleAppointment();
                 saveNewAppintment(selected_appointment);
                 //selectedAppointment.color = Color.Accent;
+
             }
             if (location_text.Text != null )
             {
@@ -285,7 +285,8 @@ namespace DogCare
             }
             if (subject_text.Text != null )
             {
-                selected_appointment.Subject = subject_text.Text.ToString() + " for " + App.currentDog.DogName;
+                selected_appointment.Subject = subject_text.Text.ToString();
+                    //+ " for " + App.currentDog.DogName;
                 meet.Subject = selected_appointment.Subject;
             }
             selected_appointment.StartTime = start_date_picker.Date.Add(start_time_picker.Time);
@@ -295,8 +296,8 @@ namespace DogCare
 
             if (App.isNewAppointment)
             {
-                index_of_appointment++;
-                meet.Id = index_of_appointment;
+                meet.Id = SqliteConnectionSet.appointmentId;
+                SqliteConnectionSet.appointmentId++;
                 await SqliteConnectionSet._connection.InsertAsync(meet);
                 SqliteConnectionSet._appointments.Add(meet);
                 Schedule.AddNewMeetingToSchedule(meet);
@@ -330,7 +331,7 @@ namespace DogCare
                 DateTime end_time = selected_appointment.EndTime;
                 subject_text.Text = selected_appointment.Subject;
                 location_text.Text = selected_appointment.Location;
-                index_of_appointment = getIndexOfAppointment(selected_appointment, (SfSchedule.DataSource as ScheduleAppointmentCollection)); ;
+                //index_of_appointment = getIndexOfAppointment(selected_appointment, (SfSchedule.DataSource as ScheduleAppointmentCollection)); ;
                 start_date_picker.Date = new DateTime(start_time.Year, start_time.Month, start_time.Day);
                 start_time_picker.Time = new TimeSpan(start_time.Hour, start_time.Minute, start_time.Second);
                 end_date_picker.Date = new DateTime(end_time.Year, end_time.Month, end_time.Day);
@@ -385,14 +386,14 @@ namespace DogCare
         #region Save
         public void saveAppointment()
         {
-            (App.AppointmentCollection)[index_of_appointment].Subject = subject_text.Text;
-            (App.AppointmentCollection)[index_of_appointment].Location = location_text.Text;
+            (App.AppointmentCollection)[SqliteConnectionSet.appointmentId].Subject = subject_text.Text;
+            (App.AppointmentCollection)[SqliteConnectionSet.appointmentId].Location = location_text.Text;
 
             DateTime startDate = new DateTime(start_date_picker.Date.Year, start_date_picker.Date.Month, start_date_picker.Date.Day, start_time_picker.Time.Hours, start_time_picker.Time.Minutes, start_time_picker.Time.Seconds);
-            (App.AppointmentCollection)[index_of_appointment].StartTime = startDate;
+            (App.AppointmentCollection)[SqliteConnectionSet.appointmentId].StartTime = startDate;
 
             DateTime endDate = new DateTime(end_date_picker.Date.Year, end_date_picker.Date.Month, end_date_picker.Date.Day, end_time_picker.Time.Hours, end_time_picker.Time.Minutes, end_time_picker.Time.Seconds);
-            (App.AppointmentCollection)[index_of_appointment].EndTime = endDate;
+            (App.AppointmentCollection)[SqliteConnectionSet.appointmentId].EndTime = endDate;
 
         }
 
@@ -411,7 +412,7 @@ namespace DogCare
         #endregion Save
 
         #endregion Methods
-
+    
         public double widthAlloc { get; set; }
         public double heightAlloc { get; set; }
     }

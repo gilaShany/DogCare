@@ -28,7 +28,10 @@ namespace DogCare
 
             var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
             SqliteConnectionSet._appointments = new ObservableCollection<Meeting>(appointments);
+            //RemoveAll();
+
             AddMeetingsToSchedule();
+
             base.OnAppearing();
         }
         public async void AddMeetingsToSchedule()
@@ -40,14 +43,37 @@ namespace DogCare
                 AddNewMeetingToSchedule(meet);
             }
         }
+        public async void RemoveAll()
+        {
+            var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
+
+            foreach (Meeting meet in appointments)
+            {
+                await SqliteConnectionSet._connection.DeleteAsync(meet);
+                SqliteConnectionSet._appointments.Remove(meet);
+            }
+        }
+        public async static Task<Meeting> FindAppointment(ScheduleAppointment appointment)
+        {
+            var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
+           
+            foreach (Meeting meet in appointments)
+            {
+                if (meet.Subject == appointment.Subject && meet.From == appointment.StartTime.ToString() && meet.To == appointment.EndTime.ToString())
+                {
+                    return meet;
+                }
+            }
+            return null;
+        }
         public static void AddNewMeetingToSchedule(Meeting meet)
         {
-            ScheduleAppointment appointment = new ScheduleAppointment();
-            appointment.Location = meet.Location;
-            appointment.Subject = meet.Subject;
-            appointment.StartTime = Convert.ToDateTime(meet.From);
-            appointment.EndTime = Convert.ToDateTime(meet.To);
-            App.AppointmentCollection.Add(appointment);
+            ScheduleAppointment appointment1 = new ScheduleAppointment();
+            appointment1.Location = meet.Location;
+            appointment1.Subject = meet.Subject;
+            appointment1.StartTime = Convert.ToDateTime(meet.From);
+            appointment1.EndTime = Convert.ToDateTime(meet.To);
+            App.AppointmentCollection.Add(appointment1);
 
         }
         public async void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
@@ -67,6 +93,7 @@ namespace DogCare
             schedule.ScheduleView = ScheduleView.WeekView;
             schedule.EnableNavigation = true;
             schedule.BackgroundColor = Color.White;
+
             if (!App.isNewCalendar)
             {
 
@@ -94,27 +121,27 @@ namespace DogCare
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
                 this.schedule.IsVisible = false;
                 appointment.IsVisible = true;
+
             }
             else
             {
 
-                int index = appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection);
+                // index = appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection);
 
-                Meeting meet = await GetMeeting(index);
-                await DisplayAlert("nooo", "crash" + index, "c");
+                Meeting meet = await FindAppointment((ScheduleAppointment)args.selectedAppointment);
+                await DisplayAlert("v", "" + meet.Id, "c");
 
                 App.isNewAppointment = false;
                 this.schedule.IsVisible = false;
 
                 App.mainStack.Children.Add(appointment);
                 App.mainStack.Children[App.mainStack.Children.Count - 1].IsVisible = true;
-                //appointment.CreatingEditorSettingsLayout();
 
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
-
                 UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
 
             }
+
         }
     }
 }

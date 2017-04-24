@@ -12,5 +12,6 @@ namespace DogCare
     {
         public static SQLiteAsyncConnection _connection;
         public static ObservableCollection<Meeting> _appointments;
+        public static int appointmentId = 1;
     }
 }
