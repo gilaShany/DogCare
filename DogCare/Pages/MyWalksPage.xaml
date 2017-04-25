@@ -12,7 +12,9 @@
               ItemsSource="{Binding}" 
               HasUnevenRows="True"
               IsGroupingEnabled="True"
-              GroupDisplayBinding="{Binding Key}">
+              GroupDisplayBinding="{Binding Key}"
+              ItemSelected="ListView_ItemSelected"
+              x:Name="listView">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

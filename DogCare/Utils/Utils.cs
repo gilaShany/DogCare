@@ -72,7 +72,7 @@ namespace DogCare.Utils
                 int len = pStrings.Length;
                 // Create a List
                 List<Position> myPsotitions = new List<Position>();
-                for (int i = 0; i < len-1; i++)
+                for (int i = 0; i < len-1; i=i+2)
                 { 
                     double latitude = Convert.ToDouble(pStrings[i]);
                     double Longitude = Convert.ToDouble(pStrings[i+1]);

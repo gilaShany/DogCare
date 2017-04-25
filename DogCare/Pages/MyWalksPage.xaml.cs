@@ -52,5 +52,15 @@ namespace DogCare.Pages
         {
             GetTripsList(App.currentOwner.UserName, App.currentDog.DogName,e.NewTextValue);
         }
+
+        async private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            var trip = e.SelectedItem as Trips;
+            await Navigation.PushModalAsync(new WalkDetailPage(trip));
+            listView.SelectedItem = null;
+        }
     }
 }
