@@ -257,7 +257,6 @@ namespace DogCare
             buttons_layout.Children.Add(save_button);
             buttons_layout.Children.Add(delete_button);
 
-
             editor_layout.Children.Add(buttons_layout);
 
             this.Padding = 20;
@@ -304,8 +303,7 @@ namespace DogCare
             }
             if (subject_text.Text != null )
             {
-                selected_appointment.Subject = subject_text.Text.ToString();
-                    //+ " for " + App.currentDog.DogName;
+                selected_appointment.Subject = subject_text.Text.ToString() + " - " + App.currentDog.DogName;
                 meet.Subject = selected_appointment.Subject;
             }
             selected_appointment.StartTime = start_date_picker.Date.Add(start_time_picker.Time);
@@ -339,6 +337,7 @@ namespace DogCare
             var editorBounds = new Rectangle(editor_layout.X, 1000, editor_layout.Width, editor_layout.Height);
             await this.editor_layout.LayoutTo(editorBounds, 500, Easing.Linear);
         }
+
         public ScheduleAppointment ScheduleAppointment()
         {
             return selected_appointment;
@@ -414,23 +413,10 @@ namespace DogCare
         
         public void saveAppointment()
         {
-            int index  = 0 ;
-            for (int i=0; i< SqliteConnectionSet.AppointmentCollection.Count; i++)
-            {
-                if (SqliteConnectionSet.AppointmentCollection[i] == selected_appointment)
-                {
-                    index = i;
-                }
-            }
-            (SqliteConnectionSet.AppointmentCollection)[index].Subject =selected_appointment.Subject;
-            (SqliteConnectionSet.AppointmentCollection)[index].Location = selected_appointment.Location;
-
-            //DateTime startDate = new DateTime(start_date_picker.Date.Year, start_date_picker.Date.Month, start_date_picker.Date.Day, start_time_picker.Time.Hours, start_time_picker.Time.Minutes, start_time_picker.Time.Seconds);
-            (SqliteConnectionSet.AppointmentCollection)[index].StartTime = selected_appointment.StartTime;
-
-            //DateTime endDate = new DateTime(end_date_picker.Date.Year, end_date_picker.Date.Month, end_date_picker.Date.Day, end_time_picker.Time.Hours, end_time_picker.Time.Minutes, end_time_picker.Time.Seconds);
-            (SqliteConnectionSet.AppointmentCollection)[index].EndTime = selected_appointment.EndTime;
-
+            ScheduleAppointment newAppointment = new ScheduleAppointment();
+            newAppointment = selected_appointment;
+            SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
+            SqliteConnectionSet.AppointmentCollection.Add(newAppointment);
         }
         
         public void saveNewAppintment(ScheduleAppointment selected_appointment)
