@@ -25,6 +25,7 @@ namespace DogCare
         public Label end_time_label = new Label();
         public Button cancel_button { get; set; }
         public Button save_button { get; set; }
+        public Button delete_button { get; set; }
         public int appointmentId = 0;
         public bool isTappedOnce = true;
 
@@ -251,8 +252,13 @@ namespace DogCare
             save_button.Clicked += SaveButton_Clicked;
             save_button.Text = "Save";
 
+            delete_button = new Button();
+            delete_button.Clicked += DeleteButton_Clicked;
+            delete_button.Text = "Delete";
             buttons_layout.Children.Add(cancel_button);
             buttons_layout.Children.Add(save_button);
+            buttons_layout.Children.Add(delete_button);
+
 
             editor_layout.Children.Add(buttons_layout);
 
@@ -268,6 +274,16 @@ namespace DogCare
             this.IsVisible = false;
             SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
 
+        }
+        public async void DeleteButton_Clicked(object sender, EventArgs e)
+        {
+            Meeting meet = await Schedule.FindAppointment(this.selected_appointment);
+            await SqliteConnectionSet._connection.DeleteAsync(meet);
+            SqliteConnectionSet._appointments.Remove(meet);
+            SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
+
+            this.IsVisible = false;
+            SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
         }
         async public void SaveButton_Clicked(object sender, EventArgs e)
         {
@@ -305,7 +321,7 @@ namespace DogCare
             }
             else
             {
-                UpdateEditor(selected_appointment, selected_appointment.StartTime, (SfSchedule)SqliteConnectionSet.mainStack.Children[0]);
+                saveNewAppintment(selected_appointment);
                 await SqliteConnectionSet._connection.UpdateAsync(meet);
             }
             this.IsVisible = false;

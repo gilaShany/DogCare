@@ -12,7 +12,7 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Schedule : ContentPage
     {
-        SfSchedule schedule;
+        public static SfSchedule schedule;
         Appointment appointment;
 
         public Schedule()
@@ -34,7 +34,7 @@ namespace DogCare
 
             base.OnAppearing();
         }
-        public async void AddMeetingsToSchedule()
+        public async static void AddMeetingsToSchedule()
         {
             var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
             
@@ -43,7 +43,8 @@ namespace DogCare
                 AddNewMeetingToSchedule(meet);
             }
         }
-        public async void RemoveAll()
+
+        public async static void RemoveAll()
         {
             var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
 
@@ -121,8 +122,8 @@ namespace DogCare
 
                 SqliteConnectionSet.isNewAppointment = true;
                 SqliteConnectionSet.mainStack.Children.Add(appointment);
-                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
-                this.schedule.IsVisible = false;
+                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, schedule);
+                schedule.IsVisible = false;
                 appointment.IsVisible = true;
 
             }
@@ -133,31 +134,21 @@ namespace DogCare
                 //await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
                 SqliteConnectionSet.isNewAppointment = false;
-                this.schedule.IsVisible = false;
+                schedule.IsVisible = false;
 
                 SqliteConnectionSet.mainStack.Children.Add(appointment);
                 SqliteConnectionSet.mainStack.Children[SqliteConnectionSet.mainStack.Children.Count - 1].IsVisible = true;
                // await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
-                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
+                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, schedule);
                 //UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
 
             }
 
         }
-        /*
-        public int FindAppointmentInStack(Appointment appointment, ScheduleAppointment sAppointment)
-        {
-            for (int i=1; i< SqliteConnectionSet.mainStack.Children.Count; i++)
-            {
-                if( == appointment.ScheduleAppointment)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-        */
+
+
+
     }
 }
 
