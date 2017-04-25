@@ -37,7 +37,6 @@ namespace DogCare
         public async static void AddMeetingsToSchedule()
         {
             var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
-            
             foreach(Meeting meet in appointments)
             {
                 AddNewMeetingToSchedule(meet);
@@ -75,7 +74,6 @@ namespace DogCare
             appointment1.StartTime = Convert.ToDateTime(meet.From);
             appointment1.EndTime = Convert.ToDateTime(meet.To);
             SqliteConnectionSet.AppointmentCollection.Add(appointment1);
-
         }
         public async void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
         {
@@ -98,7 +96,6 @@ namespace DogCare
 
             if (!SqliteConnectionSet.isNewCalendar)
             {
-
                 SqliteConnectionSet.mainStack.Children.Add(schedule);
                 SqliteConnectionSet.isNewCalendar = true;
             }
@@ -108,10 +105,6 @@ namespace DogCare
             schedule.DataSource = SqliteConnectionSet.AppointmentCollection;
             schedule.ScheduleCellTapped += schedule_ScheduleCellTapped;
         }
-        async Task<Meeting> GetMeeting(int index)
-        {
-            return await SqliteConnectionSet._connection.Table<Meeting>().Where(m => m.Id == index).FirstOrDefaultAsync();
-        }
 
         async void schedule_ScheduleCellTapped(object sender, ScheduleTappedEventArgs args)
         {
@@ -119,7 +112,6 @@ namespace DogCare
 
             if (args.selectedAppointment == null)
             {
-
                 SqliteConnectionSet.isNewAppointment = true;
                 SqliteConnectionSet.mainStack.Children.Add(appointment);
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, schedule);
