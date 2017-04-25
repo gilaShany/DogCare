@@ -83,13 +83,13 @@
     <Compile Include="Pages\TabbedLogin.xaml.cs">
       <DependentUpon>TabbedLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Schedule.xaml.cs">
+    <Compile Include="Pages\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TripMap.xaml.cs">
       <DependentUpon>TripMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SqliteConnectionSet.cs" />
+    <Compile Include="Models\SqliteConnectionSet.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
@@ -248,7 +248,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Schedule.xaml">
+    <EmbeddedResource Include="Pages\Schedule.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -274,11 +274,14 @@ namespace DogCare
 
         public async void DeleteButton_Clicked(object sender, EventArgs e)
         {
-            Meeting meet = await Schedule.FindAppointment(this.selected_appointment);
-            await SqliteConnectionSet._connection.DeleteAsync(meet);
-            SqliteConnectionSet._appointments.Remove(meet);
-            SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
-
+            if (selected_appointment != null)
+            {
+                Meeting meet = await Schedule.FindAppointment(this.selected_appointment);
+                await SqliteConnectionSet._connection.DeleteAsync(meet);
+                SqliteConnectionSet._appointments.Remove(meet);
+                SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
+            }
+            
             this.IsVisible = false;
             SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
         }
@@ -316,7 +319,8 @@ namespace DogCare
 
             //Color color = ColorPerSubject(selected_appointment.Subject);
             //selected_appointment.Color = color;
-            //meet.Color = color.ToString();
+            //meet.Color = color.ToString
+
             if (SqliteConnectionSet.isNewAppointment)
             {
                 saveNewAppintment(selected_appointment);
