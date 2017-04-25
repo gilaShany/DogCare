@@ -28,9 +28,9 @@ namespace DogCare
 
             var appointments = await SqliteConnectionSet._connection.Table<Meeting>().ToListAsync();
             SqliteConnectionSet._appointments = new ObservableCollection<Meeting>(appointments);
-            //RemoveAll();
 
             AddMeetingsToSchedule();
+            //RemoveAll();
 
             base.OnAppearing();
         }
@@ -73,37 +73,38 @@ namespace DogCare
             appointment1.Subject = meet.Subject;
             appointment1.StartTime = Convert.ToDateTime(meet.From);
             appointment1.EndTime = Convert.ToDateTime(meet.To);
-            App.AppointmentCollection.Add(appointment1);
+            SqliteConnectionSet.AppointmentCollection.Add(appointment1);
 
         }
         public async void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
         {
-            meet.Location = appointment.Location ;
-            meet.Subject = appointment.Subject ;
+            meet.Location = appointment.Location;
+            meet.Subject = appointment.Subject;
             meet.From = appointment.StartTime.ToString();
             meet.To = appointment.EndTime.ToString();
+            await DisplayAlert("b", "here", "c");
             await SqliteConnectionSet._connection.UpdateAsync(meet);
 
         }
         void InitializeSchedule()
         {
             schedule = new SfSchedule();
-            App.AppointmentCollection = new ScheduleAppointmentCollection();
+            SqliteConnectionSet.AppointmentCollection = new ScheduleAppointmentCollection();
             schedule.VerticalOptions = LayoutOptions.FillAndExpand;
             schedule.ScheduleView = ScheduleView.WeekView;
             schedule.EnableNavigation = true;
             schedule.BackgroundColor = Color.White;
 
-            if (!App.isNewCalendar)
+            if (!SqliteConnectionSet.isNewCalendar)
             {
 
-                App.mainStack.Children.Add(schedule);
-                App.isNewCalendar = true;
+                SqliteConnectionSet.mainStack.Children.Add(schedule);
+                SqliteConnectionSet.isNewCalendar = true;
             }
 
-            this.Content = App.mainStack;
+            this.Content = SqliteConnectionSet.mainStack;
 
-            schedule.DataSource = App.AppointmentCollection;
+            schedule.DataSource = SqliteConnectionSet.AppointmentCollection;
             schedule.ScheduleCellTapped += schedule_ScheduleCellTapped;
         }
         async Task<Meeting> GetMeeting(int index)
@@ -114,10 +115,12 @@ namespace DogCare
         async void schedule_ScheduleCellTapped(object sender, ScheduleTappedEventArgs args)
         {
             appointment = new Appointment((ScheduleAppointment)args.selectedAppointment);
+
             if (args.selectedAppointment == null)
             {
-                App.isNewAppointment = true;
-                App.mainStack.Children.Add(appointment);
+
+                SqliteConnectionSet.isNewAppointment = true;
+                SqliteConnectionSet.mainStack.Children.Add(appointment);
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
                 this.schedule.IsVisible = false;
                 appointment.IsVisible = true;
@@ -126,23 +129,35 @@ namespace DogCare
             else
             {
 
-                // index = appointment.getIndexOfAppointment((ScheduleAppointment)args.selectedAppointment, App.AppointmentCollection);
-
                 Meeting meet = await FindAppointment((ScheduleAppointment)args.selectedAppointment);
-                await DisplayAlert("v", "" + meet.Id, "c");
+                //await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
-                App.isNewAppointment = false;
+                SqliteConnectionSet.isNewAppointment = false;
                 this.schedule.IsVisible = false;
 
-                App.mainStack.Children.Add(appointment);
-                App.mainStack.Children[App.mainStack.Children.Count - 1].IsVisible = true;
+                SqliteConnectionSet.mainStack.Children.Add(appointment);
+                SqliteConnectionSet.mainStack.Children[SqliteConnectionSet.mainStack.Children.Count - 1].IsVisible = true;
+               // await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
                 appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, this.schedule);
-                UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
+                //UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
 
             }
 
         }
+        /*
+        public int FindAppointmentInStack(Appointment appointment, ScheduleAppointment sAppointment)
+        {
+            for (int i=1; i< SqliteConnectionSet.mainStack.Children.Count; i++)
+            {
+                if( == appointment.ScheduleAppointment)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        */
     }
 }
 
