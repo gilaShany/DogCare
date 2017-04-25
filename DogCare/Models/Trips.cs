@@ -17,6 +17,7 @@ namespace DogCare.Models
         bool pee;
         string date;
         string time;
+        string routeCoordinates;
 
         [JsonProperty(PropertyName = "id")]
         public string Id
@@ -73,6 +74,13 @@ namespace DogCare.Models
         {
             get { return time; }
             set { time = value; }
+        }
+
+        [JsonProperty(PropertyName = "routeCoordinates")]
+        public string RouteCoordinates
+        {
+            get { return routeCoordinates; }
+            set { routeCoordinates = value; }
         }
 
     }

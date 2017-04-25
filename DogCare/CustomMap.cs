@@ -122,7 +122,6 @@ namespace DogCare
                 if (CheckChangePositionSpeed(currentEpochTime, currentSampledPosition, speedThresholdInMeters))
                 {
                     // the speed of the dog walker is reasonable. Update current position
-                   // this.totalDistance +=  Utils.Utils.GetDistanceInMeters((Position)this.currentPosition, currentSampledPosition);
                     this.currentPosition = (Position?)(currentSampledPosition);
                 }
             }

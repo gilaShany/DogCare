@@ -210,7 +210,8 @@ namespace DogCare
                 DogName = App.currentDog.DogName,
                 Owner = App.currentOwner.UserName,
                 Pee = isPeeClicked,
-                Poop = isPoopClicked
+                Poop = isPoopClicked,
+                RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates)
             };
            
             await tripsManager.SaveTaskAsync(trip);
