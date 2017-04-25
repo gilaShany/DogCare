@@ -56,7 +56,6 @@ namespace DogCare
 
             }
 
-
             this.Content = SqliteConnectionSet.mainStack;
 
             schedule.DataSource = SqliteConnectionSet.AppointmentCollection;
@@ -69,11 +68,15 @@ namespace DogCare
 
             if (args.selectedAppointment == null)
             {
-                SqliteConnectionSet.isNewAppointment = true;
-                SqliteConnectionSet.mainStack.Children.Add(appointment);
-                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, schedule);
-                schedule.IsVisible = false;
-                appointment.IsVisible = true;
+                string subject = await DisplayActionSheet("Choose subject", "Cancel", null, "Vet", "Haircut", "Medicine", "Buy dog food", "Put food", "Put water", "Other");
+               if (subject != "Cancel")
+                {
+                    SqliteConnectionSet.isNewAppointment = true;
+                    SqliteConnectionSet.mainStack.Children.Add(appointment);
+                    appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, subject, args.datetime, schedule);
+                    schedule.IsVisible = false;
+                    appointment.IsVisible = true;
+                }
             }
             else
             {
@@ -86,10 +89,8 @@ namespace DogCare
 
                 SqliteConnectionSet.mainStack.Children.Add(appointment);
                 SqliteConnectionSet.mainStack.Children[SqliteConnectionSet.mainStack.Children.Count - 1].IsVisible = true;
-                // await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
-                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment, args.datetime, schedule);
-                //UpdateMeetingToSchedule(meet, (ScheduleAppointment)args.selectedAppointment);
+                appointment.UpdateEditor((ScheduleAppointment)args.selectedAppointment,((ScheduleAppointment)args.selectedAppointment).Subject, args.datetime, schedule);
 
             }
 
@@ -134,20 +135,9 @@ namespace DogCare
             appointment1.Subject = meet.Subject;
             appointment1.StartTime = Convert.ToDateTime(meet.From);
             appointment1.EndTime = Convert.ToDateTime(meet.To);
+            //appointment1.Color = Color.FromHex(meet.Color);
             SqliteConnectionSet.AppointmentCollection.Add(appointment1);
         }
-        public async void UpdateMeetingToSchedule(Meeting meet,ScheduleAppointment appointment)
-        {
-            meet.Location = appointment.Location;
-            meet.Subject = appointment.Subject;
-            meet.From = appointment.StartTime.ToString();
-            meet.To = appointment.EndTime.ToString();
-            await DisplayAlert("b", "here", "c");
-            await SqliteConnectionSet._connection.UpdateAsync(meet);
-
-        }
-        
-
 
     }
 }

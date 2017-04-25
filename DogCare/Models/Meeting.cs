@@ -17,6 +17,7 @@ namespace DogCare
         public string Location { get; set; }
         public string From { get; set; }
         public string To { get; set; }
+        public string Color { get; set; }
  
 }
 }

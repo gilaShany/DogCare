@@ -303,7 +303,10 @@ namespace DogCare
             }
             if (subject_text.Text != null )
             {
-                selected_appointment.Subject = subject_text.Text.ToString() + " - " + App.currentDog.DogName;
+                if (subject_text.Text.Equals("Vet") || subject_text.Text.Equals("Haircut") || subject_text.Text.Equals("Medicine"))
+                    selected_appointment.Subject = subject_text.Text.ToString() + " For " + App.currentDog.DogName;
+                else
+                    selected_appointment.Subject = subject_text.Text.ToString();
                 meet.Subject = selected_appointment.Subject;
             }
             selected_appointment.StartTime = start_date_picker.Date.Add(start_time_picker.Time);
@@ -311,6 +314,9 @@ namespace DogCare
             meet.From = selected_appointment.StartTime.ToString();
             meet.To = selected_appointment.EndTime.ToString();
 
+            //Color color = ColorPerSubject(selected_appointment.Subject);
+            //selected_appointment.Color = color;
+            //meet.Color = color.ToString();
             if (SqliteConnectionSet.isNewAppointment)
             {
                 saveNewAppintment(selected_appointment);
@@ -324,6 +330,7 @@ namespace DogCare
                 saveAppointment();
                 await SqliteConnectionSet._connection.UpdateAsync(meet);
             }
+            
             this.IsVisible = false;
             SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
         }
@@ -347,7 +354,7 @@ namespace DogCare
 
         #region UpdateEditor
         
-        public void UpdateEditor(ScheduleAppointment selectedAppointment, DateTime dateTime, SfSchedule schedule)
+        public void UpdateEditor(ScheduleAppointment selectedAppointment,string Subject, DateTime dateTime, SfSchedule schedule)
         {
             selected_appointment = null;
             if (selectedAppointment != null)
@@ -362,11 +369,18 @@ namespace DogCare
                 start_time_picker.Time = new TimeSpan(start_time.Hour, start_time.Minute, start_time.Second);
                 end_date_picker.Date = new DateTime(end_time.Year, end_time.Month, end_time.Day);
                 end_time_picker.Time = new TimeSpan(end_time.Hour, end_time.Minute, end_time.Second);
-
+               
             }
             else
             {
-                subject_text.Text = "";
+                if (Subject.Equals("Other"))
+                {
+                    subject_text.Text = "";
+                }
+                else
+                {
+                    subject_text.Text = Subject;
+                }
                 location_text.Text = "";
                 DateTime s_time = dateTime; //args.datetime;//
                 start_date_picker.Date = new DateTime(s_time.Year, s_time.Month, s_time.Day);
@@ -405,12 +419,33 @@ namespace DogCare
             }
 
         }
+        /*
+        public string ColorPerSubject(string subject)
+        {
+            string color;
+            if (subject.Contains("Vet"))
+                color = "#ee42f4";
 
-    
+            else if (subject.Contains("Haircut"))
+                color = Color.LightPink;
+            else if (subject.Contains("Medicine"))
+                color = Color.LightGray;
+            else if (subject.Contains("Buy dog food"))
+                color = Color.LightYellow;
+            else if (subject.Contains("Put food"))
+                color = Color.Maroon;
+            else if (subject.Contains("Put water"))
+                color = Color.Red;
+            else
+                color = Color.LightCoral;
+
+            return color;
+        }
+        */
         #endregion
 
         #region Save
-        
+
         public void saveAppointment()
         {
             ScheduleAppointment newAppointment = new ScheduleAppointment();
@@ -429,6 +464,7 @@ namespace DogCare
 
             DateTime endDate = new DateTime(end_date_picker.Date.Year, end_date_picker.Date.Month, end_date_picker.Date.Day, end_time_picker.Time.Hours, end_time_picker.Time.Minutes, end_time_picker.Time.Seconds);
             selected_appointment.EndTime = endDate;
+            //ColorPerSubject(selected_appointment.Subject);
         }
 
         #endregion Save
