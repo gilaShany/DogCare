@@ -211,7 +211,9 @@ namespace DogCare
                 Owner = App.currentOwner.UserName,
                 Pee = isPeeClicked,
                 Poop = isPoopClicked,
-                RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates)
+                RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates),
+                PeeCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPee),
+                PoopCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPoop)
             };
            
             await tripsManager.SaveTaskAsync(trip);

@@ -20,14 +20,23 @@ namespace DogCare.Pages
                 throw new ArgumentNullException();
 
             InitializeComponent();
-            showMap(trip.RouteCoordinates);
+            showMap(trip.RouteCoordinates, trip.PoopCoordinates, trip.PeeCoordinates);
         }
 
-        public void showMap(string routCoordinates)
+        public void showMap(string routCoordinates, string poopCoordinates, string peeCoordinates)
         {
             List<Position> rout = Utils.Utils.convertPositionsStringToList(routCoordinates);
-            map.RouteCoordinates = rout;
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(rout[0], Distance.FromMiles(0.05)));
+            List<Position> poopPositions = Utils.Utils.convertPositionsStringToList(poopCoordinates);
+            List<Position> peePositions = Utils.Utils.convertPositionsStringToList(peeCoordinates);
+            if (rout != null)
+            {
+                map.RouteCoordinates = rout;
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(rout[0], Distance.FromMiles(0.05)));
+            }
+            if (poopPositions != null)
+                map.PinsPoop = poopPositions;
+            if (peePositions != null)
+                map.PinsPee = peePositions;
         }
     }
 }

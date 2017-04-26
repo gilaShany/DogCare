@@ -5,7 +5,7 @@
              x:Class="DogCare.Pages.WalkDetailPage">
 
     <StackLayout x:Name="stack">
-        <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
+        <local:CustomMap x:Name="map" IsShowingUser="false" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
       
 
     </StackLayout>

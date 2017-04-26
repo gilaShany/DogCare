@@ -68,18 +68,18 @@ namespace DogCare.Droid
             // map clear deletes polyline
             UpdatePolyLine();
 
-            foreach (var pin in ((CustomMap)this.Element).PinsPoop)
+            foreach (var position in ((CustomMap)this.Element).PinsPoop)
             {
                 var marker = new MarkerOptions();
-                marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+                marker.SetPosition(new LatLng(position.Latitude, position.Longitude));
                 marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.poop));
                 map.AddMarker(marker);
             }
 
-            foreach (var pin in ((CustomMap)this.Element).PinsPee)
+            foreach (var position in ((CustomMap)this.Element).PinsPee)
             {
                 var marker = new MarkerOptions();
-                marker.SetPosition(new LatLng(pin.Position.Latitude, pin.Position.Longitude));
+                marker.SetPosition(new LatLng(position.Latitude, position.Longitude));
                 marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pee));
                 map.AddMarker(marker);
             }

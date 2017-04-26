@@ -18,6 +18,8 @@ namespace DogCare.Models
         string date;
         string time;
         string routeCoordinates;
+        string poopCoordinates;
+        string peeCoordinates;
 
         [JsonProperty(PropertyName = "id")]
         public string Id
@@ -76,11 +78,26 @@ namespace DogCare.Models
             set { time = value; }
         }
 
+
         [JsonProperty(PropertyName = "routeCoordinates")]
         public string RouteCoordinates
         {
             get { return routeCoordinates; }
             set { routeCoordinates = value; }
+        }
+
+        [JsonProperty(PropertyName = "poopCoordinates")]
+        public string PoopCoordinates
+        {
+            get { return poopCoordinates; }
+            set { poopCoordinates = value; }
+        }
+
+        [JsonProperty(PropertyName = "peeCoordinates")]
+        public string PeeCoordinates
+        {
+            get { return peeCoordinates; }
+            set { peeCoordinates = value; }
         }
 
     }
