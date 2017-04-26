@@ -48,7 +48,6 @@ namespace DogCare
             {
                 SqliteConnectionSet.mainStack.Children.Clear();
                 SqliteConnectionSet.mainStack.Children.Add(schedule);
-                //AddMeetingsToSchedule();
             }
             else
             {
@@ -83,7 +82,6 @@ namespace DogCare
             {
 
                 Meeting meet = await FindAppointment((ScheduleAppointment)args.selectedAppointment);
-                //await DisplayAlert("v", "here" + SqliteConnectionSet.mainStack.Children.Count , "c");
 
                 SqliteConnectionSet.isNewAppointment = false;
                 schedule.IsVisible = false;

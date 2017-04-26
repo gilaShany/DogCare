@@ -318,7 +318,7 @@ namespace DogCare
             meet.To = selected_appointment.EndTime.ToString();
 
             //Color color = ColorPerSubject(selected_appointment.Subject);
-            //selected_appointment.Color = color;
+            //selected_appointment.Color = Color.Red;
             //meet.Color = color.ToString
 
             if (SqliteConnectionSet.isNewAppointment)
