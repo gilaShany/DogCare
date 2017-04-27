@@ -33,9 +33,26 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+
     <Compile Include="Persistence\ISQLiteDb.cs" />
     <Compile Include="Models\Appointmentcs.cs" />
     <Compile Include="Models\Meeting.cs" />
+    <Compile Include="Appointmentcs.cs" />
+    <Compile Include="EditorLayout.xaml.cs">
+      <DependentUpon>EditorLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\TripsManager.cs" />
+    <Compile Include="Meeting.cs" />
+    <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Trips.cs" />
+    <Compile Include="Pages\CompetitionPage.xaml.cs">
+      <DependentUpon>CompetitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WalkDetailPage.xaml.cs">
+      <DependentUpon>WalkDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ObservableGroupCollection.cs" />
+
     <Compile Include="Pages\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
     </Compile>
@@ -68,6 +85,9 @@
     <Compile Include="Models\CustomMap.cs" />
     <Compile Include="Managers\DogManager.cs" />
     <Compile Include="Models\Owner.cs" />
+    <Compile Include="Pages\MyWalksPage.xaml.cs">
+      <DependentUpon>MyWalksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OwnerList.xaml.cs">
       <DependentUpon>OwnerList.xaml</DependentUpon>
     </Compile>
@@ -258,6 +278,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TripMap.xaml">
+
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\MyWalksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\CompetitionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\WalkDetailPage.xaml">
+
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

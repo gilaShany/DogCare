@@ -36,5 +36,59 @@ namespace DogCare.Utils
             return kph / 3.6;
         }
 
+        public static string ConvertPositionsListToString (List<Position> list)
+        {
+            string listAsString;
+            if (list != null)
+            {
+                // Build a string representing the poitions in the list
+                StringBuilder sb = new StringBuilder();
+                foreach (Position p in list)
+                {
+                    sb.Append(p.Latitude);
+                    sb.Append(';');
+                    sb.Append(p.Longitude);
+                    sb.Append(';');
+                }
+                // Trim the last semi-colon, so that we have "1;2;3" instead of "1;2;3;"
+                listAsString = sb.ToString().TrimEnd(';');
+            }
+            else
+            {
+                // Assign null to the string to preserve the fact that the list was null
+                listAsString = null;
+            }
+
+            return listAsString;
+        }
+
+        public static List<Position> convertPositionsStringToList (string positionString)
+        {
+            List<Position> listOfPositions = new List<Position>();
+            if (!String.IsNullOrEmpty(positionString))
+            {
+                // Split on ';' to get the individual doubles
+                string[] pStrings = positionString.Split(';');
+                int len = pStrings.Length;
+                // Create a List
+                List<Position> myPsotitions = new List<Position>();
+                for (int i = 0; i < len-1; i=i+2)
+                { 
+                    double latitude = Convert.ToDouble(pStrings[i]);
+                    double Longitude = Convert.ToDouble(pStrings[i+1]);
+                    Position p = new Position(latitude, Longitude);
+                    // Store each in the same order they were retured.
+                    listOfPositions.Add(p);
+                }
+            }
+            // Empty string would split to one string if we didn't handle it separately, resulting in the wrong array.
+            else
+            {
+                listOfPositions = null;
+            }
+
+            return listOfPositions;
+        }
+
     }
 }

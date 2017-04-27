@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.Pages.MyWalksPage">
+
+    <StackLayout>
+        <Label x:Name="emptyList" Text="There are not recorded walks." IsVisible="False"/>
+        <SearchBar x:Name="searchBar" Placeholder="Search by date..." PlaceholderColor="Purple"
+                   TextChanged="SearchBar_TextChanged" IsVisible="False"
+                  />
+        <ListView    
+              ItemsSource="{Binding}" 
+              HasUnevenRows="True"
+              IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Key}"
+              ItemSelected="ListView_ItemSelected"
+              x:Name="listView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Time:" />
+                                <Label Text="{Binding Time}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Distance:" />
+                                <Label Text="{Binding Distance}" />
+                                <Label Text="m" />
+                            </StackLayout>
+                            <StackLayout>
+                                <Image Source="poop.png" IsVisible="{Binding Poop}"/>
+                                <Image Source="pee.png" IsVisible="{Binding Pee}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

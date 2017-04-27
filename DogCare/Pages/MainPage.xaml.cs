@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DogCare.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,19 @@ namespace DogCare
             await Navigation.PushModalAsync(new Schedule());
         }
 
-        async private void Map_Clicked(object sender, EventArgs e)
+        async private void Walk_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new TripMap());
+        }
 
+        async private void MyWalks_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new MyWalksPage());
+        }
+
+        async private void Competition_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new CompetitionPage());
         }
     }
 }

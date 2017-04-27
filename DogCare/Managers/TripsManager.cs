@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using DogCare.Models;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,22 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DogCare
+namespace DogCare.Managers
 {
-    class DogManager
+    class TripsManager
     {
-        static DogManager defaultInstance = new DogManager();
+        static TripsManager defaultInstance = new TripsManager();
         MobileServiceClient client;
-        IMobileServiceTable<Dog> dogTable;
+        IMobileServiceTable<Trips> tripsTable;
 
-        private DogManager()
+        private TripsManager()
         {
             this.client = new MobileServiceClient(Constants.ApplicationURL);
-
-            this.dogTable = client.GetTable<Dog>();
+            this.tripsTable = client.GetTable<Trips>();
         }
 
-        public static DogManager DefaultManager
+        public static TripsManager DefaultManager
         {
             get
             {
@@ -41,16 +41,16 @@ namespace DogCare
 
         public bool IsOfflineEnabled
         {
-            get { return dogTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Dog>; }
+            get { return tripsTable is Microsoft.WindowsAzure.MobileServices.Sync.IMobileServiceSyncTable<Trips>; }
         }
 
-        public async Task<ObservableCollection<Dog>> GetDogItemsAsync(bool syncItems = false)
+        public async Task<ObservableCollection<Trips>> GetTripsItemsAsync(bool syncItems = false)
         {
             try
             {
-                IEnumerable<Dog> items = await dogTable.ToEnumerableAsync();
+                IEnumerable<Trips> items = await tripsTable.ToEnumerableAsync();
 
-                return new ObservableCollection<Dog>(items);
+                return new ObservableCollection<Trips>(items);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -63,22 +63,23 @@ namespace DogCare
             return null;
         }
 
-        public async Task SaveTaskAsync(Dog item)
+        public async Task SaveTaskAsync(Trips item)
         {
             if (item.Id == null)
             {
-                await dogTable.InsertAsync(item);
+                await tripsTable.InsertAsync(item);
             }
             else
             {
-                await dogTable.UpdateAsync(item);
+                await tripsTable.UpdateAsync(item);
             }
         }
-        public async Task<List<Dog>> CheckOwnerDogs(string userName)
+
+        public async Task<List<Trips>> GetTripsByDogAndOwner(string userName, string dogName)
         {
 
-            var items = await dogTable
-            .Where(dog => dog.Owner == userName)
+            var items = await tripsTable
+            .Where(trips => trips.Owner == userName && trips.DogName == dogName)
             .ToListAsync();
 
             if (items == null || items.Count == 0)
@@ -87,19 +88,5 @@ namespace DogCare
             return items;
 
         }
-
-        public async Task<List<Dog>> GetTopThreeDogsByTotalWalk()
-        {
-            var items = await dogTable
-                .OrderByDescending(dog => dog.Walk)
-                .Take(3)
-                .ToListAsync();
-
-            if (items == null || items.Count == 0)
-                return null;
-
-            return items;
-        }
-
     }
 }
