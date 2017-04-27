@@ -13,7 +13,6 @@ namespace DogCare
     {
         OwnerManager manager;
         DogManager dManager;
-        private bool _isBusy;
 
         public OwnerList()
         {
@@ -38,7 +37,8 @@ namespace DogCare
                 bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
                 if (sure)
                 {
-                   
+                    activity.IsVisible = true;
+                    activity.IsRunning = true;
                     var method =  await (manager.CheckIfOwnerAlreadyExists(userName.Text));
 
                     if (method != null)
@@ -48,9 +48,12 @@ namespace DogCare
                         userName.Unfocus();
                         password.Text = string.Empty;
                         password.Unfocus();
+                        activity.IsVisible = false;
+                        activity.IsRunning = false;
                     }
                     else
                     {
+
                         activity.IsVisible = true;
                         activity.IsRunning = true;
                         var owner = new Owner
