@@ -14,7 +14,6 @@ namespace DogCare
 
         #region Properties
         public ScheduleAppointment selected_appointment;
-        public int index_of_appointment = 1;
         public StackLayout editor_layout = new StackLayout();
         public StackLayout appointmenteditor_main_layout = new StackLayout();
         public Entry subject_text, location_text;
@@ -26,15 +25,15 @@ namespace DogCare
         public Label end_time_label = new Label();
         public Button cancel_button { get; set; }
         public Button save_button { get; set; }
-        public EditorLayout editor { get; set; }
+        public Button delete_button { get; set; }
 
-        public SfSchedule Schedule;
+        public SfSchedule SfSchedule;
         #endregion
 
         public Appointment(ScheduleAppointment appointment)
         {
-            CreatingEditorSettingsLayout();
             selected_appointment = appointment;
+            CreatingEditorSettingsLayout();
         }
 
         #region Methods
@@ -109,7 +108,7 @@ namespace DogCare
             int index = -1;
             for (int i = 0; i < appointmentCollection.Count; i++)
             {
-                if (appointmentCollection[i].Subject == appointment.Subject)
+                if (appointmentCollection[i].Subject == appointment.Subject && appointmentCollection[i].StartTime == appointment.StartTime && appointmentCollection[i].EndTime == appointment.EndTime)
                 {
                     index = i;
                 }
@@ -251,11 +250,14 @@ namespace DogCare
             save_button.Clicked += SaveButton_Clicked;
             save_button.Text = "Save";
 
+            delete_button = new Button();
+            delete_button.Clicked += DeleteButton_Clicked;
+            delete_button.Text = "Delete";
             buttons_layout.Children.Add(cancel_button);
             buttons_layout.Children.Add(save_button);
+            buttons_layout.Children.Add(delete_button);
 
             editor_layout.Children.Add(buttons_layout);
-
 
             this.Padding = 20;
             this.Children.Add(editor_layout);
@@ -266,38 +268,75 @@ namespace DogCare
         {
 
             this.IsVisible = false;
-            App.mainStack.Children[0].IsVisible = true;
+            SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
 
         }
-        public void SaveButton_Clicked(object sender, EventArgs e)
+
+        public async void DeleteButton_Clicked(object sender, EventArgs e)
         {
+            if (selected_appointment != null)
+            {
+                Meeting meet = await Schedule.FindAppointment(this.selected_appointment);
+                await SqliteConnectionSet._connection.DeleteAsync(meet);
+                SqliteConnectionSet._appointments.Remove(meet);
+                SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
+            }
+            
+            this.IsVisible = false;
+            SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
+        }
+
+        async public void SaveButton_Clicked(object sender, EventArgs e)
+        {
+            Meeting meet;
+
             if (selected_appointment == null)
             {
                 selected_appointment = new ScheduleAppointment();
-                saveNewAppintment(selected_appointment);
-                //selectedAppointment.color = Color.Accent;
+                meet = new Meeting();
+            }
+            else
+            {
+                meet = await Schedule.FindAppointment(selected_appointment);
             }
             if (location_text.Text != null )
             {
                 selected_appointment.Location = location_text.Text.ToString();
+                meet.Location = location_text.Text.ToString();
             }
             if (subject_text.Text != null )
             {
-                selected_appointment.Subject = subject_text.Text.ToString() + " for " + App.currentDog.DogName;
+                if (subject_text.Text.Equals("Vet") || subject_text.Text.Equals("Haircut") || subject_text.Text.Equals("Medicine"))
+                    selected_appointment.Subject = subject_text.Text.ToString() + " For " + App.currentDog.DogName;
+                else
+                    selected_appointment.Subject = subject_text.Text.ToString();
+                meet.Subject = selected_appointment.Subject;
             }
             selected_appointment.StartTime = start_date_picker.Date.Add(start_time_picker.Time);
             selected_appointment.EndTime = end_date_picker.Date.Add(end_time_picker.Time);
-             ScheduleAppointmentModifiedEventArgs args = new ScheduleAppointmentModifiedEventArgs();
-            args.IsModified = true;
-            
-            if(App.isNewAppointment)
-            {
-                App.AppointmentCollection.Add(selected_appointment);
-                index_of_appointment++;
-            }
+            meet.From = selected_appointment.StartTime.ToString();
+            meet.To = selected_appointment.EndTime.ToString();
 
+            //Color color = ColorPerSubject(selected_appointment.Subject);
+            //selected_appointment.Color = Color.Red;
+            //meet.Color = color.ToString
+
+            if (SqliteConnectionSet.isNewAppointment)
+            {
+                saveNewAppintment(selected_appointment);
+                await SqliteConnectionSet._connection.InsertAsync(meet);
+                SqliteConnectionSet._appointments.Add(meet);
+                Schedule.AddNewMeetingToSchedule(meet);
+                SqliteConnectionSet.isNewAppointment = false;
+            }
+            else
+            {
+                saveAppointment();
+                await SqliteConnectionSet._connection.UpdateAsync(meet);
+            }
+            
             this.IsVisible = false;
-            App.mainStack.Children[0].IsVisible = true;
+            SqliteConnectionSet.mainStack.Children[0].IsVisible = true;
         }
         #endregion Editor
 
@@ -310,11 +349,16 @@ namespace DogCare
             await this.editor_layout.LayoutTo(editorBounds, 500, Easing.Linear);
         }
 
+        public ScheduleAppointment ScheduleAppointment()
+        {
+            return selected_appointment;
+        }
+
         #endregion Editor layout Disappear
 
         #region UpdateEditor
         
-        public void UpdateEditor(ScheduleAppointment selectedAppointment, DateTime dateTime, SfSchedule schedule)
+        public void UpdateEditor(ScheduleAppointment selectedAppointment,string Subject, DateTime dateTime, SfSchedule schedule)
         {
             selected_appointment = null;
             if (selectedAppointment != null)
@@ -324,16 +368,23 @@ namespace DogCare
                 DateTime end_time = selected_appointment.EndTime;
                 subject_text.Text = selected_appointment.Subject;
                 location_text.Text = selected_appointment.Location;
-                index_of_appointment = getIndexOfAppointment(selected_appointment, (Schedule.DataSource as ScheduleAppointmentCollection)); ;
+                //index_of_appointment = getIndexOfAppointment(selected_appointment, (SfSchedule.DataSource as ScheduleAppointmentCollection)); ;
                 start_date_picker.Date = new DateTime(start_time.Year, start_time.Month, start_time.Day);
                 start_time_picker.Time = new TimeSpan(start_time.Hour, start_time.Minute, start_time.Second);
                 end_date_picker.Date = new DateTime(end_time.Year, end_time.Month, end_time.Day);
                 end_time_picker.Time = new TimeSpan(end_time.Hour, end_time.Minute, end_time.Second);
-
+               
             }
             else
             {
-                subject_text.Text = "";
+                if (Subject.Equals("Other"))
+                {
+                    subject_text.Text = "";
+                }
+                else
+                {
+                    subject_text.Text = Subject;
+                }
                 location_text.Text = "";
                 DateTime s_time = dateTime; //args.datetime;//
                 start_date_picker.Date = new DateTime(s_time.Year, s_time.Month, s_time.Day);
@@ -372,24 +423,41 @@ namespace DogCare
             }
 
         }
+        /*
+        public string ColorPerSubject(string subject)
+        {
+            string color;
+            if (subject.Contains("Vet"))
+                color = "#ee42f4";
 
-    
+            else if (subject.Contains("Haircut"))
+                color = Color.LightPink;
+            else if (subject.Contains("Medicine"))
+                color = Color.LightGray;
+            else if (subject.Contains("Buy dog food"))
+                color = Color.LightYellow;
+            else if (subject.Contains("Put food"))
+                color = Color.Maroon;
+            else if (subject.Contains("Put water"))
+                color = Color.Red;
+            else
+                color = Color.LightCoral;
+
+            return color;
+        }
+        */
         #endregion
 
         #region Save
+
         public void saveAppointment()
         {
-            (App.AppointmentCollection)[index_of_appointment].Subject = subject_text.Text;
-            (App.AppointmentCollection)[index_of_appointment].Location = location_text.Text;
-
-            DateTime startDate = new DateTime(start_date_picker.Date.Year, start_date_picker.Date.Month, start_date_picker.Date.Day, start_time_picker.Time.Hours, start_time_picker.Time.Minutes, start_time_picker.Time.Seconds);
-            (App.AppointmentCollection)[index_of_appointment].StartTime = startDate;
-
-            DateTime endDate = new DateTime(end_date_picker.Date.Year, end_date_picker.Date.Month, end_date_picker.Date.Day, end_time_picker.Time.Hours, end_time_picker.Time.Minutes, end_time_picker.Time.Seconds);
-            (App.AppointmentCollection)[index_of_appointment].EndTime = endDate;
-
+            ScheduleAppointment newAppointment = new ScheduleAppointment();
+            newAppointment = selected_appointment;
+            SqliteConnectionSet.AppointmentCollection.Remove(selected_appointment);
+            SqliteConnectionSet.AppointmentCollection.Add(newAppointment);
         }
-
+        
         public void saveNewAppintment(ScheduleAppointment selected_appointment)
         {
             selected_appointment.Subject = subject_text.Text;
@@ -400,12 +468,13 @@ namespace DogCare
 
             DateTime endDate = new DateTime(end_date_picker.Date.Year, end_date_picker.Date.Month, end_date_picker.Date.Day, end_time_picker.Time.Hours, end_time_picker.Time.Minutes, end_time_picker.Time.Seconds);
             selected_appointment.EndTime = endDate;
+            //ColorPerSubject(selected_appointment.Subject);
         }
 
         #endregion Save
 
         #endregion Methods
-
+    
         public double widthAlloc { get; set; }
         public double heightAlloc { get; set; }
     }

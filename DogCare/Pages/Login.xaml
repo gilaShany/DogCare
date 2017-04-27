@@ -4,9 +4,9 @@
              x:Class="DogCare.Login">
     <StackLayout>
         <Entry x:Name="userName"
-                  Placeholder="user Name" />
+                  Placeholder="Username" />
         <Entry x:Name="password" IsPassword="True"
-                  Placeholder="password" />
+                  Placeholder="Password" />
 
         <Button Text="Enter"
                   Clicked="Button_Clicked" />

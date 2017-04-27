@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,9 +11,9 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OwnerList : ContentPage
     {
-        
         OwnerManager manager;
         DogManager dManager;
+
         public OwnerList()
         {
             manager = OwnerManager.DefaultManager;
@@ -38,7 +37,8 @@ namespace DogCare
                 bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
                 if (sure)
                 {
-                   
+                    activity.IsVisible = true;
+                    activity.IsRunning = true;
                     var method =  await (manager.CheckIfOwnerAlreadyExists(userName.Text));
 
                     if (method != null)
@@ -48,38 +48,47 @@ namespace DogCare
                         userName.Unfocus();
                         password.Text = string.Empty;
                         password.Unfocus();
+                        activity.IsVisible = false;
+                        activity.IsRunning = false;
                     }
                     else
                     {
-                        
+
+                        activity.IsVisible = true;
+                        activity.IsRunning = true;
                         var owner = new Owner
                         {
                             OwnerName = ownerName.Text,
                             UserName = userName.Text,
                             Password = password.Text
 
-                        };
+                        }; 
                         await AddItem(owner);
+                        
                         App.currentOwner = owner;
 
-                        bool next =await DisplayAlert("", "Your account added succefully", "Next", "Cancel");
-
+                        bool next =await DisplayAlert("", "Your account added succefully", "OK","Cancel");
+                        activity.IsVisible = false;
+                        activity.IsRunning = false;
                         if (next)
                         {
                             List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
-                            if (dogsList.Count > 1)
-                                await Navigation.PushAsync(new DogList());
+                            if (dogsList != null)
+                            {
+                                if (dogsList.Count > 1)
+                                    await Navigation.PushAsync(new DogList());
+                                else
+                                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                            }
                             else
-                                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                            {
+                                await Navigation.PushAsync(new DogList());
+                            }
                         }
                     }
                 }
             }
         }
 
-        async private void Next_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DogList());
-        }
     }
 }

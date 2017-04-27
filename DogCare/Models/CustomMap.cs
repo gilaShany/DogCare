@@ -71,6 +71,7 @@ namespace DogCare
         public void AddPoop(Position position)
         {
             this.PinsPoop = UpdatePinList(position, this.PinsPoop);
+
         }
 
         public void AddPee(Position position)
@@ -92,7 +93,6 @@ namespace DogCare
                 return null;
             }
         }
-
 
         /* --------------------------------------------------------- */
         /* ---------------- Private Functions ---------------------- */

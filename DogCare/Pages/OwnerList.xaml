@@ -6,14 +6,13 @@
         <Entry x:Name="ownerName"
                   Placeholder="Owner Name" />
         <Entry x:Name="userName"
-                  Placeholder="user Name" />
+                  Placeholder="Username" />
         <Entry x:Name="password" IsPassword="True"
-                  Placeholder="password" />
+                  Placeholder="Password" />
 
-        <Button Text="+"
+        <Button x:Name="addButton" Text="Add"
                   Clicked="CreateNewAccount_Clicked" />
-        <Button Text="Next"
-                  Clicked="Next_Clicked" />
-
+        <ActivityIndicator x:Name="activity"
+                           Color="Black" />
     </StackLayout>
 </ContentPage>
