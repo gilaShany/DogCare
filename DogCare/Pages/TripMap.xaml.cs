@@ -14,6 +14,7 @@ using Xamarin.Forms.Xaml;
 
 using Android.Content.PM;
 using System.Diagnostics;
+
 using DogCare.Models;
 using DogCare.Managers;
 
@@ -29,6 +30,7 @@ namespace DogCare
         bool hasGPS;
         bool isPoopClicked;
         bool isPeeClicked;
+
         DateTime currentDateTime;
         DogManager dogManager;
         TripsManager tripsManager;
