@@ -18,19 +18,19 @@ namespace DogCare
 
         // Poop + Pee lists. Every time new poop/pee added. OnElementPropertyChanged called and adds pins
         public static readonly BindableProperty PinsPoopProperty =
-        BindableProperty.Create<CustomMap, List<Pin>>(p => p.PinsPoop, new List<Pin>());
+        BindableProperty.Create<CustomMap, List<Position>>(p => p.PinsPoop, new List<Position>());
         public static readonly BindableProperty PinsPeeProperty =
-        BindableProperty.Create<CustomMap, List<Pin>>(p => p.PinsPee, new List<Pin>());
+        BindableProperty.Create<CustomMap, List<Position>>(p => p.PinsPee, new List<Position>());
 
-        public List<Pin> PinsPoop
+        public List<Position> PinsPoop
         {
-            get { return (List<Pin>)GetValue(PinsPoopProperty); }
+            get { return (List<Position>)GetValue(PinsPoopProperty); }
             set { SetValue(PinsPoopProperty, value); }
         }
 
-        public List<Pin> PinsPee
+        public List<Position> PinsPee
         {
-            get { return (List<Pin>)GetValue(PinsPeeProperty); }
+            get { return (List<Position>)GetValue(PinsPeeProperty); }
             set { SetValue(PinsPeeProperty, value); }
         }
 
@@ -62,8 +62,8 @@ namespace DogCare
         public CustomMap()
         {
             this.RouteCoordinates = new List<Position>();
-            this.PinsPee = new List<Pin>();
-            this.PinsPoop = new List<Pin>();
+            this.PinsPee = new List<Position>();
+            this.PinsPoop = new List<Position>();
             this.lastPositions = new List<Position>();
             this.totalDistance = 0;
         }
@@ -71,7 +71,6 @@ namespace DogCare
         public void AddPoop(Position position)
         {
             this.PinsPoop = UpdatePinList(position, this.PinsPoop);
-
         }
 
         public void AddPee(Position position)
@@ -99,12 +98,10 @@ namespace DogCare
         /* --------------------------------------------------------- */
 
 
-        private List<Pin> UpdatePinList(Position newPosition, List<Pin> currentPins)
+        private List<Position> UpdatePinList(Position newPosition, List<Position> currentPins)
         {
-            var list = new List<Pin>(currentPins);
-            var pin = new Pin();
-            pin.Position = new Position(newPosition.Latitude, newPosition.Longitude);
-            list.Add(pin);
+            var list = new List<Position>(currentPins);
+            list.Add(newPosition);
             return list;
         }
 
@@ -122,7 +119,6 @@ namespace DogCare
                 if (CheckChangePositionSpeed(currentEpochTime, currentSampledPosition, speedThresholdInMeters))
                 {
                     // the speed of the dog walker is reasonable. Update current position
-                   // this.totalDistance +=  Utils.Utils.GetDistanceInMeters((Position)this.currentPosition, currentSampledPosition);
                     this.currentPosition = (Position?)(currentSampledPosition);
                 }
             }

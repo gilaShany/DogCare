@@ -15,6 +15,9 @@ using Xamarin.Forms.Xaml;
 using Android.Content.PM;
 using System.Diagnostics;
 
+using DogCare.Models;
+using DogCare.Managers;
+
 namespace DogCare
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -28,6 +31,10 @@ namespace DogCare
         bool isPoopClicked;
         bool isPeeClicked;
 
+        DateTime currentDateTime;
+        DogManager dogManager;
+        TripsManager tripsManager;
+
         public TripMap()
         {
             // Consts
@@ -36,6 +43,8 @@ namespace DogCare
             double speedThresholdKMH = 8;
 
             InitializeComponent();
+            dogManager = DogManager.DefaultManager;
+            tripsManager = TripsManager.DefaultManager;
             InitMap(speedThresholdKMH);
         }
 
@@ -121,14 +130,15 @@ namespace DogCare
 
         async private void ButtonStartClicked(object sender, EventArgs e)
         {
+            startButton.IsEnabled = false;
             var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
                 DisplayAlertGPS();
+                startButton.IsEnabled = true;
             }
             else
             {
-                startButton.IsEnabled = false;
                 poopButton.IsEnabled = true;
                 peeButton.IsEnabled = true;
                 FinishButton.IsEnabled = true;
@@ -140,6 +150,7 @@ namespace DogCare
                 locator.PositionChanged += Current_PositionChanged;
                 hasGPS = true;
                 isListening = true;
+                currentDateTime = DateTime.Now;
             }
         }
 
@@ -181,6 +192,33 @@ namespace DogCare
             poopButton.IsEnabled = false;
             peeButton.IsEnabled = false;
             FinishButton.IsEnabled = false;
+            AddDistanceToDogTatalWalk();
+            UpdateMyTrips();
+        }
+
+       async private void AddDistanceToDogTatalWalk()
+        {
+           App.currentDog.Walk += (int)map.totalDistance;
+           await dogManager.SaveTaskAsync(App.currentDog);
+        }
+
+        async private void UpdateMyTrips()
+        {
+            var trip = new Trips
+            {
+                Date = this.currentDateTime.ToString("MM/dd/yyyy"),
+                Time = this.currentDateTime.ToString("HH:mm"),
+                Distance = (int)map.totalDistance,
+                DogName = App.currentDog.DogName,
+                Owner = App.currentOwner.UserName,
+                Pee = isPeeClicked,
+                Poop = isPoopClicked,
+                RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates),
+                PeeCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPee),
+                PoopCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPoop)
+            };
+           
+            await tripsManager.SaveTaskAsync(trip);
         }
     }
 }

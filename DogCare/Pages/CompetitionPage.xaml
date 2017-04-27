@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DogCare.Pages.CompetitionPage">
+
+    <StackLayout>
+    <ListView x:Name="listView"
+              ItemsSource="{Binding}" HasUnevenRows="True"
+              IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <StackLayout VerticalOptions="Center">
+                                <Label Text="{Binding Index}"  FontSize="Medium"/>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="{Binding Dog.Owner}"/>
+                                    <Label Text=", Dog's name:" />
+                                    <Label Text="{Binding Dog.DogName}" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <Label Text="Total distance: " />
+                                    <Label Text="{Binding Dog.Walk}"/>
+                                    <Label Text="m" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+        <StackLayout Orientation="Horizontal" Padding="3">
+            <Label Text="You are in place" />
+            <Label x:Name="placeInCompetition"/>
+            <Label Text="out of" />
+            <Label x:Name="numOfParticipants"/>
+            <Label Text="!" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" Padding="3">
+            <Label Text="You have accumulated" />
+            <Label x:Name="myTotalDistance"/>
+            <Label Text="m." />
+         
+        </StackLayout>
+
+
+    </StackLayout>
+</ContentPage>
