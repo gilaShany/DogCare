@@ -1,6 +1,8 @@
 ﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +16,13 @@ namespace DogCare
     {
         OwnerManager manager;
         DogManager dManager;
+        MediaFile file;
 
         public OwnerList()
         {
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
+            stream = null;
             InitializeComponent();
 
             takePhoto.Clicked += async (sender, args) =>
@@ -28,7 +32,7 @@ namespace DogCare
                     return;
                 }
 
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
                     CompressionQuality = 92,
@@ -43,7 +47,6 @@ namespace DogCare
                 image.Source = ImageSource.FromStream(() =>
                 {
                     var stream = file.GetStream();
-                    file.Dispose();
                     return stream;
                 });
             };
@@ -54,11 +57,10 @@ namespace DogCare
                 {
                     return;
                 }
-                var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
                 {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small
                 });
-
 
                 if (file == null)
                     return;
@@ -66,17 +68,18 @@ namespace DogCare
                 image.Source = ImageSource.FromStream(() =>
                 {
                     var stream = file.GetStream();
-                    file.Dispose();
                     return stream;
                 });
             };
 
         }
 
+
         async Task AddItem(Owner item)
         {
             await manager.SaveTaskAsync(item);
         }
+
 
         async private void CreateNewAccount_Clicked(object sender, EventArgs e)
         {
@@ -108,13 +111,14 @@ namespace DogCare
 
                         activity.IsVisible = true;
                         activity.IsRunning = true;
+
                         var owner = new Owner
                         {
                             OwnerName = ownerName.Text,
                             UserName = userName.Text,
-                            Password = password.Text
-
-                        }; 
+                            Password = password.Text,
+                            ImageO = Utils.Utils.ConvertFileToString(file)
+                    }; 
                         await AddItem(owner);
                         
                         App.currentOwner = owner;

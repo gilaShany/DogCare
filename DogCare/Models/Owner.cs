@@ -26,27 +26,27 @@ namespace DogCare
 
             [JsonProperty(PropertyName = "ownerName")]
             public string OwnerName
-        {
+           {
                 get { return ownerName; }
                 set { ownerName = value; }
             }
 
             [JsonProperty(PropertyName = "userName")]
             public string UserName
-        {
+           {
                 get { return userName; }
                 set { userName = value; }
             }
 
             [JsonProperty(PropertyName = "password")]
             public string Password
-        {
+          {
                 get { return password; }
                 set { password = value; }
             }
 
-            [JsonProperty(PropertyName = "image")]
-            public string Image
+            [JsonProperty(PropertyName = "imageO")]
+            public string ImageO
             {
                 get { return imageO; }
                 set { imageO = value; }

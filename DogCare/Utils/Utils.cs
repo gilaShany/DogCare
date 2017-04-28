@@ -1,6 +1,8 @@
 ﻿
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,6 +90,22 @@ namespace DogCare.Utils
             }
 
             return listOfPositions;
+        }
+
+
+        public static string ConvertFileToString(MediaFile file)
+        {
+            var stream = file.GetStream();
+            file.Dispose();
+            StreamReader reader = new StreamReader(stream);
+            return (reader.ReadToEnd());
+        }
+
+        public static Stream ConvertStringToStream (string s)
+        {
+            byte[] byteArray = Encoding.UTF8.GetBytes(s);
+            MemoryStream stream = new MemoryStream(byteArray);
+            return stream;
         }
 
     }
