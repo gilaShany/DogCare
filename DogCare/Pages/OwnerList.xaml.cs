@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Media;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,57 @@ namespace DogCare
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
             InitializeComponent();
+
+            takePhoto.Clicked += async (sender, args) =>
+            {
+                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    return;
+                }
+
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
+                    CompressionQuality = 92,
+                    Directory = "DogCare",
+                    Name = "test.jpg",
+                    SaveToAlbum = true
+                });
+
+                if (file == null)
+                    return;
+
+                image.Source = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                });
+            };
+
+            pickPhoto.Clicked += async (sender, args) =>
+            {
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    return;
+                }
+                var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+
+
+                if (file == null)
+                    return;
+
+                image.Source = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                });
+            };
+
         }
 
         async Task AddItem(Owner item)

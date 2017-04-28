@@ -9,7 +9,9 @@
                   Placeholder="Username" />
         <Entry x:Name="password" IsPassword="True"
                   Placeholder="Password" />
-
+        <Button x:Name="takePhoto" Text="Take Photo"/>
+        <Button x:Name="pickPhoto" Text="Pick Photo"/>
+        <Image x:Name="image"/>
         <Button x:Name="addButton" Text="Add"
                   Clicked="CreateNewAccount_Clicked" />
         <ActivityIndicator x:Name="activity"
