@@ -25,6 +25,7 @@ namespace DogCare
             await Navigation.PushModalAsync(new Schedule());
         }
 
+
         async private void Walk_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new TripMap());

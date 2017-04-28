@@ -27,7 +27,8 @@ namespace DogCare
 
         async private void Button_Clicked(object sender, EventArgs e)
         {
-
+            activity.IsVisible = true;
+            activity.IsRunning = true;
             var dog = new Dog
             {
                 DogName = newDog.Text,

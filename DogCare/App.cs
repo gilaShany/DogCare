@@ -11,18 +11,16 @@ namespace DogCare
         public static Dog currentDog;
         public static Owner currentOwner;
         
-
-
         public App()
         {
-            // The root page of your application
-            MainPage = new NavigationPage(new TabbedLogin());
-            //MainPage = new TripMap();
+
+             MainPage = new NavigationPage(new TabbedLogin());
         }
+
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
+            // Handle when your app starts
+        }
 
 		protected override void OnSleep ()
 		{

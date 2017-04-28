@@ -8,8 +8,9 @@
         <Entry x:Name="password" IsPassword="True"
                   Placeholder="Password" />
 
-        <Button Text="Enter"
+        <Button Text="Enter" x:Name="enter"
                   Clicked="Button_Clicked" />
-        
+        <ActivityIndicator x:Name="activity"
+                           Color="Black" />
         </StackLayout>
 </ContentPage>

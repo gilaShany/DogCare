@@ -10,9 +10,12 @@
                Placeholder="gender" />
         <Entry x:Name="raceS"
                Placeholder="race" />
-                <Button Text="+"
+                <Button Text="Add"
                   Clicked="Button_Clicked" />
-      
+
+        <ActivityIndicator x:Name="activity"
+                           Color="Black" />
+
     </StackLayout>
     
 </ContentPage>
