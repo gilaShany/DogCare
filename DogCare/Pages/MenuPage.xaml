@@ -6,6 +6,7 @@
         <StackLayout BackgroundColor="Aquamarine">
             <Label Text="Hello!"/>
         </StackLayout>
+        <Button Text="Logout" Clicked="logout_Clicked"/>
         <Button Text="Edit my profile" Clicked="EditProfile_Clicked"/>
         <Button Text="Edit my dog's profile" Clicked="EditDog_Clicked"/>
         <Button Text="My dogs" Clicked="MyDogs_Clicked"/>

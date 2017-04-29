@@ -61,6 +61,7 @@ namespace DogCare
                 }
                 else
                 {
+
                     App.currentOwner= method;
                     activity.IsVisible = true;
                     activity.IsRunning = true;

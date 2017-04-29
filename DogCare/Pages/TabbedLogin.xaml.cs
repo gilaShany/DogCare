@@ -24,7 +24,6 @@ namespace DogCare
 
             var owner = await SqliteConnectionSet._connection.Table<Owner>().ToListAsync();
             SqliteConnectionSet._user = new ObservableCollection<Owner>(owner);
-            
             base.OnAppearing();
         }
 
