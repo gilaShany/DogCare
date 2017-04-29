@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DogCare.DogMiddlePage"
-             NavigationPage.HasBackButton="False">
+             x:Class="DogCare.DogMiddlePage">
     <StackLayout>
         <Button Text="Add a new dog" Clicked="AddNewDog_Clicked"/>
         <Button Text="My dogs" Clicked="Mydogs_Clicked"/>

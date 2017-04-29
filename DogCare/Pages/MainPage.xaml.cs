@@ -15,7 +15,6 @@ namespace DogCare
     {
         public MainPage()
         {
-
             InitializeComponent();
 
         }
