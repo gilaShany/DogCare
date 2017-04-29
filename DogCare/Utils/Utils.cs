@@ -1,9 +1,6 @@
 ﻿
-using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,75 +91,6 @@ namespace DogCare.Utils
         }
 
 
-        public static string ConvertStreamToString(MemoryStream stream)
-        {
-            //Byte[] bytes = new Byte[stream.Length];
-            //stream.Read(bytes, 0, bytes.Length);
-            //return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-            stream.Position = 0;
-            StreamReader reader = new StreamReader(stream);
-            try
-            {
-                return (reader.ReadToEnd());
-            }
-            catch (Exception le)
-            {
-                // TODO: Log this error.
-                Debug.WriteLine("My error massage");
-                Debug.WriteLine(le.Message);
-                Debug.WriteLine(le.StackTrace);
-                return "";
-            }
-        }
-        public static MemoryStream ConvertStringToStream (string s)
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-            /*
-            byte[] byteArray = Encoding.UTF8.GetBytes(s);
-            MemoryStream stream = new MemoryStream(byteArray);
-            return stream;
-            */
-        }
-        public static MemoryStream ConvertStreamToMemoryStream(Stream stream)
-        {
-            //StreamReader reader = new StreamReader(s);
-            
-            try
-            {
-                byte[] buffer = new byte[16 * 1024];
-                MemoryStream ms = new MemoryStream();
-                int read;
-                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                ms.Position = 0;
-                return ms;
-            }
-            catch (Exception le)
-            {
-                // TODO: Log this error.
-                Debug.WriteLine("My error massage");
-                Debug.WriteLine(le.Message);
-                Debug.WriteLine(le.StackTrace);
-                return new MemoryStream();
-            }
-        }
-        /*public static byte[] ReadBytesFromStream(Stream s)
-        {
-
-            byte[] buffer = new byte[256 * 1024];
-            var currByte = s.ReadByte();
-            while (currByte != -1)
-            {
-                byteArray.
-            }
-            s.ReadByte()
-        }*/
+        
     }
 }

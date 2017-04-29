@@ -28,10 +28,10 @@ namespace DogCare
             pickPhoto.Clicked += async (sender, e) =>
             {
                 var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
-                memStream = Utils.Utils.ConvertStreamToMemoryStream(stream);
+                memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                 if (memStream != null)
                 {
-                    image.Source = ImageSource.FromStream(() => memStream);          
+                    image.Source = ImageSource.FromStream(()=> { return new MemoryStream(memStream.ToArray()); });          
                 }
   
             };
@@ -80,7 +80,7 @@ namespace DogCare
                             OwnerName = ownerName.Text,
                             UserName = userName.Text,
                             Password = password.Text,
-                            ImageO = Utils.Utils.ConvertStreamToString(memStream)
+                            ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                     }; 
                         await AddItem(owner);
                         
