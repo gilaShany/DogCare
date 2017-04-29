@@ -1,4 +1,5 @@
-﻿using Plugin.Media;
+﻿using DogCare.Models;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace DogCare
     {
         OwnerManager manager;
         DogManager dManager;
-        MediaFile file;
+        MemoryStream memStream;
 
         public OwnerList()
         {
@@ -24,53 +25,16 @@ namespace DogCare
             dManager = DogManager.DefaultManager;
             InitializeComponent();
 
-            takePhoto.Clicked += async (sender, args) =>
+            pickPhoto.Clicked += async (sender, e) =>
             {
-                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
+                memStream = Utils.Utils.ConvertStreamToMemoryStream(stream);
+                if (memStream != null)
                 {
-                    return;
+                    image.Source = ImageSource.FromStream(() => memStream);          
                 }
-
-                file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
-                    CompressionQuality = 92,
-                    Directory = "DogCare",
-                    Name = "test.jpg",
-                    SaveToAlbum = true
-                });
-
-                if (file == null)
-                    return;
-
-                image.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    return stream;
-                });
+  
             };
-
-            pickPhoto.Clicked += async (sender, args) =>
-            {
-                if (!CrossMedia.Current.IsPickPhotoSupported)
-                {
-                    return;
-                }
-                file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
-                {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small
-                });
-
-                if (file == null)
-                    return;
-
-                image.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-                    return stream;
-                });
-            };
-
         }
 
 
@@ -116,7 +80,7 @@ namespace DogCare
                             OwnerName = ownerName.Text,
                             UserName = userName.Text,
                             Password = password.Text,
-                            ImageO = Utils.Utils.ConvertFileToString(file)
+                            ImageO = Utils.Utils.ConvertStreamToString(memStream)
                     }; 
                         await AddItem(owner);
                         

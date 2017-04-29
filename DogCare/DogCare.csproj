@@ -33,6 +33,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\IPicturePicker.cs" />
     <Compile Include="Persistence\ISQLiteDb.cs" />
     <Compile Include="Models\Appointmentcs.cs" />
     <Compile Include="Models\Meeting.cs" />
