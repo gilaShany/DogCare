@@ -7,7 +7,7 @@
                   Placeholder="{Binding OwnerName}" />
 
         <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
-
+        <Image x:Name="image" />
         <Button Text="Update"
                   Clicked="Edit_Clicked" />
 

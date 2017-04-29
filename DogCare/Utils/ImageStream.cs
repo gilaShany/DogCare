@@ -13,10 +13,15 @@ namespace DogCare.Utils
     {
         public static string ConvertStreamToString(MemoryStream memStream)
         {
-            memStream.Position = 0;
-            byte[] bytes = memStream.ToArray();
-            memStream.Position = 0;
-            return Convert.ToBase64String(bytes);
+            if (memStream != null)
+            {
+                memStream.Position = 0;
+                byte[] bytes = memStream.ToArray();
+                memStream.Position = 0;
+                return Convert.ToBase64String(bytes);
+            }
+            else
+                return "";
         }
 
         public static MemoryStream ConvertStringToStream(string base64String)
@@ -29,8 +34,6 @@ namespace DogCare.Utils
 
         public static MemoryStream ConvertStreamToMemoryStream(Stream stream)
         {
-            //StreamReader reader = new StreamReader(s);
-
             try
             {
                 byte[] buffer = new byte[16 * 1024];

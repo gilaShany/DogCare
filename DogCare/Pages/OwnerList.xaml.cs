@@ -23,6 +23,7 @@ namespace DogCare
         {
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
+            memStream = null;
             InitializeComponent();
 
             pickPhoto.Clicked += async (sender, e) =>
@@ -81,7 +82,9 @@ namespace DogCare
                             UserName = userName.Text,
                             Password = password.Text,
                             ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
-                    }; 
+                        };
+
+                        int size =System.Text.Encoding.Unicode.GetByteCount(owner.ImageO);
                         await AddItem(owner);
                         
                         App.currentOwner = owner;
