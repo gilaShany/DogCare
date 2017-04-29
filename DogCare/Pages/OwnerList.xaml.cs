@@ -32,7 +32,9 @@ namespace DogCare
                 memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                 if (memStream != null)
                 {
-                    image.Source = ImageSource.FromStream(()=> { return new MemoryStream(memStream.ToArray()); });          
+                    image.Source = ImageSource.FromStream(()=> { return new MemoryStream(memStream.ToArray()); });
+                    image.HeightRequest = 200;
+                    image.WidthRequest = 200;         
                 }
   
             };
@@ -83,8 +85,7 @@ namespace DogCare
                             Password = password.Text,
                             ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                         };
-
-                        int size =System.Text.Encoding.Unicode.GetByteCount(owner.ImageO);
+                        memStream.Dispose();
                         await AddItem(owner);
                         
                         App.currentOwner = owner;

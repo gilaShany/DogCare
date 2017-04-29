@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Plugin.Media.Abstractions;
 using System.IO;
+using Android.Graphics;
 
 namespace DogCare.Utils
 {
@@ -17,8 +18,10 @@ namespace DogCare.Utils
             {
                 memStream.Position = 0;
                 byte[] bytes = memStream.ToArray();
+                byte[] bytesOfResizeImage = ResizeImage(bytes, 200, 200);
+
                 memStream.Position = 0;
-                return Convert.ToBase64String(bytes);
+                return Convert.ToBase64String(bytesOfResizeImage);
             }
             else
                 return "";
@@ -34,8 +37,6 @@ namespace DogCare.Utils
 
         public static MemoryStream ConvertStreamToMemoryStream(Stream stream)
         {
-            try
-            {
                 byte[] buffer = new byte[16 * 1024];
                 MemoryStream ms = new MemoryStream();
                 int read;
@@ -45,15 +46,27 @@ namespace DogCare.Utils
                 }
                 ms.Position = 0;
                 return ms;
-            }
-            catch (Exception le)
-            {
-                // TODO: Log this error.
-                Debug.WriteLine("My error massage");
-                Debug.WriteLine(le.Message);
-                Debug.WriteLine(le.StackTrace);
-                return new MemoryStream();
-            }
         }
+
+        public static byte[] ResizeImage(byte[] imageData, float width, float height)
+        {
+
+			return ResizeImageAndroid ( imageData, width, height );
+        }
+
+		
+		public static byte[] ResizeImageAndroid (byte[] imageData, float width, float height)
+		{
+			// Load the bitmap
+			Bitmap originalImage = BitmapFactory.DecodeByteArray (imageData, 0, imageData.Length);
+			Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)width, (int)height, false);
+
+			using (MemoryStream ms = new MemoryStream())
+			{
+				resizedImage.Compress (Bitmap.CompressFormat.Jpeg, 100, ms);
+				return ms.ToArray ();
+			}
+		}
+
     }
 }
