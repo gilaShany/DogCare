@@ -97,8 +97,12 @@ namespace DogCare.Utils
         {
             var stream = file.GetStream();
             file.Dispose();
-            StreamReader reader = new StreamReader(stream);
-            return (reader.ReadToEnd());
+            Byte[] bytes = new Byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+
+            //StreamReader reader = new StreamReader(stream);
+            //return (reader.ReadToEnd());
         }
 
         public static Stream ConvertStringToStream (string s)

@@ -22,7 +22,6 @@ namespace DogCare
         {
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
-            stream = null;
             InitializeComponent();
 
             takePhoto.Clicked += async (sender, args) =>
