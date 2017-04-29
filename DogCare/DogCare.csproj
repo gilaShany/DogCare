@@ -33,7 +33,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="logoutPage.xaml.cs">
+    <Compile Include="Pages\logoutPage.xaml.cs">
       <DependentUpon>logoutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Persistence\ISQLiteDb.cs" />
@@ -297,7 +297,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="logoutPage.xaml">
+    <EmbeddedResource Include="Pages\logoutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

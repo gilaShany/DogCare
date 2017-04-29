@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DogCare;assembly=DogCare"
              x:Class="DogCare.Schedule"
-             >
+             NavigationPage.HasNavigationBar="True">
     <ContentView>
         <Grid x:Name="grid_layout">
             <Grid.RowDefinitions>

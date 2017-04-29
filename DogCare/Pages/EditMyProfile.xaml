@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.EditMyProfile">
     <StackLayout>
+        <Label Text="Name:"/>
         <Entry x:Name="ownerName"
                   Placeholder="{Binding OwnerName}" />
 

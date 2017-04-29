@@ -31,13 +31,13 @@ namespace DogCare
                 userName.Text = SqliteConnectionSet._user[0].UserName;
                 password.Text = SqliteConnectionSet._user[0].Password;
                 App.currentOwner = SqliteConnectionSet._user[0];
-                //this.Button_Clicked(null, null);
+                this.Button_Clicked(null, null);
             }
             base.OnAppearing();
         }
         
 
-        async private void Button_Clicked(object sender, EventArgs e)
+        public async void Button_Clicked(object sender, EventArgs e)
         {
             if ( userName.Text == null || password.Text == null)
             {
