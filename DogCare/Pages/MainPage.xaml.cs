@@ -15,29 +15,29 @@ namespace DogCare
     {
         public MainPage()
         {
-
             InitializeComponent();
 
         }
 
         async private void Calendar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Schedule());
+            await Navigation.PushAsync(new Schedule());
         }
+
 
         async private void Walk_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new TripMap());
+            await Navigation.PushAsync(new TripMap());
         }
 
         async private void MyWalks_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new MyWalksPage());
+            await Navigation.PushAsync(new MyWalksPage());
         }
 
         async private void Competition_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new CompetitionPage());
+            await Navigation.PushAsync(new CompetitionPage());
         }
     }
 }

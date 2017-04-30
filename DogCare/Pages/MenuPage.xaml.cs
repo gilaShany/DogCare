@@ -39,5 +39,11 @@ namespace DogCare
         {
             await Navigation.PushModalAsync(new DogList());
         }
+
+        async private void logout_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new logoutPage());
+
+        }
     }
 }

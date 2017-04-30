@@ -13,11 +13,13 @@ namespace DogCare
     public class SqliteConnectionSet
     {
         public static SQLiteAsyncConnection _connection;
+
         public static ObservableCollection<Meeting> _appointments;
+        public static ObservableCollection<Owner> _user;
+
         public static StackLayout mainStack = new StackLayout();
         public static ScheduleAppointmentCollection AppointmentCollection;
         public static bool isNewAppointment;
         public static bool isNewCalendar = false;
-        public static bool isTappedOnce = true;
     }
 }

@@ -53,7 +53,8 @@ namespace DogCare
                 manager.Delete(App.currentOwner);
                 await manager.SaveTaskAsync(owner);
                 App.currentOwner = owner;
-
+                SqliteConnectionSet._user[0].Password = owner.Password;
+                await SqliteConnectionSet._connection.UpdateAsync(SqliteConnectionSet._user[0]);
                 await DisplayAlert("", "Your password updated succefully", "Ok");
             }
             wrongOldPassword = false;

@@ -26,6 +26,7 @@ namespace DogCare
             memStream = null;
             InitializeComponent();
 
+
             pickPhoto.Clicked += async (sender, e) =>
             {
                 var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
@@ -38,7 +39,6 @@ namespace DogCare
                 }
   
             };
-        }
 
 
         async Task AddItem(Owner item)
@@ -87,7 +87,8 @@ namespace DogCare
                         };
                         memStream.Dispose();
                         await AddItem(owner);
-                        
+                        await SqliteConnectionSet._connection.InsertAsync(owner);
+                        SqliteConnectionSet._user.Add(owner);
                         App.currentOwner = owner;
 
                         bool next =await DisplayAlert("", "Your account added succefully", "OK","Cancel");
