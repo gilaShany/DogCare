@@ -9,6 +9,8 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using Android.Support.V4.App;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace DogCare.Droid
 {
@@ -33,6 +35,33 @@ namespace DogCare.Droid
             // Load the main application
             LoadApplication (new App ());
 		}
+
+        // Field, property, and method for Picture Picker
+        public static readonly int PickImageId = 1000;
+
+        public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+
+            if (requestCode == PickImageId)
+            {
+                if ((resultCode == Result.Ok) && (intent != null))
+                {
+                    Android.Net.Uri uri = intent.Data;
+                    Stream stream = ContentResolver.OpenInputStream(uri);
+
+                    // Set the Stream as the completion of the Task
+                    PickImageTaskCompletionSource.SetResult(stream);
+                }
+                else
+                {
+                    PickImageTaskCompletionSource.SetResult(null);
+                }
+            }
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
