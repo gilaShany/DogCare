@@ -1,5 +1,9 @@
-﻿using System;
+﻿using DogCare.Models;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,33 +17,35 @@ namespace DogCare
     {
         OwnerManager manager;
         DogManager dManager;
+        MemoryStream memStream;
 
         public OwnerList()
         {
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
+            memStream = null;
             InitializeComponent();
 
-        }
-        /*
-        protected override async void OnAppearing()
-        {
-            if (SqliteConnectionSet._user.Count != 0)
+
+            pickPhoto.Clicked += async (sender, e) =>
             {
-                ownerName.Text = SqliteConnectionSet._user[0].OwnerName;
-                userName.Text = SqliteConnectionSet._user[0].UserName;
-                password.Text = SqliteConnectionSet._user[0].Password;
-                App.currentOwner = SqliteConnectionSet._user[0];
-                //await Navigation.PushAsync(new DogMiddlePage());
-            }
-            base.OnAppearing();
-        }
-        */
+                var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
+                memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
+                if (memStream != null)
+                {
+                    image.Source = ImageSource.FromStream(()=> { return new MemoryStream(memStream.ToArray()); });
+                    image.HeightRequest = 200;
+                    image.WidthRequest = 200;         
+                }
+  
+            };
+
 
         async Task AddItem(Owner item)
         {
             await manager.SaveTaskAsync(item);
         }
+
 
         async private void CreateNewAccount_Clicked(object sender, EventArgs e)
         {
@@ -71,13 +77,15 @@ namespace DogCare
 
                         activity.IsVisible = true;
                         activity.IsRunning = true;
+
                         var owner = new Owner
                         {
                             OwnerName = ownerName.Text,
                             UserName = userName.Text,
-                            Password = password.Text
-
-                        }; 
+                            Password = password.Text,
+                            ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
+                        };
+                        memStream.Dispose();
                         await AddItem(owner);
                         await SqliteConnectionSet._connection.InsertAsync(owner);
                         SqliteConnectionSet._user.Add(owner);
