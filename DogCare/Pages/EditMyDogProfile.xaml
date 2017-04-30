@@ -4,16 +4,27 @@
              x:Class="DogCare.EditMyDogProfile"
              >
 
-        <StackLayout>
+    <AbsoluteLayout> 
+        <BoxView Opacity="0.5" Color="Black" AbsoluteLayout.LayoutBounds="30,30,0.85,0.7" AbsoluteLayout.LayoutFlags="SizeProportional" />
+        <StackLayout AbsoluteLayout.LayoutBounds="35,35,0.80,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <Label Text="Name:"/>
             <Entry x:Name="newDog"
                   Placeholder="{Binding DogName}" />
+            <Label Text="Gender:"/>
             <Entry x:Name="genderS"
                Placeholder="{Binding Gender}" />
-        <Entry x:Name="raceS"
+            <Label Text="Race:"/>
+            <Entry x:Name="raceS"
                Placeholder="{Binding Race}" />
-        <Button Text="Update"
-                  Clicked="Edit_Clicked" />
-
         </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="30,430,0.85,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <Button Text="Update"
+                  Clicked="Edit_Clicked" />
+            <ActivityIndicator x:Name="activity"
+                           Color="Black" />
+           </StackLayout>
+        </AbsoluteLayout>
 
 </ContentPage>
