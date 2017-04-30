@@ -2,14 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.EditMyProfile">
-    <StackLayout>
-        <Entry x:Name="ownerName"
+    <AbsoluteLayout>
+        <BoxView Opacity="0.5" Color="Black" AbsoluteLayout.LayoutBounds="30,30,0.85,0.7" AbsoluteLayout.LayoutFlags="SizeProportional" />
+        <StackLayout AbsoluteLayout.LayoutBounds="35,35,0.80,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <Label Text="Name:"/>
+            <Entry x:Name="ownerName"
                   Placeholder="{Binding OwnerName}" />
 
-        <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
+            <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
+        </StackLayout>
 
-        <Button Text="Update"
+        <StackLayout AbsoluteLayout.LayoutBounds="30,430,0.85,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <Button Text="Update"
                   Clicked="Edit_Clicked" />
-
-    </StackLayout>
+            <ActivityIndicator x:Name="activity"
+                           Color="Black" />
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>

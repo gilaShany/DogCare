@@ -33,16 +33,13 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-
+    <Compile Include="Pages\logoutPage.xaml.cs">
+      <DependentUpon>logoutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\ISQLiteDb.cs" />
     <Compile Include="Models\Appointmentcs.cs" />
     <Compile Include="Models\Meeting.cs" />
-    <Compile Include="Appointmentcs.cs" />
-    <Compile Include="EditorLayout.xaml.cs">
-      <DependentUpon>EditorLayout.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Managers\TripsManager.cs" />
-    <Compile Include="Meeting.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Trips.cs" />
     <Compile Include="Pages\CompetitionPage.xaml.cs">
@@ -52,7 +49,6 @@
       <DependentUpon>WalkDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ObservableGroupCollection.cs" />
-
     <Compile Include="Pages\ChangePasswordPage.xaml.cs">
       <DependentUpon>ChangePasswordPage.xaml</DependentUpon>
     </Compile>
@@ -278,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TripMap.xaml">
-
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -297,7 +292,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\WalkDetailPage.xaml">
-
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\logoutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
