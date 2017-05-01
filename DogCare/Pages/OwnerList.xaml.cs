@@ -1,6 +1,4 @@
 ﻿using DogCare.Models;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +23,7 @@ namespace DogCare
             dManager = DogManager.DefaultManager;
             memStream = null;
             InitializeComponent();
-
+            image.Source = ImageSource.FromFile("User.png");
 
             pickPhoto.Clicked += async (sender, e) =>
             {
@@ -35,7 +33,6 @@ namespace DogCare
                     memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
                 }
-
             };
         }
 

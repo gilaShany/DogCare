@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Plugin.Media.Abstractions;
 using System.IO;
 using Android.Graphics;
 

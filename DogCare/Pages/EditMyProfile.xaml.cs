@@ -18,7 +18,10 @@ namespace DogCare
             manager = OwnerManager.DefaultManager;
             InitializeComponent();
             BindingContext = App.currentOwner;
-            image.Source = ImageSource.FromStream(() =>  Utils.ImageStream.ConvertStringToStream(App.currentOwner.ImageO));
+            if (App.currentOwner.ImageO != " ")
+                image.Source = ImageSource.FromStream(() =>  Utils.ImageStream.ConvertStringToStream(App.currentOwner.ImageO));
+            else
+                image.Source = ImageSource.FromFile("User.png");
 
         }
         async private void Edit_Clicked(object sender, EventArgs e)
