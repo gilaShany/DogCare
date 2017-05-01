@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace DogCare.Models
 {
@@ -10,6 +11,7 @@ namespace DogCare.Models
     {
         int index;
         Dog dog;
+        Image dogImage;
 
         public int Index
         {
@@ -21,6 +23,12 @@ namespace DogCare.Models
         {
             get { return dog; }
             set { dog = value; }
+        }
+
+        public Image DogImage
+        {
+            get { return dogImage; }
+            set { dogImage = value; }
         }
     }
 }

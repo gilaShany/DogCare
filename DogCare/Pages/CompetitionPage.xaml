@@ -14,6 +14,9 @@
                             <StackLayout VerticalOptions="Center">
                                 <Label Text="{Binding Index}"  FontSize="Medium"/>
                             </StackLayout>
+                            <StackLayout VerticalOptions="Center">
+                                <Image Source="{Binding DogImage.Source}"/>
+                            </StackLayout>
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Padding="5">
                                     <Label Text="{Binding Dog.Owner}"/>

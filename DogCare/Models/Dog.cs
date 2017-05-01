@@ -10,7 +10,6 @@ namespace DogCare
 {
     public class Dog
     {
-
         string id;
         string dogName;
         string gender;
@@ -18,6 +17,7 @@ namespace DogCare
         string owner;
         string imageD;
         int walk;
+
         [JsonProperty(PropertyName = "id")]
         public string Id
         {
