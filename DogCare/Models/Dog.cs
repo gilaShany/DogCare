@@ -47,7 +47,7 @@ namespace DogCare
         }
 
         [JsonProperty(PropertyName = "image")]
-        public string Image
+        public string ImageD
         {
             get { return imageD; }
             set { imageD = value; }

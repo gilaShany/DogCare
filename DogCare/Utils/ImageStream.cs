@@ -20,7 +20,7 @@ namespace DogCare.Utils
                 return Convert.ToBase64String(bytes);
             }
             else
-                return " ";
+                return null;
         }
 
         public static MemoryStream ConvertStringToStream(string base64String)
