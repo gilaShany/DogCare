@@ -35,6 +35,18 @@ namespace DogCare.Pages
                 c.Dog = dog;
                 c.Index = counter;
                 counter++;
+                Image image = new Image();
+
+                if (dog.ImageD != null)
+                {
+                    image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(dog.ImageD));
+                }
+                else
+                {
+                    image.Source = ImageSource.FromFile("Dog.png");
+                }
+                c.DogImage = image;
+
                 topThreeList.Add(c);
             }
             BindingContext = topThreeList;

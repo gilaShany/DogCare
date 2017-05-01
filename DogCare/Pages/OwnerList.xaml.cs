@@ -1,6 +1,4 @@
 ﻿using DogCare.Models;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,22 +23,19 @@ namespace DogCare
             dManager = DogManager.DefaultManager;
             memStream = null;
             InitializeComponent();
-
+            image.Source = ImageSource.FromFile("User.png");
 
             pickPhoto.Clicked += async (sender, e) =>
             {
                 var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
-                memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
-                if (memStream != null)
+                if (stream != null)
                 {
+                    memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
-                    image.HeightRequest = 200;
-                    image.WidthRequest = 200;
                 }
-
             };
-
         }
+
         async Task AddItem(Owner item)
         {
             await manager.SaveTaskAsync(item);
@@ -85,7 +80,8 @@ namespace DogCare
                             Password = password.Text,
                             ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                         };
-                        memStream.Dispose();
+                        if(memStream != null)
+                              memStream.Dispose();
                         await AddItem(owner);
                         await SqliteConnectionSet._connection.InsertAsync(owner);
                         SqliteConnectionSet._user.Add(owner);

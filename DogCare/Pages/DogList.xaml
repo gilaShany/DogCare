@@ -10,7 +10,9 @@
                Placeholder="gender" />
         <Entry x:Name="raceS"
                Placeholder="race" />
-                <Button Text="Add"
+        <Button x:Name="pickPhoto" Text="Pick Photo"/>
+        <Image x:Name="image"/>
+        <Button Text="Add"
                   Clicked="Button_Clicked" />
 
         <ActivityIndicator x:Name="activity"

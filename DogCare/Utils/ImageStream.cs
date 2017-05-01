@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Plugin.Media.Abstractions;
 using System.IO;
 using Android.Graphics;
 
@@ -18,13 +17,10 @@ namespace DogCare.Utils
             {
                 memStream.Position = 0;
                 byte[] bytes = memStream.ToArray();
-                byte[] bytesOfResizeImage = ResizeImage(bytes, 200, 200);
-
-                memStream.Position = 0;
-                return Convert.ToBase64String(bytesOfResizeImage);
+                return Convert.ToBase64String(bytes);
             }
             else
-                return "";
+                return null;
         }
 
         public static MemoryStream ConvertStringToStream(string base64String)
@@ -45,7 +41,10 @@ namespace DogCare.Utils
                     ms.Write(buffer, 0, read);
                 }
                 ms.Position = 0;
-                return ms;
+                byte[] bytes = ms.ToArray();
+                byte[] bytesOfResizeImage = ResizeImage(bytes, 200, 200);
+                MemoryStream memStreamAfterResize = new MemoryStream(bytesOfResizeImage);
+                return memStreamAfterResize;
         }
 
         public static byte[] ResizeImage(byte[] imageData, float width, float height)
