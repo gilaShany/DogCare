@@ -24,7 +24,7 @@ namespace DogCare.Utils
                 return Convert.ToBase64String(bytesOfResizeImage);
             }
             else
-                return "";
+                return " ";
         }
 
         public static MemoryStream ConvertStringToStream(string base64String)

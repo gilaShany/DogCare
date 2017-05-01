@@ -30,7 +30,7 @@ namespace DependencyServiceSample.Droid
 
             // Save the TaskCompletionSource object as a MainActivity property
             activity.PickImageTaskCompletionSource = new TaskCompletionSource<Stream>();
-
+            
             // Return Task object
             return activity.PickImageTaskCompletionSource.Task;
         }

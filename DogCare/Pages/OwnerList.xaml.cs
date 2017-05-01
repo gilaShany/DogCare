@@ -30,15 +30,16 @@ namespace DogCare
             pickPhoto.Clicked += async (sender, e) =>
             {
                 var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
-                memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
-                if (memStream != null)
+                if (stream != null)
                 {
-                    image.Source = ImageSource.FromStream(()=> { return new MemoryStream(memStream.ToArray()); });
+                    memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
+                    image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
                     image.HeightRequest = 200;
-                    image.WidthRequest = 200;         
+                    image.WidthRequest = 200;
                 }
-  
+
             };
+        }
 
 
         async Task AddItem(Owner item)
@@ -85,7 +86,8 @@ namespace DogCare
                             Password = password.Text,
                             ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                         };
-                        memStream.Dispose();
+                        if(memStream != null)
+                              memStream.Dispose();
                         await AddItem(owner);
                         await SqliteConnectionSet._connection.InsertAsync(owner);
                         SqliteConnectionSet._user.Add(owner);
