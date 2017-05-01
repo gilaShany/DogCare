@@ -13,8 +13,8 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
-        OwnerManager manager;
-        DogManager dManager;
+        public static OwnerManager manager;
+        public static DogManager dManager;
         public Login()
         {
             manager = OwnerManager.DefaultManager;
@@ -31,11 +31,15 @@ namespace DogCare
                 userName.Text = SqliteConnectionSet._user[0].UserName;
                 password.Text = SqliteConnectionSet._user[0].Password;
                 App.currentOwner = SqliteConnectionSet._user[0];
-                //this.Button_Clicked(null, null);
             }
             base.OnAppearing();
         }
-        
+        public async static Task click()
+        {
+
+            var method = await (manager.CheckUserNameAndPassword(SqliteConnectionSet._user[0].UserName, SqliteConnectionSet._user[0].Password));
+            App.currentOwner = method;
+        }
 
         public async void Button_Clicked(object sender, EventArgs e)
         {

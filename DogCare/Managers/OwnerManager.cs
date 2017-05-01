@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace DogCare
 {
-    class OwnerManager
+    public class OwnerManager
     {
         static OwnerManager defaultInstance = new OwnerManager();
         MobileServiceClient client;

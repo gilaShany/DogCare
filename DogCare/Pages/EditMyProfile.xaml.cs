@@ -36,9 +36,5 @@ namespace DogCare
             await DisplayAlert("", "Your profile updated succefully", "Ok");
         }
 
-        async private void ChangePassword_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new ChangePasswordPage());
-        }
     }
 }

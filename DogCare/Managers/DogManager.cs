@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DogCare
 {
-    class DogManager
+    public class DogManager
     {
         static DogManager defaultInstance = new DogManager();
         MobileServiceClient client;

@@ -10,7 +10,6 @@
             <Entry x:Name="ownerName"
                   Placeholder="{Binding OwnerName}" />
             <Image x:Name="image" />
-            <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
         </StackLayout>
 
         <StackLayout AbsoluteLayout.LayoutBounds="30,430,0.85,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
