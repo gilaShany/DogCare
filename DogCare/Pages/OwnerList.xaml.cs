@@ -36,7 +36,6 @@ namespace DogCare
             };
         }
 
-
         async Task AddItem(Owner item)
         {
             await manager.SaveTaskAsync(item);

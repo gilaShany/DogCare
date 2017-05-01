@@ -49,6 +49,9 @@
     <Compile Include="Pages\WalkDetailPage.xaml.cs">
       <DependentUpon>WalkDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ImageStream.cs" />
     <Compile Include="Utils\ObservableGroupCollection.cs" />
     <Compile Include="Pages\ChangePasswordPage.xaml.cs">
@@ -300,6 +303,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\logoutPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
