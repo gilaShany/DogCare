@@ -9,6 +9,7 @@
             <Label Text="Name:"/>
             <Entry x:Name="ownerName"
                   Placeholder="{Binding OwnerName}" />
+            <Button x:Name="pickPhoto" Text="Change image"/>
             <Image x:Name="image" />
             <Button Text="Change Password" Clicked="ChangePassword_Clicked"/>
         </StackLayout>

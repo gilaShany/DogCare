@@ -17,6 +17,8 @@
             <Label Text="Race:"/>
             <Entry x:Name="raceS"
                Placeholder="{Binding Race}" />
+            <Button x:Name="pickPhoto" Text="Change image"/>
+            <Image x:Name="image" />
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="30,430,0.85,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
 
