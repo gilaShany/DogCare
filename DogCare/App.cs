@@ -14,7 +14,7 @@ namespace DogCare
         public App()
         {
 
-             MainPage = new NavigationPage(new TabbedLogin());
+            MainPage = new StartPage();
         }
 
 		protected override void OnStart ()

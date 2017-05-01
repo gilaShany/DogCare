@@ -33,13 +33,10 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-
     <Compile Include="Models\IPicturePicker.cs" />
-
     <Compile Include="Pages\logoutPage.xaml.cs">
       <DependentUpon>logoutPage.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="Persistence\ISQLiteDb.cs" />
     <Compile Include="Models\Appointmentcs.cs" />
     <Compile Include="Models\Meeting.cs" />
@@ -51,6 +48,9 @@
     </Compile>
     <Compile Include="Pages\WalkDetailPage.xaml.cs">
       <DependentUpon>WalkDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ImageStream.cs" />
     <Compile Include="Utils\ObservableGroupCollection.cs" />
@@ -305,14 +305,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\WalkDetailPage.xaml">
-
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\logoutPage.xaml">
-
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

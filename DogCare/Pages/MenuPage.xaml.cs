@@ -22,27 +22,33 @@ namespace DogCare
 
         async private void MyDogs_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new MyDogsPage());
+            await Navigation.PushModalAsync(new NavigationPage(new MyDogsPage()));
         }
 
         async private void EditDog_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EditMyDogProfile());
+            await Navigation.PushModalAsync(new NavigationPage(new EditMyDogProfile()));
         }
 
         async private void EditProfile_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EditMyProfile());
+            await Navigation.PushModalAsync(new NavigationPage(new EditMyProfile()));
         }
 
         async private void AddNewDog_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new DogList());
+            await Navigation.PushModalAsync(new NavigationPage(new DogList()));
         }
 
         async private void logout_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new logoutPage());
+
+        }
+
+        async private void ChangePassword_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new ChangePasswordPage());
 
         }
     }

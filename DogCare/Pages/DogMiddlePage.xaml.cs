@@ -19,12 +19,12 @@ namespace DogCare
 
         async private void AddNewDog_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new DogList());
+            await Navigation.PushAsync(new NavigationPage(new DogList()));
         }
 
         async private void Mydogs_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MyDogsPage());
+            await Navigation.PushModalAsync(new NavigationPage(new MyDogsPage()));
         }
     }
 }
