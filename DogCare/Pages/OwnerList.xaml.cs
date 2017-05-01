@@ -34,8 +34,6 @@ namespace DogCare
                 {
                     memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
-                    image.HeightRequest = 200;
-                    image.WidthRequest = 200;
                 }
 
             };
