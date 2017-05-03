@@ -4,10 +4,10 @@
              x:Class="DogCare.MyDogsPage"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True">
-    <ListView x:Name="listView" ItemSelected="Handle_ItemSelected">
+    <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ImageCell Text="{Binding DogName}"  ImageSource="{Binding Image}" /> >
+                <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" /> >
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

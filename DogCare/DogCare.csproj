@@ -33,6 +33,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\DogAndImage.cs" />
     <Compile Include="Models\IPicturePicker.cs" />
     <Compile Include="Pages\logoutPage.xaml.cs">
       <DependentUpon>logoutPage.xaml</DependentUpon>
