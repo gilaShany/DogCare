@@ -4,7 +4,7 @@
              x:Class="DogCare.OwnerList">
 
     <AbsoluteLayout>
-        <BoxView Opacity="0.5" Color="Black" AbsoluteLayout.LayoutBounds="30,30,0.85,0.6" AbsoluteLayout.LayoutFlags="SizeProportional" />
+        <BoxView Opacity = "0.5" Color="Black" AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.6" AbsoluteLayout.LayoutFlags="All" />
 
         <StackLayout AbsoluteLayout.LayoutBounds="35,35,0.80,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
             <Entry x:Name="ownerName"
