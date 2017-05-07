@@ -109,7 +109,7 @@ namespace DogCare
                     var list = new List<Position>(map.RouteCoordinates);
                     list.Add(new Position(newPosition.Latitude, newPosition.Longitude));
                     map.RouteCoordinates = list;
-                    distance.Text = System.Convert.ToString((int)map.totalDistance + " m");
+                    distance.Text = System.Convert.ToString((int)map.totalDistance);
                 }                
             });
         }
