@@ -139,9 +139,9 @@ namespace DogCare
             }
             else
             {
+                FinishButton.IsEnabled = true;
                 poopButton.IsEnabled = true;
                 peeButton.IsEnabled = true;
-                FinishButton.IsEnabled = true;
 
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
@@ -151,6 +151,7 @@ namespace DogCare
                 hasGPS = true;
                 isListening = true;
                 currentDateTime = DateTime.Now;
+                AddStartFlag();
             }
         }
 
@@ -192,6 +193,7 @@ namespace DogCare
             poopButton.IsEnabled = false;
             peeButton.IsEnabled = false;
             FinishButton.IsEnabled = false;
+            AddFinishFlag();
             AddDistanceToDogTatalWalk();
             UpdateMyTrips();
         }
@@ -219,6 +221,18 @@ namespace DogCare
             };
            
             await tripsManager.SaveTaskAsync(trip);
+        }
+
+        private void AddStartFlag()
+        {
+            Position start = map.RouteCoordinates[0];
+            map.FlagStartCoordinate = start;
+        }
+
+        private void AddFinishFlag()
+        {
+            Position finish = map.RouteCoordinates[map.RouteCoordinates.Count - 1];
+            map.FlagFinishCoordinate = finish;
         }
     }
 }

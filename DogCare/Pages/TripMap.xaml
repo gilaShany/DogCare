@@ -25,7 +25,7 @@
 
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,0.1" AbsoluteLayout.LayoutFlags="All"
                      VerticalOptions="Center" BackgroundColor="White">
-            <Label x:Name="distance" FontSize="Large" HorizontalOptions="Center"/>
+            <Label x:Name="distance" FontSize="Large" HorizontalOptions="Center" FontAttributes="Bold"/>
             <Label Text="Distance (m)" FontSize="Small" HorizontalOptions="Center"/>
         </StackLayout>
 

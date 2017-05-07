@@ -28,6 +28,8 @@ namespace DogCare.Pages
             List<Position> rout = Utils.Utils.convertPositionsStringToList(routCoordinates);
             List<Position> poopPositions = Utils.Utils.convertPositionsStringToList(poopCoordinates);
             List<Position> peePositions = Utils.Utils.convertPositionsStringToList(peeCoordinates);
+            Position start = rout[0];
+            Position finish = rout[rout.Count - 1];
             if (rout != null)
             {
                 map.RouteCoordinates = rout;
@@ -37,6 +39,10 @@ namespace DogCare.Pages
                 map.PinsPoop = poopPositions;
             if (peePositions != null)
                 map.PinsPee = peePositions;
+            if (start != null)
+                map.FlagStartCoordinate = start;
+            if (finish != null)
+                map.FlagFinishCoordinate = finish;
         }
     }
 }
