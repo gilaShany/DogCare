@@ -141,7 +141,9 @@ namespace DogCare
             {
                 FinishButton.IsEnabled = true;
                 poopButton.IsEnabled = true;
+                poopButton.Image = "dogPoop";
                 peeButton.IsEnabled = true;
+                peeButton.Image = "dogPee";
 
                 var position = (Position)nPosition;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
@@ -191,7 +193,9 @@ namespace DogCare
             await locator.StopListeningAsync();
             isListening = false;
             poopButton.IsEnabled = false;
+            poopButton.Image = "dogPoopUnable";
             peeButton.IsEnabled = false;
+            peeButton.Image = "dogPeeUnable";
             FinishButton.IsEnabled = false;
             AddFinishFlag();
             AddDistanceToDogTatalWalk();

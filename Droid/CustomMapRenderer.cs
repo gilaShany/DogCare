@@ -42,8 +42,8 @@ namespace DogCare.Droid
             }
 
             var polylineOptions = new PolylineOptions();
-            polylineOptions.InvokeColor(0x66FF0000);
-            polylineOptions.InvokeWidth(20);
+            polylineOptions.InvokeColor(0x660066ff);
+            polylineOptions.InvokeWidth(25);
 
             foreach (var position in ((CustomMap)this.Element).RouteCoordinates)
             {
