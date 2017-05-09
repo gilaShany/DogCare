@@ -80,7 +80,7 @@ namespace DogCare
                     if (dogsList != null)
                     {
                         if (dogsList.Count > 1)
-                            await Navigation.PushAsync(new DogMiddlePage());
+                            await Navigation.PushAsync(new MyDogsPage());
                         else
                         {
                             MasterDetailSideMenucs.CreateMasterPage();
@@ -89,7 +89,7 @@ namespace DogCare
                     }
                     else
                     {
-                        await Navigation.PushAsync(new DogMiddlePage());
+                        await Navigation.PushAsync(new MyDogsPage());
                     }
 
                 }

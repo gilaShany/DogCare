@@ -65,5 +65,10 @@ namespace DogCare
                 BindingContext = listOfDogsWithImage;
             }
         }
+
+        async private void Add_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new DogList()));
+        }
     }
 }

@@ -4,11 +4,15 @@
              x:Class="DogCare.MyDogsPage"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True">
-    <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}">
+    <StackLayout Padding="10">
+        <Button Text="Add" Clicked="Add_Clicked"/>
+
+        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" /> >
+                    <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black"  /> >
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+    </StackLayout>
 </ContentPage>

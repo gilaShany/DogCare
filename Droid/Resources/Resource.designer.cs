@@ -2209,8 +2209,8 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f020077
 			public const int Dog = 2130837623;
 			
-			// aapt resource value: 0x7f0200d1
-			public const int focused = 2130837713;
+			// aapt resource value: 0x7f0200d2
+			public const int focused = 2130837714;
 			
 			// aapt resource value: 0x7f020078
 			public const int ic_audiotrack = 2130837624;
@@ -2467,8 +2467,8 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f0200cc
 			public const int mr_ic_play_light = 2130837708;
 			
-			// aapt resource value: 0x7f0200d0
-			public const int notification_template_icon_bg = 2130837712;
+			// aapt resource value: 0x7f0200d1
+			public const int notification_template_icon_bg = 2130837713;
 			
 			// aapt resource value: 0x7f0200cd
 			public const int pee = 2130837709;
@@ -2476,11 +2476,14 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f0200ce
 			public const int poop = 2130837710;
 			
-			// aapt resource value: 0x7f0200d2
-			public const int selected = 2130837714;
+			// aapt resource value: 0x7f0200d3
+			public const int selected = 2130837715;
 			
 			// aapt resource value: 0x7f0200cf
-			public const int User = 2130837711;
+			public const int tabbedpagedog1 = 2130837711;
+			
+			// aapt resource value: 0x7f0200d0
+			public const int User = 2130837712;
 			
 			static Drawable()
 			{
