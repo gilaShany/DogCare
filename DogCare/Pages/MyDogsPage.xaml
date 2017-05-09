@@ -5,14 +5,18 @@
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True">
     <StackLayout Padding="10">
-        <Button Text="Add" Clicked="Add_Clicked"/>
-
+        <StackLayout Orientation="Horizontal">
+            <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="Purple"
+                        IsVisible="True"
+                      />
+            <Button Text="Add" Clicked="Add_Clicked"/>
+        </StackLayout>
         <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                    <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black"  /> >
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black"  /> >
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 </ContentPage>
