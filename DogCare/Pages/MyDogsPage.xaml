@@ -6,15 +6,18 @@
              NavigationPage.HasBackButton="True">
     <StackLayout Padding="10">
         <StackLayout Orientation="Horizontal">
-            <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="Purple"
-                        IsVisible="True"
-                      />
-            <Button Text="Add" Clicked="Add_Clicked"/>
+            <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="LightCyan"
+                        IsVisible="True" TextChanged="searchBar_TextChanged"/>
+            <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="White" HorizontalOptions="StartAndExpand"/>
         </StackLayout>
-        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}">
+        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}"
+                  IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Dog.DogName}"
+                  HasUnevenRows="True"
+                SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                        <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black"  /> >
+                        <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black" /> 
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
