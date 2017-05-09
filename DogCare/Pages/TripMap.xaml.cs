@@ -58,7 +58,7 @@ namespace DogCare
             locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = locatorDesiredAccuracy;
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(31.771959, 34.87018), Distance.FromMiles(50)));
-
+            distance.Text = "0";
             var nPosition = await map.GetCurrentPosition(locator);
             if (nPosition == null)
             {
