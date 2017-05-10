@@ -57,9 +57,9 @@ namespace DogCare.Pages
         {
             if (e.SelectedItem == null)
                 return;
-
+            
             var trip = e.SelectedItem as Trips;
-            await Navigation.PushModalAsync(new WalkDetailPage(trip));
+            await Navigation.PushAsync(new WalkDetailPage(trip));
             listView.SelectedItem = null;
         }
     }

@@ -116,7 +116,7 @@ namespace DogCare
 
         public void DisplayAlertGPS()
         {
-            string title = "DogCare Require location";
+            string title = "DogCare requires location";
             string button1 = "ok";
             string message = "Please turn on location";
             Device.BeginInvokeOnMainThread(() => {
