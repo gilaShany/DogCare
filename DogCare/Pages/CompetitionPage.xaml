@@ -7,27 +7,28 @@
     <StackLayout>
     <ListView x:Name="listView"
               ItemsSource="{Binding}" HasUnevenRows="True"
-              IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing">
+              IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing"
+              ItemSelected="listView_ItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="10">
-                            <StackLayout VerticalOptions="Center">
-                                <Label Text="{Binding Index}"  FontSize="Medium"/>
+                            <StackLayout VerticalOptions="Start">
+                                <Image Source="{Binding Index.Source}" />
                             </StackLayout>
                             <StackLayout VerticalOptions="Center">
                                 <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"/>
-                            </StackLayout>
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal" Padding="5">
-                                    <Label Text="{Binding Dog.DogName}" />
-                                    <Label Text=", Owner's username:" />
-                                    <Label Text="{Binding Dog.Owner}"/>
+                            </StackLayout>    
+                            <StackLayout Padding="5,0,0,0">
+                                <Label Text="{Binding Dog.DogName}" FontAttributes="Bold" FontSize="Large"/>
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="Owner's username:" FontSize="Medium"/>
+                                    <Label Text="{Binding Dog.Owner}" FontSize="Medium"/>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" Padding="5">
-                                    <Label Text="Total distance: " />
-                                    <Label Text="{Binding Dog.Walk}"/>
-                                    <Label Text="m" />
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="Total distance: " FontSize="Medium"/>
+                                    <Label Text="{Binding Dog.Walk}" FontSize="Medium"/>
+                                    <Label Text="m" FontSize="Medium"/>
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
@@ -45,7 +46,7 @@
         </StackLayout>
 
         <StackLayout Orientation="Horizontal" Padding="3">
-            <Label Text="You have accumulated" />
+            <Label Text="Your total distance is " />
             <Label x:Name="myTotalDistance"/>
             <Label Text="m." />
          

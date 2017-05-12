@@ -33,8 +33,23 @@ namespace DogCare.Pages
             {
                 Competition c = new Competition();
                 c.Dog = dog;
-                c.Index = counter;
+                Image medal = new Image();
+
+                if(counter == 1)
+                {
+                    medal.Source = ImageSource.FromFile("firstPlace.png");
+                }
+                else if (counter == 2)
+                {
+                    medal.Source = ImageSource.FromFile("secondPlace.png");
+                }
+                else
+                {
+                    medal.Source = ImageSource.FromFile("thirdPlace.png");
+                }
+                c.Index = medal;
                 counter++;
+
                 Image image = new Image();
 
                 if (dog.ImageD != null)
@@ -69,5 +84,9 @@ namespace DogCare.Pages
             myTotalDistance.Text = allDogs[position].Walk.ToString();
         }
 
+        private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            listView.SelectedItem = null;
+        }
     }
 }
