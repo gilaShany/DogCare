@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="DogCare.Pages.CompetitionPage">
 
     <StackLayout>
@@ -15,7 +16,7 @@
                                 <Label Text="{Binding Index}"  FontSize="Medium"/>
                             </StackLayout>
                             <StackLayout VerticalOptions="Center">
-                                <Image Source="{Binding DogImage.Source}"/>
+                                <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"/>
                             </StackLayout>
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Padding="5">
