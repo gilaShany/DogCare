@@ -5,11 +5,14 @@
              x:Class="DogCare.Pages.CompetitionPage">
 
     <StackLayout>
-        <Image Source="leaderboardTitle" Margin="20"/>
+        <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
+                           Color="Black" IsVisible="True" IsRunning="True" Margin="150"/>
+        <Image x:Name="title" Source="leaderboardTitle" Margin="20" IsVisible="False"/>
         <ListView x:Name="listView"
               ItemsSource="{Binding}" HasUnevenRows="True"
               IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing"
-              ItemSelected="listView_ItemSelected">
+              ItemSelected="listView_ItemSelected"
+              IsVisible="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -37,8 +40,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Padding="5">
+
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Padding="5" x:Name="yourPosition" IsVisible="False">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label Text="You are in place" FontSize="18"/>
                 <Label x:Name="placeInCompetition" FontSize="18" TextColor="#0052cc"/>

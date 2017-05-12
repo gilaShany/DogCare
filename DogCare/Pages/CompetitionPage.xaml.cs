@@ -82,6 +82,12 @@ namespace DogCare.Pages
             placeInCompetition.Text = (position + 1).ToString();
             numOfParticipants.Text = allDogs.Count.ToString();
             myTotalDistance.Text = allDogs[position].Walk.ToString();
+
+            indicator.IsVisible = false;
+            indicator.IsRunning = false;
+            title.IsVisible = true;
+            listView.IsVisible = true;
+            yourPosition.IsVisible = true;
         }
 
         private void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
