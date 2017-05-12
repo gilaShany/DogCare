@@ -5,53 +5,54 @@
              x:Class="DogCare.Pages.CompetitionPage">
 
     <StackLayout>
-    <ListView x:Name="listView"
+        <Image Source="leaderboardTitle" Margin="20"/>
+        <ListView x:Name="listView"
               ItemsSource="{Binding}" HasUnevenRows="True"
               IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing"
               ItemSelected="listView_ItemSelected">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="10">
                             <StackLayout VerticalOptions="Start">
                                 <Image Source="{Binding Index.Source}" />
                             </StackLayout>
                             <StackLayout VerticalOptions="Center">
                                 <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"/>
-                            </StackLayout>    
+                            </StackLayout>
                             <StackLayout Padding="5,0,0,0">
                                 <Label Text="{Binding Dog.DogName}" FontAttributes="Bold" FontSize="Large"/>
                                 <StackLayout Orientation="Horizontal" >
-                                    <Label Text="Owner's username:" FontSize="Medium"/>
+                                    <Label Text="Owner:" FontSize="Medium"/>
                                     <Label Text="{Binding Dog.Owner}" FontSize="Medium"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" >
-                                    <Label Text="Total distance: " FontSize="Medium"/>
+                                    <Label Text="Distance: " FontSize="Medium"/>
                                     <Label Text="{Binding Dog.Walk}" FontSize="Medium"/>
                                     <Label Text="m" FontSize="Medium"/>
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Padding="5">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="You are in place" FontSize="18"/>
+                <Label x:Name="placeInCompetition" FontSize="18" TextColor="#0052cc"/>
+                <Label Text="out of" FontSize="18"/>
+                <Label x:Name="numOfParticipants" FontSize="18"/>
+                <Label Text="!" FontSize="18"/>
+            </StackLayout>
 
-        <StackLayout Orientation="Horizontal" Padding="3">
-            <Label Text="You are in place" />
-            <Label x:Name="placeInCompetition"/>
-            <Label Text="out of" />
-            <Label x:Name="numOfParticipants"/>
-            <Label Text="!" />
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal" Padding="3">
-            <Label Text="Your total distance is " />
-            <Label x:Name="myTotalDistance"/>
-            <Label Text="m." />
-         
-        </StackLayout>
-
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Your total distance is " FontSize="18"/>
+                <Label x:Name="myTotalDistance" FontSize="18" TextColor="#0052cc"/>
+                <Label Text="m." FontSize="18" TextColor="#0052cc"/>
+            </StackLayout>
+         </StackLayout>
 
     </StackLayout>
 </ContentPage>
