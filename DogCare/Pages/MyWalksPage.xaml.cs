@@ -22,6 +22,7 @@ namespace DogCare.Pages
             InitializeComponent();
             tripsManager = TripsManager.DefaultManager;
             GetTripsList(App.currentOwner.UserName, App.currentDog.DogName);
+
         }
 
         async private void GetTripsList (string owner, string dogName, string searchText = null)
@@ -41,10 +42,16 @@ namespace DogCare.Pages
                     BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
                 else
                     BindingContext = groupedData.Where(c => c.Key.StartsWith(searchText));
+
+                indicator.IsVisible = false;
+                indicator.IsRunning = false;
             }
             else
             {
+                indicator.IsVisible = false;
+                indicator.IsRunning = false;
                 emptyList.IsVisible = true;
+                image.IsVisible = true;
             }
         }
 

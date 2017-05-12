@@ -19,9 +19,9 @@
                             </StackLayout>
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal" Padding="5">
-                                    <Label Text="{Binding Dog.Owner}"/>
-                                    <Label Text=", Dog's name:" />
                                     <Label Text="{Binding Dog.DogName}" />
+                                    <Label Text=", Owner's username:" />
+                                    <Label Text="{Binding Dog.Owner}"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Padding="5">
                                     <Label Text="Total distance: " />

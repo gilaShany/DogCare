@@ -42,7 +42,7 @@ namespace DogCare.Utils
                 }
                 ms.Position = 0;
                 byte[] bytes = ms.ToArray();
-                byte[] bytesOfResizeImage = ResizeImage(bytes, 200, 200);
+                byte[] bytesOfResizeImage = ResizeImage(bytes, 200 , 200);
                 MemoryStream memStreamAfterResize = new MemoryStream(bytesOfResizeImage);
                 return memStreamAfterResize;
         }
