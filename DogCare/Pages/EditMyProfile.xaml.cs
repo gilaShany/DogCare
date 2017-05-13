@@ -1,4 +1,5 @@
 ﻿using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,6 +43,12 @@ namespace DogCare
         }
         async private void Edit_Clicked(object sender, EventArgs e)
         {
+            if ((CrossConnectivity.Current.IsConnected == false))
+            {
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
+            }
+            else
+            {
                 var owner = new Owner
                 {
                     OwnerName = ownerName.Text,
@@ -50,10 +57,11 @@ namespace DogCare
                     ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                 };
 
-            manager.Delete(App.currentOwner);
-            await manager.SaveTaskAsync(owner);
-            App.currentOwner = owner;
-            await DisplayAlert("", "Your profile updated succefully", "Ok");
+                manager.Delete(App.currentOwner);
+                await manager.SaveTaskAsync(owner);
+                App.currentOwner = owner;
+                await DisplayAlert("", "Your profile updated succefully", "Ok");
+            }
         }
 
     }

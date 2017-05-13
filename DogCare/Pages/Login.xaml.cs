@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Connectivity;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace DogCare
             InitializeComponent();
 
         }
-        
+
         protected override async void OnAppearing()
         {
             if (SqliteConnectionSet._user.Count != 0)
@@ -36,62 +37,68 @@ namespace DogCare
         }
         public async static Task click()
         {
-
             var method = await (manager.CheckUserNameAndPassword(SqliteConnectionSet._user[0].UserName, SqliteConnectionSet._user[0].Password));
             App.currentOwner = method;
         }
 
         public async void Button_Clicked(object sender, EventArgs e)
         {
-            if ( userName.Text == null || password.Text == null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                await DisplayAlert("Opps!", "Please enter Username & password", "OK");
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, Constants.internetButton);
             }
             else
             {
-                activity.IsVisible = true;
-                activity.IsRunning = true;
-                var method = await (manager.CheckUserNameAndPassword(userName.Text,password.Text));
-
-                if (method == null)
+                if (userName.Text == null || password.Text == null)
                 {
-                    await DisplayAlert("Opps!", "The username or password are not valid", "OK");
-                    activity.IsVisible = false;
-                    activity.IsRunning = false;
-                    userName.Text = string.Empty;
-                    userName.Unfocus();
-                    password.Text = string.Empty;
-                    password.Unfocus();
+                    await DisplayAlert("Oops!", "Please enter Username & password", "OK");
                 }
                 else
                 {
-
-                    App.currentOwner= method;
                     activity.IsVisible = true;
                     activity.IsRunning = true;
-                    List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
-                    if (SqliteConnectionSet._user.Count == 0)
-                    {
-                        await SqliteConnectionSet._connection.InsertAsync(method);
+                    var method = await (manager.CheckUserNameAndPassword(userName.Text, password.Text));
 
-                        SqliteConnectionSet._user.Add(method);
-                    }
-                    
-                    if (dogsList != null)
+                    if (method == null)
                     {
-                        if (dogsList.Count > 1)
-                            await Navigation.PushAsync(new DogMiddlePage());
-                        else
-                        {
-                            MasterDetailSideMenucs.CreateMasterPage();
-                            await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
-                        }
+                        await DisplayAlert("Oops!", "The username or password are not valid", "OK");
+                        activity.IsVisible = false;
+                        activity.IsRunning = false;
+                        userName.Text = string.Empty;
+                        userName.Unfocus();
+                        password.Text = string.Empty;
+                        password.Unfocus();
                     }
                     else
                     {
-                        await Navigation.PushAsync(new DogMiddlePage());
-                    }
 
+                        App.currentOwner = method;
+                        activity.IsVisible = true;
+                        activity.IsRunning = true;
+                        List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
+                        if (SqliteConnectionSet._user.Count == 0)
+                        {
+                            await SqliteConnectionSet._connection.InsertAsync(method);
+
+                            SqliteConnectionSet._user.Add(method);
+                        }
+
+                        if (dogsList != null)
+                        {
+                            if (dogsList.Count > 1)
+                                await Navigation.PushAsync(new DogMiddlePage());
+                            else
+                            {
+                                MasterDetailSideMenucs.CreateMasterPage();
+                                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                            }
+                        }
+                        else
+                        {
+                            await Navigation.PushAsync(new DogMiddlePage());
+                        }
+
+                    }
                 }
             }
         }

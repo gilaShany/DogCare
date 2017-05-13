@@ -1,4 +1,5 @@
 ﻿using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,30 +40,37 @@ namespace DogCare
         }
         public async void GetDogsByOwner(string owner)
         {
-            List<Dog> listOfDogs = await manager.CheckOwnerDogs(owner);
-            List<DogAndImage> listOfDogsWithImage = new List<DogAndImage>();
-
-            if (listOfDogs != null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                foreach (Dog dog in listOfDogs)
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, Constants.internetButton);
+            }
+            else
+            {
+                List<Dog> listOfDogs = await manager.CheckOwnerDogs(owner);
+                List<DogAndImage> listOfDogsWithImage = new List<DogAndImage>();
+
+                if (listOfDogs != null)
                 {
-                    DogAndImage d = new DogAndImage();
-                    d.Dog = dog;
-                    Image image = new Image();
-
-                    if (dog.ImageD != null)
+                    foreach (Dog dog in listOfDogs)
                     {
-                        image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(dog.ImageD));
-                    }
-                    else
-                    {
-                        image.Source = ImageSource.FromFile("Dog.png");
-                    }
-                    d.DogImage = image;
+                        DogAndImage d = new DogAndImage();
+                        d.Dog = dog;
+                        Image image = new Image();
 
-                    listOfDogsWithImage.Add(d);
+                        if (dog.ImageD != null)
+                        {
+                            image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(dog.ImageD));
+                        }
+                        else
+                        {
+                            image.Source = ImageSource.FromFile("Dog.png");
+                        }
+                        d.DogImage = image;
+
+                        listOfDogsWithImage.Add(d);
+                    }
+                    BindingContext = listOfDogsWithImage;
                 }
-                BindingContext = listOfDogsWithImage;
             }
         }
     }
