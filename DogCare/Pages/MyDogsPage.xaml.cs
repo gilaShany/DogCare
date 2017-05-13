@@ -1,4 +1,5 @@
 ﻿using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,39 +42,51 @@ namespace DogCare
         }
         public async void GetDogsByOwner(string owner, string search)
         {
-            List<Dog> listOfDogs = await manager.CheckOwnerDogs(owner);
-            List<DogAndImage> listOfDogsWithImage = new List<DogAndImage>();
-
-            if (listOfDogs != null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                foreach (Dog dog in listOfDogs)
+                var alertResult = await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
+                if (!alertResult)
                 {
-                    DogAndImage d = new DogAndImage();
-                    d.Dog = dog;
-                    Image image = new Image();
-
-                    if (dog.ImageD != null)
-                    {
-                        image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(dog.ImageD));
-                    }
-                    else
-                    {
-                        image.Source = ImageSource.FromFile("Dog.png");
-                    }
-                    d.DogImage = image;
-
-                    listOfDogsWithImage.Add(d);
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
                 }
-                var groupedData =
+            }
+            else
+            {
+                List<Dog> listOfDogs = await manager.CheckOwnerDogs(owner);
+                List<DogAndImage> listOfDogsWithImage = new List<DogAndImage>();
+
+                if (listOfDogs != null)
+                {
+                    foreach (Dog dog in listOfDogs)
+                    {
+                        DogAndImage d = new DogAndImage();
+                        d.Dog = dog;
+                        Image image = new Image();
+
+                        if (dog.ImageD != null)
+                        {
+                            image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(dog.ImageD));
+                        }
+                        else
+                        {
+                            image.Source = ImageSource.FromFile("Dog.png");
+                        }
+                        d.DogImage = image;
+
+                        listOfDogsWithImage.Add(d);
+                    }
+                    var groupedData =
                         listOfDogsWithImage.OrderBy(dog => dog.Dog.DogName)
                             .GroupBy(dog => dog.Dog.DogName)
                              .Select(dog => new ObservableGroupCollection<string, DogAndImage>(dog))
                             .ToList();
 
-                if (String.IsNullOrWhiteSpace(search))
-                    BindingContext = new ObservableCollection<ObservableGroupCollection<string, DogAndImage>>(groupedData);
-                else
-                    BindingContext = groupedData.Where(c => c.Key.StartsWith(search));
+                    if (String.IsNullOrWhiteSpace(search))
+                        BindingContext = new ObservableCollection<ObservableGroupCollection<string, DogAndImage>>(groupedData);
+                    else
+                        BindingContext = groupedData.Where(c => c.Key.StartsWith(search));
+                }
             }
         }
 

@@ -5,18 +5,41 @@
              xmlns:local="clr-namespace:DogCare;assembly=DogCare"
              x:Class="DogCare.TripMap">
 
-    <StackLayout x:Name="stack">
-        <Label Text="Distance" />
-        <Label x:Name="distance" />
-        <local:CustomMap x:Name="map" IsShowingUser="True" HeightRequest="100" WidthRequest="960" VerticalOptions="FillAndExpand" />
-        <StackLayout Spacing="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button x:Name="startButton" Text="Start" Clicked="ButtonStartClicked"/>
-            <Button x:Name="poopButton" Text="poop" Clicked="ButtonPoopClicked" IsEnabled="False"/>
-            <Button x:Name="peeButton" Text="pee" Clicked="ButtonPeeClicked" IsEnabled="False"/>
-            <Button x:Name="FinishButton" Text="finish" Clicked="ButtonFinishClicked" IsEnabled="False"/>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="button" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"  />
+                <Setter Property="BorderRadius" Value="5" />
+                <Setter Property="WidthRequest" Value="75" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <AbsoluteLayout>
+        <local:CustomMap x:Name="map" IsShowingUser="True" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+
+        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,0.3" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#e0e0eb">
+            <StackLayout >
+                <Label x:Name="distance" FontSize="35" HorizontalOptions="Center" FontAttributes="Bold"/>
+                <Label Text="Distance (m)" FontSize="Small" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <BoxView HeightRequest="1" WidthRequest="500"  Color="#666666" />
+
+            <StackLayout Spacing="10" Margin="10,5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                <Button x:Name="startButton" Text="Start" TextColor="#27ae60" Clicked="ButtonStartClicked" Style="{StaticResource button}" />
+                <Button x:Name="poopButton" Image="dogPoopUnable" Clicked="ButtonPoopClicked" IsEnabled="False" Style="{StaticResource button}" />
+                <Button x:Name="peeButton" Image="dogPeeUnable" Clicked="ButtonPeeClicked" IsEnabled="False" Style="{StaticResource button}"  />
+                <Button x:Name="FinishButton" Text="Finish" TextColor="#c0392b" Clicked="ButtonFinishClicked" IsEnabled="False" Style="{StaticResource button}" />
+           </StackLayout>
             
         </StackLayout>
-
-    </StackLayout>
+        
+    </AbsoluteLayout>
 
 </ContentPage>

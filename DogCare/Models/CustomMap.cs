@@ -55,6 +55,25 @@ namespace DogCare
             set { SetValue(RouteCoordinatesProperty, value); }
         }
 
+        // The coordinate of start positon
+        public static readonly BindableProperty FlagStartCoordinateProperty =
+        BindableProperty.Create<CustomMap,Position>(p => p.FlagStartCoordinate, new Position());
+        public Position FlagStartCoordinate
+        {
+            get { return (Position)GetValue(FlagStartCoordinateProperty); }
+            set { SetValue(FlagStartCoordinateProperty, value); }
+        }
+
+        // The coordinate of finish positon
+        public static readonly BindableProperty FlagFinishCoordinateProperty =
+        BindableProperty.Create<CustomMap, Position>(p => p.FlagFinishCoordinate, new Position());
+        public Position FlagFinishCoordinate
+        {
+            get { return (Position)GetValue(FlagFinishCoordinateProperty); }
+            set { SetValue(FlagFinishCoordinateProperty, value); }
+        }
+
+
         /* --------------------------------------------------------- */
         /* ---------------- Public Functions ----------------------- */
         /* --------------------------------------------------------- */

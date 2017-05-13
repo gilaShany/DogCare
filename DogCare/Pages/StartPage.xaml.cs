@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Connectivity;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -39,11 +40,17 @@ namespace DogCare
                 await Navigation.PushModalAsync(new NavigationPage(new TabbedLogin()));
             else
             {
-                
-                var method = await (manager.CheckUserNameAndPassword(SqliteConnectionSet._user[0].UserName, SqliteConnectionSet._user[0].Password));
-                App.currentOwner = method;
-                await Navigation.PushModalAsync(new NavigationPage(new MyDogsPage()));
-
+                if ((CrossConnectivity.Current.IsConnected == false))
+                {
+                    await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, Constants.internetButton);
+                    await Navigation.PushModalAsync(new NavigationPage(new TabbedLogin()));
+                }
+                else
+                {
+                    var method = await (manager.CheckUserNameAndPassword(SqliteConnectionSet._user[0].UserName, SqliteConnectionSet._user[0].Password));
+                    App.currentOwner = method;
+                    await Navigation.PushModalAsync(new NavigationPage(new MyDogsPage()));
+                }
             }
         }
     }

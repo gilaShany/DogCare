@@ -42,7 +42,8 @@ namespace DogCare.Droid
             }
 
             var polylineOptions = new PolylineOptions();
-            polylineOptions.InvokeColor(0x66FF0000);
+            polylineOptions.InvokeColor(0x660066ff);
+            polylineOptions.InvokeWidth(25);
 
             foreach (var position in ((CustomMap)this.Element).RouteCoordinates)
             {
@@ -83,7 +84,14 @@ namespace DogCare.Droid
                 marker.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.pee));
                 map.AddMarker(marker);
             }
-
+            if(((CustomMap)this.Element).FlagStartCoordinate != null)
+            {
+                AddStartFlag();
+            }
+            if (((CustomMap)this.Element).FlagFinishCoordinate != null)
+            {
+                AddFinishFlag();
+            }
             isDrawn = true;
         }
 
@@ -99,10 +107,21 @@ namespace DogCare.Droid
                 UpdatePins();
             }
 
-            else if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
+            if (e.PropertyName.Equals(CustomMap.RouteCoordinatesProperty.PropertyName))
             {
                 UpdatePolyLine();
                 UpdateDistance();
+            }
+
+           if (e.PropertyName.Equals(CustomMap.FlagStartCoordinateProperty.PropertyName))
+            {
+                UpdatePins();
+                AddStartFlag();
+            }
+           else if (e.PropertyName.Equals(CustomMap.FlagFinishCoordinateProperty.PropertyName))
+            {
+                UpdatePins();
+                AddFinishFlag();
             }
         }
 
@@ -110,6 +129,24 @@ namespace DogCare.Droid
         {
             map = googleMap;
             UpdatePolyLine();
+        }
+
+        public void AddStartFlag()
+        {
+            var markerS = new MarkerOptions();
+            Position p = ((CustomMap)this.Element).FlagStartCoordinate;
+            markerS.SetPosition(new LatLng(p.Latitude, p.Longitude));
+            markerS.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.flagStart));
+            map.AddMarker(markerS);
+        }
+
+        public void AddFinishFlag()
+        {
+            var markerF = new MarkerOptions();
+            Position p = ((CustomMap)this.Element).FlagFinishCoordinate;
+            markerF.SetPosition(new LatLng(p.Latitude, p.Longitude));
+            markerF.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.flagFinish));
+            map.AddMarker(markerF);
         }
     }
 }

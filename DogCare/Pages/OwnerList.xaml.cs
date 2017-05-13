@@ -1,4 +1,5 @@
 ﻿using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,71 +46,77 @@ namespace DogCare
 
         async private void CreateNewAccount_Clicked(object sender, EventArgs e)
         {
-            if ((ownerName.Text) == null || userName.Text == null || password.Text == null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                await DisplayAlert("Opps!", "Please enter all details", "OK");
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
             }
             else
             {
-                bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
-                if (sure)
+                if ((ownerName.Text) == null || userName.Text == null || password.Text == null)
                 {
-                    activity.IsVisible = true;
-                    activity.IsRunning = true;
-                    var method =  await (manager.CheckIfOwnerAlreadyExists(userName.Text));
-
-                    if (method != null)
+                    await DisplayAlert("Opps!", "Please enter all details", "OK");
+                }
+                else
+                {
+                    bool sure = await DisplayAlert("Warning", "Are you sure?", "Yes", "No");
+                    if (sure)
                     {
-                        await DisplayAlert("Opps!", "Username is already taken", "OK");
-                        userName.Text = string.Empty;
-                        userName.Unfocus();
-                        password.Text = string.Empty;
-                        password.Unfocus();
-                        activity.IsVisible = false;
-                        activity.IsRunning = false;
-                    }
-                    else
-                    {
-
                         activity.IsVisible = true;
                         activity.IsRunning = true;
+                        var method = await (manager.CheckIfOwnerAlreadyExists(userName.Text));
 
-                        var owner = new Owner
+                        if (method != null)
                         {
-                            OwnerName = ownerName.Text,
-                            UserName = userName.Text,
-                            Password = password.Text,
-                            ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
-                        };
-                        if(memStream != null)
-                              memStream.Dispose();
-                        await AddItem(owner);
-                        await SqliteConnectionSet._connection.InsertAsync(owner);
-                        SqliteConnectionSet._user.Add(owner);
-                        App.currentOwner = owner;
+                            await DisplayAlert("Opps!", "Username is already taken", "OK");
+                            userName.Text = string.Empty;
+                            userName.Unfocus();
+                            password.Text = string.Empty;
+                            password.Unfocus();
+                            activity.IsVisible = false;
+                            activity.IsRunning = false;
+                        }
+                        else
+                        {
 
-                        bool next =await DisplayAlert("", "Your account added succefully", "OK","Cancel");
-                        activity.IsVisible = false;
-                        activity.IsRunning = false;
-                        if (next)
-                        {
-                            List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
-                            if (dogsList != null)
+                            activity.IsVisible = true;
+                            activity.IsRunning = true;
+
+                            var owner = new Owner
                             {
-                                if (dogsList.Count > 1)
-                                    await Navigation.PushAsync(new DogList());
+                                OwnerName = ownerName.Text,
+                                UserName = userName.Text,
+                                Password = password.Text,
+                                ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
+                            };
+                            if (memStream != null)
+                                memStream.Dispose();
+                            await AddItem(owner);
+                            await SqliteConnectionSet._connection.InsertAsync(owner);
+                            SqliteConnectionSet._user.Add(owner);
+                            App.currentOwner = owner;
+
+                            bool next = await DisplayAlert("", "Your account added succefully", "OK", "Cancel");
+                            activity.IsVisible = false;
+                            activity.IsRunning = false;
+                            if (next)
+                            {
+                                List<Dog> dogsList = await dManager.CheckOwnerDogs(App.currentOwner.OwnerName);
+                                if (dogsList != null)
+                                {
+                                    if (dogsList.Count > 1)
+                                        await Navigation.PushAsync(new DogList());
+                                    else
+                                        await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                                }
                                 else
-                                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
-                            }
-                            else
-                            {
-                                await Navigation.PushAsync(new DogList());
+                                {
+                                    await Navigation.PushAsync(new DogList());
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
     }
 }
