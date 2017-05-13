@@ -1,4 +1,5 @@
 ﻿using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,25 +44,31 @@ namespace DogCare
 
         async private void Edit_Clicked(object sender, EventArgs e)
         {
-           
-            if(newDog.Text != null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                App.currentDog.DogName = newDog.Text;
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
             }
-            if (raceS.Text !=null)
+            else
             {
-                App.currentDog.Race = raceS.Text;
+                if (newDog.Text != null)
+                {
+                    App.currentDog.DogName = newDog.Text;
+                }
+                if (raceS.Text != null)
+                {
+                    App.currentDog.Race = raceS.Text;
+                }
+                if (genderS.Text != null)
+                {
+                    App.currentDog.Gender = genderS.Text;
+                }
+                if (image.Source != ImageSource.FromFile("Dog.png"))
+                {
+                    App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
+                }
+                await manager.SaveTaskAsync(App.currentDog);
+                await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), "Ok");
             }
-            if (genderS.Text != null)
-            {
-                App.currentDog.Gender = genderS.Text;
-            }
-            if (image.Source != ImageSource.FromFile("Dog.png"))
-            {
-                App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
-            }
-            await manager.SaveTaskAsync(App.currentDog);
-            await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName),"Ok");
         }
     }
 }

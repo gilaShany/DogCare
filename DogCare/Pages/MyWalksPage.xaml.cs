@@ -1,5 +1,6 @@
 ﻿using DogCare.Managers;
 using DogCare.Models;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,29 +23,52 @@ namespace DogCare.Pages
             InitializeComponent();
             tripsManager = TripsManager.DefaultManager;
             GetTripsList(App.currentOwner.UserName, App.currentDog.DogName);
+
         }
 
-        async private void GetTripsList (string owner, string dogName, string searchText = null)
+        async private void GetTripsList(string owner, string dogName, string searchText = null)
         {
-            List<Trips> listOfTrips = await tripsManager.GetTripsByDogAndOwner(owner, dogName);
-            if (listOfTrips != null)
+            if ((CrossConnectivity.Current.IsConnected == false))
             {
-                searchBar.IsVisible = true;
-                //grouping the list according to date
-                var groupedData =
-                        listOfTrips.OrderByDescending(trip => trip.Date)
-                            .GroupBy(trip => trip.Date)
-                            .Select(trip => new ObservableGroupCollection<string, Trips>(trip))
-                            .ToList();
-
-                if (String.IsNullOrWhiteSpace(searchText))
-                    BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
-                else
-                    BindingContext = groupedData.Where(c => c.Key.StartsWith(searchText));
+                var alertResult = await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
+                if (!alertResult)
+                {
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                }
             }
             else
             {
-                emptyList.IsVisible = true;
+                List<Trips> listOfTrips = await tripsManager.GetTripsByDogAndOwner(owner, dogName);
+                if (listOfTrips != null)
+                {
+                    searchBar.IsVisible = true;
+                    //grouping the list according to date
+                    var groupedData =
+                            listOfTrips.OrderByDescending(trip => trip.Date)
+                                .GroupBy(trip => trip.Date)
+                                .Select(trip => new ObservableGroupCollection<string, Trips>(trip))
+                                .ToList();
+
+                    if (String.IsNullOrWhiteSpace(searchText))
+                        BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
+                    else
+                        BindingContext = groupedData.Where(c => c.Key.StartsWith(searchText));
+
+                    indicator.IsVisible = false;
+                    indicator.IsRunning = false;
+                }
+                else
+                {
+                    indicator.IsVisible = false;
+                    indicator.IsRunning = false;
+                    var alertResult = await DisplayAlert("Oops!", "There are no recorded walks.", null, "Ok");
+                    if (!alertResult)
+                    {
+                        MasterDetailSideMenucs.CreateMasterPage();
+                        await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                    }
+                }
             }
         }
 
@@ -57,9 +81,9 @@ namespace DogCare.Pages
         {
             if (e.SelectedItem == null)
                 return;
-
+            
             var trip = e.SelectedItem as Trips;
-            await Navigation.PushModalAsync(new WalkDetailPage(trip));
+            await Navigation.PushAsync(new WalkDetailPage(trip));
             listView.SelectedItem = null;
         }
     }

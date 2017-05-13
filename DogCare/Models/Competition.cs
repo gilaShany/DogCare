@@ -9,11 +9,11 @@ namespace DogCare.Models
 {
     class Competition
     {
-        int index;
+        Image index;
         Dog dog;
         Image dogImage;
 
-        public int Index
+        public Image Index
         {
             get { return index; }
             set { index = value; }

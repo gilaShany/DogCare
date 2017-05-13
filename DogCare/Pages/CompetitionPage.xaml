@@ -1,55 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="DogCare.Pages.CompetitionPage">
 
     <StackLayout>
-    <ListView x:Name="listView"
+        <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
+                           Color="Black" IsVisible="True" IsRunning="True" Margin="150"/>
+        <Image x:Name="title" Source="leaderboardTitle" Margin="20" IsVisible="False"/>
+        <ListView x:Name="listView"
               ItemsSource="{Binding}" HasUnevenRows="True"
-              IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
+              IsPullToRefreshEnabled="True" Refreshing="ListView_Refreshing"
+              ItemSelected="listView_ItemSelected"
+              IsVisible="False">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="10">
-                            <StackLayout VerticalOptions="Center">
-                                <Label Text="{Binding Index}"  FontSize="Medium"/>
+                            <StackLayout VerticalOptions="Start">
+                                <Image Source="{Binding Index.Source}" />
                             </StackLayout>
                             <StackLayout VerticalOptions="Center">
-                                <Image Source="{Binding DogImage.Source}"/>
+                                <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"/>
                             </StackLayout>
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal" Padding="5">
-                                    <Label Text="{Binding Dog.Owner}"/>
-                                    <Label Text=", Dog's name:" />
-                                    <Label Text="{Binding Dog.DogName}" />
+                            <StackLayout Padding="5,0,0,0">
+                                <Label Text="{Binding Dog.DogName}" FontAttributes="Bold" FontSize="Large"/>
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="Owner:" FontSize="Medium"/>
+                                    <Label Text="{Binding Dog.Owner}" FontSize="Medium"/>
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal" Padding="5">
-                                    <Label Text="Total distance: " />
-                                    <Label Text="{Binding Dog.Walk}"/>
-                                    <Label Text="m" />
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="Distance: " FontSize="Medium"/>
+                                    <Label Text="{Binding Dog.Walk}" FontSize="Medium"/>
+                                    <Label Text="m" FontSize="Medium"/>
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        <StackLayout Orientation="Horizontal" Padding="3">
-            <Label Text="You are in place" />
-            <Label x:Name="placeInCompetition"/>
-            <Label Text="out of" />
-            <Label x:Name="numOfParticipants"/>
-            <Label Text="!" />
-        </StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Padding="5" x:Name="yourPosition" IsVisible="False">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="You are in place" FontSize="18"/>
+                <Label x:Name="placeInCompetition" FontSize="18" TextColor="#0052cc"/>
+                <Label Text="out of" FontSize="18"/>
+                <Label x:Name="numOfParticipants" FontSize="18"/>
+                <Label Text="!" FontSize="18"/>
+            </StackLayout>
 
-        <StackLayout Orientation="Horizontal" Padding="3">
-            <Label Text="You have accumulated" />
-            <Label x:Name="myTotalDistance"/>
-            <Label Text="m." />
-         
-        </StackLayout>
-
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Your total distance is " FontSize="18"/>
+                <Label x:Name="myTotalDistance" FontSize="18" TextColor="#0052cc"/>
+                <Label Text="m." FontSize="18" TextColor="#0052cc"/>
+            </StackLayout>
+         </StackLayout>
 
     </StackLayout>
 </ContentPage>
