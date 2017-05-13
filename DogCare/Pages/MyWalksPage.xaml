@@ -6,9 +6,7 @@
     <StackLayout>
         <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
                            Color="Black" IsVisible="True" IsRunning="True" Margin="150"/>
-        <Label x:Name="emptyList" Text="There are no recorded walks..." FontSize="20" VerticalOptions="CenterAndExpand"
-               HorizontalOptions="Center" IsVisible="False" Margin="70" XAlign="Center" />
-        <Image x:Name="image" Source="paws.jpeg" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="False" Opacity="0.6"/>
+  
         <SearchBar x:Name="searchBar" Placeholder="Search by date..." PlaceholderColor="#005ce6"
                    TextChanged="SearchBar_TextChanged" IsVisible="False"
                   />

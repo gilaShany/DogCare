@@ -50,8 +50,17 @@ namespace DogCare.Pages
             {
                 indicator.IsVisible = false;
                 indicator.IsRunning = false;
-                emptyList.IsVisible = true;
-                image.IsVisible = true;
+                var alertResult = await DisplayAlert("Oops!", "There are no recorded walks.", null, "Ok");
+                if (!alertResult)
+                {
+                    await Navigation.PushAsync(new MainPage());
+                }
+                /*
+                Device.BeginInvokeOnMainThread(() => {
+                    DisplayAlert("Oops!","There are no recorded walks.", null, "ok");
+                });
+                await Navigation.PushAsync(new MainPage());
+                */
             }
         }
 

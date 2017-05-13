@@ -277,9 +277,6 @@
     <AndroidResource Include="Resources\drawable\dogPeeUnable.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\paws.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Dog.png" />
   </ItemGroup>
   <ItemGroup>
