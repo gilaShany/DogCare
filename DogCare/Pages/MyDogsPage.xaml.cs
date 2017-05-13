@@ -42,7 +42,12 @@ namespace DogCare
         {
             if ((CrossConnectivity.Current.IsConnected == false))
             {
-                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, Constants.internetButton);
+                var alertResult = await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
+                if (!alertResult)
+                {
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                }
             }
             else
             {

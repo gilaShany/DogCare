@@ -17,6 +17,7 @@ using System.Diagnostics;
 
 using DogCare.Models;
 using DogCare.Managers;
+using Plugin.Connectivity;
 
 namespace DogCare
 {
@@ -130,30 +131,30 @@ namespace DogCare
 
         async private void ButtonStartClicked(object sender, EventArgs e)
         {
-            startButton.IsEnabled = false;
-            var nPosition = await map.GetCurrentPosition(locator);
-            if (nPosition == null)
-            {
-                DisplayAlertGPS();
-                startButton.IsEnabled = true;
-            }
-            else
-            {
-                FinishButton.IsEnabled = true;
-                poopButton.IsEnabled = true;
-                poopButton.Image = "dogPoop";
-                peeButton.IsEnabled = true;
-                peeButton.Image = "dogPee";
+                startButton.IsEnabled = false;
+                var nPosition = await map.GetCurrentPosition(locator);
+                if (nPosition == null)
+                {
+                    DisplayAlertGPS();
+                    startButton.IsEnabled = true;
+                }
+                else
+                {
+                    FinishButton.IsEnabled = true;
+                    poopButton.IsEnabled = true;
+                    poopButton.Image = "dogPoop";
+                    peeButton.IsEnabled = true;
+                    peeButton.Image = "dogPee";
 
-                var position = (Position)nPosition;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
-                map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
-                await locator.StartListeningAsync(100, 0.1);
-                locator.PositionChanged += Current_PositionChanged;
-                hasGPS = true;
-                isListening = true;
-                currentDateTime = DateTime.Now;
-                AddStartFlag();
+                    var position = (Position)nPosition;
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(position.Latitude, position.Longitude), distanceFromMapInMiles));
+                    map.RouteCoordinates.Add(new Position(position.Latitude, position.Longitude));
+                    await locator.StartListeningAsync(100, 0.1);
+                    locator.PositionChanged += Current_PositionChanged;
+                    hasGPS = true;
+                    isListening = true;
+                    currentDateTime = DateTime.Now;
+                    AddStartFlag();
             }
         }
 
@@ -190,16 +191,23 @@ namespace DogCare
 
         async private void ButtonFinishClicked(object sender, EventArgs e)
         {
-            await locator.StopListeningAsync();
-            isListening = false;
-            poopButton.IsEnabled = false;
-            poopButton.Image = "dogPoopUnable";
-            peeButton.IsEnabled = false;
-            peeButton.Image = "dogPeeUnable";
-            FinishButton.IsEnabled = false;
-            AddFinishFlag();
-            AddDistanceToDogTatalWalk();
-            UpdateMyTrips();
+            if ((CrossConnectivity.Current.IsConnected == false))
+            {
+                await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null, Constants.internetButton);
+            }
+            else
+            {
+                await locator.StopListeningAsync();
+                isListening = false;
+                poopButton.IsEnabled = false;
+                poopButton.Image = "dogPoopUnable";
+                peeButton.IsEnabled = false;
+                peeButton.Image = "dogPeeUnable";
+                FinishButton.IsEnabled = false;
+                AddFinishFlag();
+                AddDistanceToDogTatalWalk();
+                UpdateMyTrips();
+            }
         }
 
        async private void AddDistanceToDogTatalWalk()
@@ -210,21 +218,21 @@ namespace DogCare
 
         async private void UpdateMyTrips()
         {
-            var trip = new Trips
-            {
-                Date = this.currentDateTime.ToString("MM/dd/yyyy"),
-                Time = this.currentDateTime.ToString("HH:mm"),
-                Distance = (int)map.totalDistance,
-                DogName = App.currentDog.DogName,
-                Owner = App.currentOwner.UserName,
-                Pee = isPeeClicked,
-                Poop = isPoopClicked,
-                RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates),
-                PeeCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPee),
-                PoopCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPoop)
-            };
-           
-            await tripsManager.SaveTaskAsync(trip);
+               var trip = new Trips
+                {
+                    Date = this.currentDateTime.ToString("MM/dd/yyyy"),
+                    Time = this.currentDateTime.ToString("HH:mm"),
+                    Distance = (int)map.totalDistance,
+                    DogName = App.currentDog.DogName,
+                    Owner = App.currentOwner.UserName,
+                    Pee = isPeeClicked,
+                    Poop = isPoopClicked,
+                    RouteCoordinates = Utils.Utils.ConvertPositionsListToString(map.RouteCoordinates),
+                    PeeCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPee),
+                    PoopCoordinates = Utils.Utils.ConvertPositionsListToString(map.PinsPoop)
+                };
+
+                await tripsManager.SaveTaskAsync(trip);
         }
 
         private void AddStartFlag()

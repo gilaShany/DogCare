@@ -32,7 +32,8 @@ namespace DogCare.Pages
                 var alertResult = await DisplayAlert(Constants.internetAlertTittle, Constants.internetAlertMessage, null,Constants.internetButton);
                 if (!alertResult)
                 {
-                    await Navigation.PushAsync(new MainPage());
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
                 }
             }
             else
