@@ -80,23 +80,23 @@ namespace DogCare
                         {
                             await SqliteConnectionSet._connection.InsertAsync(method);
 
-                            SqliteConnectionSet._user.Add(method);
-                        }
-
-                        if (dogsList != null)
-                        {
-                            if (dogsList.Count > 1)
-                                await Navigation.PushAsync(new DogMiddlePage());
-                            else
-                            {
-                                MasterDetailSideMenucs.CreateMasterPage();
-                                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
-                            }
-                        }
+                        SqliteConnectionSet._user.Add(method);
+                    }
+                    
+                    if (dogsList != null)
+                    {
+                        if (dogsList.Count > 1)
+                            await Navigation.PushAsync(new MyDogsPage());
                         else
                         {
-                            await Navigation.PushAsync(new DogMiddlePage());
+                            MasterDetailSideMenucs.CreateMasterPage();
+                            await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
                         }
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new MyDogsPage());
+                    }
 
                     }
                 }

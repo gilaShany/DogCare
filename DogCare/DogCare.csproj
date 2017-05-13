@@ -50,7 +50,7 @@
     <Compile Include="Pages\WalkDetailPage.xaml.cs">
       <DependentUpon>WalkDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartPage.xaml.cs">
+    <Compile Include="Pages\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ImageStream.cs" />
@@ -321,7 +321,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="StartPage.xaml">
+    <EmbeddedResource Include="Pages\StartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

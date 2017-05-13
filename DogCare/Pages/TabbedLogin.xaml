@@ -3,6 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.TabbedLogin">
-    <local:OwnerList Title="Sign up"></local:OwnerList>
+    <AbsoluteLayout>
+        <Image Source="http://lorempixel.com/1920/1080/nature/7" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"></Image>
+    </AbsoluteLayout>
+        <local:OwnerList Title="Sign up"></local:OwnerList>
     <local:Login Title="Login"></local:Login>
 </TabbedPage>

@@ -20,12 +20,13 @@ namespace DogCare
 
         public OwnerList()
         {
+            //this.BackgroundImage = ;
+
             manager = OwnerManager.DefaultManager;
             dManager = DogManager.DefaultManager;
             memStream = null;
             InitializeComponent();
             image.Source = ImageSource.FromFile("User.png");
-
             pickPhoto.Clicked += async (sender, e) =>
             {
                 var stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();

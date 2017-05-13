@@ -49,7 +49,7 @@ namespace DogCare
                 {
                     var method = await (manager.CheckUserNameAndPassword(SqliteConnectionSet._user[0].UserName, SqliteConnectionSet._user[0].Password));
                     App.currentOwner = method;
-                    await Navigation.PushModalAsync(new NavigationPage(new DogMiddlePage()));
+                    await Navigation.PushModalAsync(new NavigationPage(new MyDogsPage()));
                 }
             }
         }

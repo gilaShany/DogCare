@@ -101,6 +101,7 @@ namespace DogCare
             var items = await ownerTable
             .Where(owner => owner.UserName == userName)
             .Where(owner => owner.Password == password)
+            
             .ToListAsync();
 
             if (items == null || items.Count == 0)

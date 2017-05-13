@@ -2,6 +2,7 @@
 using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,10 +36,11 @@ namespace DogCare
         public MyDogsPage()
         {
             InitializeComponent();
+            BackgroundColor = Color.White;
             manager = DogManager.DefaultManager;
-            GetDogsByOwner(App.currentOwner.UserName);
+            GetDogsByOwner(App.currentOwner.UserName, null);
         }
-        public async void GetDogsByOwner(string owner)
+        public async void GetDogsByOwner(string owner, string search)
         {
             if ((CrossConnectivity.Current.IsConnected == false))
             {
@@ -74,9 +76,28 @@ namespace DogCare
 
                         listOfDogsWithImage.Add(d);
                     }
-                    BindingContext = listOfDogsWithImage;
+                    var groupedData =
+                        listOfDogsWithImage.OrderBy(dog => dog.Dog.DogName)
+                            .GroupBy(dog => dog.Dog.DogName)
+                             .Select(dog => new ObservableGroupCollection<string, DogAndImage>(dog))
+                            .ToList();
+
+                    if (String.IsNullOrWhiteSpace(search))
+                        BindingContext = new ObservableCollection<ObservableGroupCollection<string, DogAndImage>>(groupedData);
+                    else
+                        BindingContext = groupedData.Where(c => c.Key.StartsWith(search));
                 }
             }
+        }
+
+        async private void Add_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new DogList()));
+        }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GetDogsByOwner(App.currentOwner.UserName, e.NewTextValue);
         }
     }
 }

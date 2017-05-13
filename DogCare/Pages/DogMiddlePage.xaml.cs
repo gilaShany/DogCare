@@ -15,6 +15,7 @@ namespace DogCare
         public DogMiddlePage()
         {
             InitializeComponent();
+
         }
 
         async private void AddNewDog_Clicked(object sender, EventArgs e)
