@@ -4,7 +4,7 @@
              x:Class="DogCare.Pages.MyWalksPage">
 
     <StackLayout>
-        <Label x:Name="emptyList" Text="There are not recorded walks." IsVisible="False"/>
+        <Label x:Name="emptyList" Text="There are no recorded walks." IsVisible="False"/>
         <SearchBar x:Name="searchBar" Placeholder="Search by date..." PlaceholderColor="Purple"
                    TextChanged="SearchBar_TextChanged" IsVisible="False"
                   />
