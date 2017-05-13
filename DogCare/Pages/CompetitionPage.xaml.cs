@@ -38,10 +38,6 @@ namespace DogCare.Pages
                 if(counter == 1)
                 {
                     medal.Source = ImageSource.FromFile("firstPlace.png");
-                    if (App.currentDog.DogName == dog.DogName && App.currentOwner.OwnerName == dog.Owner)
-                    {
-                       
-                    }
                 }
                 else if (counter == 2)
                 {

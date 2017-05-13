@@ -55,12 +55,6 @@ namespace DogCare.Pages
                 {
                     await Navigation.PushAsync(new MainPage());
                 }
-                /*
-                Device.BeginInvokeOnMainThread(() => {
-                    DisplayAlert("Oops!","There are no recorded walks.", null, "ok");
-                });
-                await Navigation.PushAsync(new MainPage());
-                */
             }
         }
 

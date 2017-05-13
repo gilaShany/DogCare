@@ -120,7 +120,7 @@ namespace DogCare
             string button1 = "ok";
             string message = "Please turn on location";
             Device.BeginInvokeOnMainThread(() => {
-                DisplayAlert(message, title, button1);
+                DisplayAlert(title, message, button1);
             });
         }
         
