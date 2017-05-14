@@ -4,20 +4,21 @@
              x:Class="DogCare.MyDogsPage"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True">
-    <StackLayout Padding="10">
+    <StackLayout>
         <StackLayout Orientation="Horizontal">
-            <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="LightCyan"
-                        IsVisible="True" TextChanged="searchBar_TextChanged"/>
-            <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="White" HorizontalOptions="StartAndExpand"/>
+            <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="#005ce6"
+                            IsVisible="True" TextChanged="searchBar_TextChanged" WidthRequest="300" HorizontalOptions="Start"/>
+            <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="White" HorizontalOptions="End"/>
         </StackLayout>
-        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}"
-                  IsGroupingEnabled="True"
-              GroupDisplayBinding="{Binding Dog.DogName}"
-                  HasUnevenRows="True"
-                SeparatorVisibility="None">
+        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}" SeparatorColor="LightCyan">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                        <ImageCell Text="{Binding Dog.DogName}"  ImageSource="{Binding DogImage.Source}" TextColor="Black" /> 
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="{Binding DogImage.Source}"/>
+                            <Label Text="{Binding Dog.DogName}" TextColor="Black" />
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

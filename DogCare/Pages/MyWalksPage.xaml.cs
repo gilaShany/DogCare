@@ -17,7 +17,8 @@ namespace DogCare.Pages
     public partial class MyWalksPage : ContentPage
     {
         TripsManager tripsManager;
-        
+        List<ObservableGroupCollection<string, Trips>> groupedData;
+
         public MyWalksPage()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace DogCare.Pages
 
         }
 
-        async private void GetTripsList(string owner, string dogName, string searchText = null)
+        async private void GetTripsList(string owner, string dogName)
         {
             if ((CrossConnectivity.Current.IsConnected == false))
             {
@@ -44,16 +45,13 @@ namespace DogCare.Pages
                 {
                     searchBar.IsVisible = true;
                     //grouping the list according to date
-                    var groupedData =
+                    groupedData =
                             listOfTrips.OrderByDescending(trip => trip.Date)
                                 .GroupBy(trip => trip.Date)
                                 .Select(trip => new ObservableGroupCollection<string, Trips>(trip))
                                 .ToList();
 
-                    if (String.IsNullOrWhiteSpace(searchText))
-                        BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
-                    else
-                        BindingContext = groupedData.Where(c => c.Key.StartsWith(searchText));
+                    BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
 
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
@@ -74,7 +72,10 @@ namespace DogCare.Pages
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GetTripsList(App.currentOwner.UserName, App.currentDog.DogName,e.NewTextValue);
+            if (String.IsNullOrWhiteSpace(e.NewTextValue))
+                BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
+            else
+                BindingContext = groupedData.Where(c => c.Key.StartsWith(e.NewTextValue));
         }
 
         async private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

@@ -16,6 +16,8 @@ namespace DogCare
     public partial class MyDogsPage : ContentPage
     {
         DogManager manager;
+        ObservableCollection<DogAndImage> orderedData;
+
         async void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
@@ -38,9 +40,9 @@ namespace DogCare
             InitializeComponent();
             BackgroundColor = Color.White;
             manager = DogManager.DefaultManager;
-            GetDogsByOwner(App.currentOwner.UserName, null);
+            GetDogsByOwner(App.currentOwner.UserName);
         }
-        public async void GetDogsByOwner(string owner, string search)
+        public async void GetDogsByOwner(string owner)
         {
             if ((CrossConnectivity.Current.IsConnected == false))
             {
@@ -76,16 +78,10 @@ namespace DogCare
 
                         listOfDogsWithImage.Add(d);
                     }
-                    var groupedData =
-                        listOfDogsWithImage.OrderBy(dog => dog.Dog.DogName)
-                            .GroupBy(dog => dog.Dog.DogName)
-                             .Select(dog => new ObservableGroupCollection<string, DogAndImage>(dog))
-                            .ToList();
+                    orderedData = new ObservableCollection<DogAndImage>
+                        (listOfDogsWithImage.OrderBy(dog => dog.Dog.DogName).ToList());
 
-                    if (String.IsNullOrWhiteSpace(search))
-                        BindingContext = new ObservableCollection<ObservableGroupCollection<string, DogAndImage>>(groupedData);
-                    else
-                        BindingContext = groupedData.Where(c => c.Key.StartsWith(search));
+                    BindingContext = orderedData;
                 }
             }
         }
@@ -97,7 +93,10 @@ namespace DogCare
 
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            GetDogsByOwner(App.currentOwner.UserName, e.NewTextValue);
+            if (String.IsNullOrWhiteSpace(e.NewTextValue))
+                BindingContext = orderedData;
+            else
+                BindingContext = orderedData.Where(c => c.Dog.DogName.StartsWith(e.NewTextValue));
         }
     }
 }

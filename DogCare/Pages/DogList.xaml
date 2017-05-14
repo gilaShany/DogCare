@@ -4,7 +4,7 @@
              x:Class="DogCare.DogList">
 
     <AbsoluteLayout>
-        <Image Source="tabbedpagedog1.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="backgimg"></Image>
+        <Image Source="updateDogAndCreateBackground.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="backgimg"></Image>
         <BoxView Opacity = "0.8" Color="White" AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.6" AbsoluteLayout.LayoutFlags="All" />
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.6" AbsoluteLayout.LayoutFlags="All">
             <Entry x:Name="newDog"
