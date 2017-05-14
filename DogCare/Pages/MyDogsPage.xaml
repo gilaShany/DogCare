@@ -1,22 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="DogCare.MyDogsPage"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True">
     <StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Padding="0,0,0,10" BackgroundColor="#e6f2ff">
             <SearchBar x:Name="searchBar" Placeholder="Search by name..." PlaceholderColor="#005ce6"
-                            IsVisible="True" TextChanged="searchBar_TextChanged" WidthRequest="300" HorizontalOptions="Start"/>
-            <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="White" HorizontalOptions="End"/>
+                            IsVisible="True" TextChanged="searchBar_TextChanged" WidthRequest="280" HorizontalOptions="Start"/>
+            <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="#e6f2ff" VerticalOptions="Center"/>
         </StackLayout>
-        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}" SeparatorColor="LightCyan">
+        <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
+                           Color="Black" IsVisible="True" IsRunning="True" Margin="150"/>
+        <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}" SeparatorColor="#d9d9d9"
+                  RowHeight="70">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Image Source="{Binding DogImage.Source}"/>
-                            <Label Text="{Binding Dog.DogName}" TextColor="Black" />
+                        <StackLayout Orientation="Horizontal" Margin="10">
+                            <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"
+                                            VerticalOptions="Center" />
+                            <Label Text="{Binding Dog.DogName}" TextColor="Black" FontSize="Medium" VerticalOptions="Center"
+                                   Margin="5"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
