@@ -71,7 +71,6 @@ namespace DogCare
                     }
                     else
                     {
-
                         App.currentOwner = method;
                         activity.IsVisible = true;
                         activity.IsRunning = true;
@@ -79,25 +78,22 @@ namespace DogCare
                         if (SqliteConnectionSet._user.Count == 0)
                         {
                             await SqliteConnectionSet._connection.InsertAsync(method);
-
-                        SqliteConnectionSet._user.Add(method);
-                    }
-                    
-                    if (dogsList != null)
-                    {
-                        if (dogsList.Count > 1)
-                            await Navigation.PushAsync(new MyDogsPage());
+                            SqliteConnectionSet._user.Add(method);
+                        }
+                        if (dogsList != null)
+                        {
+                            if (dogsList.Count > 1)
+                                await Navigation.PushAsync(new MyDogsPage());
+                            else
+                            {
+                                MasterDetailSideMenucs.CreateMasterPage();
+                                await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                            }
+                        }
                         else
                         {
-                            MasterDetailSideMenucs.CreateMasterPage();
-                            await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                            await Navigation.PushAsync(new MyDogsPage());
                         }
-                    }
-                    else
-                    {
-                        await Navigation.PushAsync(new MyDogsPage());
-                    }
-
                     }
                 }
             }
