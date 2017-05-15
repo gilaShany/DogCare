@@ -48,7 +48,7 @@ namespace DogCare
 
         async private void ChangePassword_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new ChangePasswordPage());
+            await Navigation.PushModalAsync(new NavigationPage (new ChangePasswordPage()));
 
         }
     }
