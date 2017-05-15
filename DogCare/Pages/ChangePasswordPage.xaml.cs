@@ -28,10 +28,14 @@ namespace DogCare
             }
             else
             {
+                activity.IsVisible = true;
+                activity.IsRunning = true;
                 bool wrongOldPassword = false;
                 bool noMatch = false;
                 if (App.currentOwner.Password != old.Text)
                 {
+                    activity.IsVisible = false;
+                    activity.IsRunning = false;
                     await DisplayAlert("Oops!", "Wrong old password", "OK");
                     wrongOldPassword = true;
                     old.Text = string.Empty;
@@ -39,6 +43,8 @@ namespace DogCare
                 }
                 if (newP.Text != confirm.Text)
                 {
+                    activity.IsVisible = false;
+                    activity.IsRunning = false;
                     await DisplayAlert("Oops!", "No match between the passwords", "OK");
                     noMatch = true;
                     newP.Text = string.Empty;
@@ -61,6 +67,8 @@ namespace DogCare
                     App.currentOwner = owner;
                     SqliteConnectionSet._user[0].Password = owner.Password;
                     await SqliteConnectionSet._connection.UpdateAsync(SqliteConnectionSet._user[0]);
+                    activity.IsVisible = false;
+                    activity.IsRunning = false;
                     await DisplayAlert("", "Your password updated succefully", "Ok");
                 }
                 wrongOldPassword = false;
