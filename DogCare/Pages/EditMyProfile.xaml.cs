@@ -17,13 +17,15 @@ namespace DogCare
     {
         OwnerManager manager;
         MemoryStream memStream;
+        bool hasImageChanged;
 
         public EditMyProfile()
-        {
-            manager = OwnerManager.DefaultManager;
+        { 
             InitializeComponent();
             BindingContext = App.currentOwner;
+            manager = OwnerManager.DefaultManager;
             memStream = null;
+            hasImageChanged = false;
 
             //Checking if the user has an image. If not, showing default image.
             if (App.currentOwner.ImageO != null)
@@ -38,6 +40,7 @@ namespace DogCare
                 {
                     memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
+                    hasImageChanged = true;
                 }
             };
         }
@@ -49,17 +52,42 @@ namespace DogCare
             }
             else
             {
+                activity.IsVisible = true;
+                activity.IsRunning = true;
+                string name;
+                string imageString;
+
+                if(ownerName.Text != null)
+                {
+                    name = ownerName.Text;
+                }
+                else
+                {
+                    name = App.currentOwner.OwnerName;
+                }
+
+                if (hasImageChanged)
+                {
+                    imageString = Utils.ImageStream.ConvertStreamToString(memStream);
+                }
+                else
+                {
+                    imageString = App.currentOwner.ImageO;
+                }
+
                 var owner = new Owner
                 {
-                    OwnerName = ownerName.Text,
+                    OwnerName = name,
                     UserName = App.currentOwner.UserName,
                     Password = App.currentOwner.Password,
-                    ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
+                    ImageO = imageString
                 };
 
                 manager.Delete(App.currentOwner);
                 await manager.SaveTaskAsync(owner);
                 App.currentOwner = owner;
+                activity.IsVisible = false;
+                activity.IsRunning = false;
                 await DisplayAlert("", "Your profile updated succefully", "Ok");
             }
         }

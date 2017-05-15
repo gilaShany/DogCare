@@ -13,7 +13,7 @@
                Placeholder="Gender" PlaceholderColor="#595959"/>
             <Entry x:Name="raceS"
                Placeholder="Race" PlaceholderColor="#595959"/>
-            <Button x:Name="pickPhoto" Text="Pick Photo"/>
+            <Button x:Name="pickPhoto" Text="Choose a picture (Optional)"/>
             <Image x:Name="image" Margin="20
                    "/>
         </StackLayout>

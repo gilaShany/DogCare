@@ -17,6 +17,7 @@ namespace DogCare
     {
         DogManager manager;
         MemoryStream memStream;
+        bool hasImageChanged;
 
         public EditMyDogProfile()
         {
@@ -24,6 +25,7 @@ namespace DogCare
             BindingContext = App.currentDog;
             manager = DogManager.DefaultManager;
             memStream = null;
+            hasImageChanged = false;
 
             //Checking if the dog has an image. If not, showing default image.
             if (App.currentDog.ImageD != null)
@@ -38,6 +40,7 @@ namespace DogCare
                 {
                     memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
+                    hasImageChanged = true;
                 }
             };
         }
@@ -62,7 +65,7 @@ namespace DogCare
                 {
                     App.currentDog.Gender = genderS.Text;
                 }
-                if (image.Source != ImageSource.FromFile("Dog.png"))
+                if (hasImageChanged)
                 {
                     App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
                 }
