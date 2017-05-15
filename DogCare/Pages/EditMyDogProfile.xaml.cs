@@ -53,6 +53,9 @@ namespace DogCare
             }
             else
             {
+                activity.IsVisible = true;
+                activity.IsRunning = true;
+
                 if (newDog.Text != null)
                 {
                     App.currentDog.DogName = newDog.Text;
@@ -70,6 +73,8 @@ namespace DogCare
                     App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
                 }
                 await manager.SaveTaskAsync(App.currentDog);
+                activity.IsVisible = false;
+                activity.IsRunning = false;
                 await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), "Ok");
             }
         }

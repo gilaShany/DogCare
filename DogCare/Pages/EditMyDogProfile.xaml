@@ -4,28 +4,40 @@
              x:Class="DogCare.EditMyDogProfile"
              >
 
-    <AbsoluteLayout> 
-        <BoxView Opacity="0.5" Color="Black" AbsoluteLayout.LayoutBounds="30,30,0.85,0.7" AbsoluteLayout.LayoutFlags="SizeProportional" />
-        <StackLayout AbsoluteLayout.LayoutBounds="35,35,0.80,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lable" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="TextColor" Value="#003399"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <Label Text="Name:"/>
+    <AbsoluteLayout>
+        <Image Source="updateDogAndCreateBackground.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="backgimg"></Image>
+        <BoxView Opacity = "0.8" Color="White" AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.7" AbsoluteLayout.LayoutFlags="All" />
+        <ActivityIndicator x:Name="activity"
+                           Color="Black"  AbsoluteLayout.LayoutBounds="0.5,0.35,0.1,0.1" AbsoluteLayout.LayoutFlags="All"/>
+        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.7" AbsoluteLayout.LayoutFlags="All">
+            <Label Text="Name:" Style="{StaticResource lable}"/>
             <Entry x:Name="newDog"
-                  Placeholder="{Binding DogName}" />
-            <Label Text="Gender:"/>
+                  Placeholder="{Binding DogName}" PlaceholderColor="#595959"/>
+            <Label Text="Gender:" Style="{StaticResource lable}"/>
             <Entry x:Name="genderS"
-               Placeholder="{Binding Gender}" />
-            <Label Text="Race:"/>
+               Placeholder="{Binding Gender}" PlaceholderColor="#595959"/>
+            <Label Text="Race:" Style="{StaticResource lable}"/>
             <Entry x:Name="raceS"
-               Placeholder="{Binding Race}" />
-            <Button x:Name="pickPhoto" Text="Change image"/>
-            <Image x:Name="image" />
+               Placeholder="{Binding Race}" PlaceholderColor="#595959"/>
+            <Button x:Name="pickPhoto" Text="Change picture"/>
+            <Image x:Name="image" Margin="20" />
         </StackLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="30,430,0.85,0.85" AbsoluteLayout.LayoutFlags="SizeProportional">
 
-            <Button Text="Update"
+        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.85,0.87,0.1" AbsoluteLayout.LayoutFlags="All">
+
+            <Button Text="Update" BackgroundColor="DarkGray"
                   Clicked="Edit_Clicked" />
-            <ActivityIndicator x:Name="activity"
-                           Color="Black" />
+
            </StackLayout>
         </AbsoluteLayout>
 
