@@ -28,8 +28,8 @@ namespace DogCare
             bool answer = await DisplayAlert("", string.Format("{0} is selected", dog.Dog.DogName),"OK","Cancel");
             if (answer)
             {
-                MasterDetailSideMenucs.CreateMasterPage();
                 App.currentDog = dog.Dog;
+                MasterDetailSideMenucs.CreateMasterPage();
                 await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
             }
             listView.SelectedItem = null;

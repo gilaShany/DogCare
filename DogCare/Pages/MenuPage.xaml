@@ -1,21 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="DogCare.MenuPage">
-    <StackLayout>
-        <StackLayout BackgroundColor="Aquamarine">
-            <Label Text="Hello!"/>
-        </StackLayout>
-        <Label Text="Profile" BackgroundColor="Beige"/>
-        <Button Text="Logout" Clicked="logout_Clicked"/>
-        <Button Text="Edit profile" Clicked="EditProfile_Clicked"/>
-        <Button Text="Change password" Clicked="ChangePassword_Clicked"/>
-       
-        <Label Text="My Dog" BackgroundColor="Beige"/>
 
-        <Button Text="Edit my dog's profile" Clicked="EditDog_Clicked"/>
-        <Button Text="My dogs" Clicked="MyDogs_Clicked"/>
-        <Button Text="Add a new dog" Clicked="AddNewDog_Clicked"/>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="button" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#b3b3b3"  />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="Margin" Value="3" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <StackLayout BackgroundColor="#e6f9ff" Orientation="Horizontal" Padding="10">
+            <ic:CircleImage x:Name="profileImage" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center"/>
+            <Label Text="Hello" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label x:Name="nameOfUser" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text="!" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Image Source="account.png" WidthRequest="40" HeightRequest="40"/>
+            <Label Text="Account" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
+        </StackLayout>
+
+        <Button Text="Edit profile" Clicked="EditProfile_Clicked"  Style="{StaticResource button}"/>
+        <Button Text="Change password" Clicked="ChangePassword_Clicked"  Style="{StaticResource button}"/>
+        <Button Text="Logout" Clicked="logout_Clicked"  Style="{StaticResource button}"/>
+
+        <StackLayout Orientation="Horizontal" >
+            <Image x:Name="dogImage" WidthRequest="40" HeightRequest="40" Margin="5"/>
+            <Label Text="My Dog" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
+        </StackLayout>
+
+        <Button x:Name="nameOfDog" Clicked="EditDog_Clicked" Style="{StaticResource button}" />
+        <Button Text="Switch a dog" Clicked="MyDogs_Clicked" Style="{StaticResource button}"/>
+        <Button Text="Add a new dog" Clicked="AddNewDog_Clicked" Style="{StaticResource button}"/>
 
     </StackLayout>
 </ContentPage>
