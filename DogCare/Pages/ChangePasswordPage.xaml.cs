@@ -59,7 +59,8 @@ namespace DogCare
                     {
                         OwnerName = App.currentOwner.OwnerName,
                         UserName = App.currentOwner.UserName,
-                        Password = newP.Text
+                        Password = newP.Text,
+                        ImageO = App.currentOwner.ImageO
                     };
 
                     manager.Delete(App.currentOwner);
@@ -69,7 +70,13 @@ namespace DogCare
                     await SqliteConnectionSet._connection.UpdateAsync(SqliteConnectionSet._user[0]);
                     activity.IsVisible = false;
                     activity.IsRunning = false;
-                    await DisplayAlert("", "Your password updated succefully", "Ok");
+
+                    bool answer = await DisplayAlert("", "Your password updated succefully", null, "OK");
+                    if (!answer)
+                    {
+                        MasterDetailSideMenucs.CreateMasterPage();
+                        await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                    }
                 }
                 wrongOldPassword = false;
                 noMatch = false;

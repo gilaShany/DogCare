@@ -23,7 +23,7 @@
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
-            <Image Source="account.png" WidthRequest="40" HeightRequest="40"/>
+            <Image Source="account.png" WidthRequest="40" HeightRequest="40" Margin="5"/>
             <Label Text="Account" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
         </StackLayout>
 

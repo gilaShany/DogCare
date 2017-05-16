@@ -88,7 +88,13 @@ namespace DogCare
                 App.currentOwner = owner;
                 activity.IsVisible = false;
                 activity.IsRunning = false;
-                await DisplayAlert("", "Your profile updated succefully", "Ok");
+
+                bool answer = await DisplayAlert("", "Your profile updated succefully", null,"OK");
+                if (!answer)
+                {
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                }
             }
         }
 

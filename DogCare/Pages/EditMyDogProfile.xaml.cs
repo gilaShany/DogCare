@@ -75,7 +75,13 @@ namespace DogCare
                 await manager.SaveTaskAsync(App.currentDog);
                 activity.IsVisible = false;
                 activity.IsRunning = false;
-                await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), "Ok");
+
+                bool answer = await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), null, "OK");
+                if (!answer)
+                {
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                }
             }
         }
     }
