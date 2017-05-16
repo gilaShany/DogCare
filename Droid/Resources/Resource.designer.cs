@@ -2245,8 +2245,8 @@ namespace DogCare.Droid
 			// aapt resource value: 0x7f020083
 			public const int flagStart = 2130837635;
 			
-			// aapt resource value: 0x7f0200e5
-			public const int focused = 2130837733;
+			// aapt resource value: 0x7f0200e6
+			public const int focused = 2130837734;
 			
 			// aapt resource value: 0x7f020084
 			public const int ic_audiotrack = 2130837636;
@@ -2462,85 +2462,88 @@ namespace DogCare.Droid
 			public const int logout = 2130837706;
 			
 			// aapt resource value: 0x7f0200cb
-			public const int menu = 2130837707;
+			public const int MainPage = 2130837707;
 			
 			// aapt resource value: 0x7f0200cc
-			public const int mr_dialog_material_background_dark = 2130837708;
+			public const int menu = 2130837708;
 			
 			// aapt resource value: 0x7f0200cd
-			public const int mr_dialog_material_background_light = 2130837709;
+			public const int mr_dialog_material_background_dark = 2130837709;
 			
 			// aapt resource value: 0x7f0200ce
-			public const int mr_ic_audiotrack_light = 2130837710;
+			public const int mr_dialog_material_background_light = 2130837710;
 			
 			// aapt resource value: 0x7f0200cf
-			public const int mr_ic_cast_dark = 2130837711;
+			public const int mr_ic_audiotrack_light = 2130837711;
 			
 			// aapt resource value: 0x7f0200d0
-			public const int mr_ic_cast_light = 2130837712;
+			public const int mr_ic_cast_dark = 2130837712;
 			
 			// aapt resource value: 0x7f0200d1
-			public const int mr_ic_close_dark = 2130837713;
+			public const int mr_ic_cast_light = 2130837713;
 			
 			// aapt resource value: 0x7f0200d2
-			public const int mr_ic_close_light = 2130837714;
+			public const int mr_ic_close_dark = 2130837714;
 			
 			// aapt resource value: 0x7f0200d3
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837715;
+			public const int mr_ic_close_light = 2130837715;
 			
 			// aapt resource value: 0x7f0200d4
-			public const int mr_ic_media_route_connecting_mono_light = 2130837716;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837716;
 			
 			// aapt resource value: 0x7f0200d5
-			public const int mr_ic_media_route_mono_dark = 2130837717;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837717;
 			
 			// aapt resource value: 0x7f0200d6
-			public const int mr_ic_media_route_mono_light = 2130837718;
+			public const int mr_ic_media_route_mono_dark = 2130837718;
 			
 			// aapt resource value: 0x7f0200d7
-			public const int mr_ic_pause_dark = 2130837719;
+			public const int mr_ic_media_route_mono_light = 2130837719;
 			
 			// aapt resource value: 0x7f0200d8
-			public const int mr_ic_pause_light = 2130837720;
+			public const int mr_ic_pause_dark = 2130837720;
 			
 			// aapt resource value: 0x7f0200d9
-			public const int mr_ic_play_dark = 2130837721;
+			public const int mr_ic_pause_light = 2130837721;
 			
 			// aapt resource value: 0x7f0200da
-			public const int mr_ic_play_light = 2130837722;
-			
-			// aapt resource value: 0x7f0200e4
-			public const int notification_template_icon_bg = 2130837732;
+			public const int mr_ic_play_dark = 2130837722;
 			
 			// aapt resource value: 0x7f0200db
-			public const int password = 2130837723;
+			public const int mr_ic_play_light = 2130837723;
+			
+			// aapt resource value: 0x7f0200e5
+			public const int notification_template_icon_bg = 2130837733;
 			
 			// aapt resource value: 0x7f0200dc
-			public const int paw = 2130837724;
+			public const int password = 2130837724;
 			
 			// aapt resource value: 0x7f0200dd
-			public const int pee = 2130837725;
+			public const int paw = 2130837725;
 			
 			// aapt resource value: 0x7f0200de
-			public const int poop = 2130837726;
+			public const int pee = 2130837726;
 			
 			// aapt resource value: 0x7f0200df
-			public const int secondPlace = 2130837727;
-			
-			// aapt resource value: 0x7f0200e6
-			public const int selected = 2130837734;
+			public const int poop = 2130837727;
 			
 			// aapt resource value: 0x7f0200e0
-			public const int tabbedpagedog1 = 2130837728;
+			public const int secondPlace = 2130837728;
+			
+			// aapt resource value: 0x7f0200e7
+			public const int selected = 2130837735;
 			
 			// aapt resource value: 0x7f0200e1
-			public const int thirdPlace = 2130837729;
+			public const int tabbedpagedog1 = 2130837729;
 			
 			// aapt resource value: 0x7f0200e2
-			public const int updateDogAndCreateBackground = 2130837730;
+			public const int thirdPlace = 2130837730;
 			
 			// aapt resource value: 0x7f0200e3
-			public const int User = 2130837731;
+			public const int updateDogAndCreateBackground = 2130837731;
+			
+			// aapt resource value: 0x7f0200e4
+			public const int User = 2130837732;
 			
 			static Drawable()
 			{
