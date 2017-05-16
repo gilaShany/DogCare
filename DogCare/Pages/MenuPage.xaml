@@ -7,38 +7,36 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="button" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#b3b3b3"  />
-                <Setter Property="BorderRadius" Value="1" />
-                <Setter Property="Margin" Value="3" />
+                <Setter Property="BackgroundColor" Value="##e6e6e6"  />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <StackLayout>
-        <StackLayout BackgroundColor="#e6f9ff" Orientation="Horizontal" Padding="10">
-            <ic:CircleImage x:Name="profileImage" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center"/>
-            <Label Text="Hello" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-            <Label x:Name="nameOfUser" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
-            <Label Text="!" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <StackLayout BackgroundColor="#e6f9ff" Orientation="Horizontal" Padding="20" Margin="-5">
+            <ic:CircleImage x:Name="profileImage" BorderColor="Black" BorderThickness="1" />
+            <Label Text=" Hello" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" />
+            <Label x:Name="nameOfUser" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" />
+            <Label Text="!" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" BackgroundColor="#999999" Margin="-5">
             <Image Source="account.png" WidthRequest="40" HeightRequest="40" Margin="5"/>
             <Label Text="Account" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
         </StackLayout>
 
-        <Button Text="Edit profile" Clicked="EditProfile_Clicked"  Style="{StaticResource button}"/>
-        <Button Text="Change password" Clicked="ChangePassword_Clicked"  Style="{StaticResource button}"/>
-        <Button Text="Logout" Clicked="logout_Clicked"  Style="{StaticResource button}"/>
+        <Button Image="edit.png"  Text=" Edit profile" Clicked="EditProfile_Clicked"  Style="{StaticResource button}" />
+        <Button Image="password.png" Text=" Change password" Clicked="ChangePassword_Clicked"  Style="{StaticResource button}"/>
+        <Button Image="logout" Text=" Logout" Clicked="logout_Clicked"  Style="{StaticResource button}"/>
 
-        <StackLayout Orientation="Horizontal" >
-            <Image x:Name="dogImage" WidthRequest="40" HeightRequest="40" Margin="5"/>
+        <StackLayout Orientation="Horizontal" BackgroundColor="#999999" Margin="-5">
+            <Image Source="paw.png" WidthRequest="40" HeightRequest="40" Margin="5"/>
             <Label Text="My Dog" FontSize="Medium" VerticalOptions="Center" FontAttributes="Bold"/>
         </StackLayout>
 
-        <Button x:Name="nameOfDog" Clicked="EditDog_Clicked" Style="{StaticResource button}" />
-        <Button Text="Switch a dog" Clicked="MyDogs_Clicked" Style="{StaticResource button}"/>
-        <Button Text="Add a new dog" Clicked="AddNewDog_Clicked" Style="{StaticResource button}"/>
+        <Button Image="edit.png" x:Name="nameOfDog" Clicked="EditDog_Clicked" Style="{StaticResource button}"/>
+        <Button Image="change.png" Text=" Switch a dog" Clicked="MyDogs_Clicked" Style="{StaticResource button}"/>
+        <Button Image="add.png" Text=" Add a new dog" Clicked="AddNewDog_Clicked" Style="{StaticResource button}"/>
 
     </StackLayout>
 </ContentPage>
