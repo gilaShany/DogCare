@@ -17,6 +17,7 @@ namespace DogCare
     {
         DogManager manager;
         MemoryStream memStream;
+        bool hasImageChanged;
 
         public EditMyDogProfile()
         {
@@ -24,6 +25,7 @@ namespace DogCare
             BindingContext = App.currentDog;
             manager = DogManager.DefaultManager;
             memStream = null;
+            hasImageChanged = false;
 
             //Checking if the dog has an image. If not, showing default image.
             if (App.currentDog.ImageD != null)
@@ -38,6 +40,7 @@ namespace DogCare
                 {
                     memStream = Utils.ImageStream.ConvertStreamToMemoryStream(stream);
                     image.Source = ImageSource.FromStream(() => { return new MemoryStream(memStream.ToArray()); });
+                    hasImageChanged = true;
                 }
             };
         }
@@ -50,6 +53,9 @@ namespace DogCare
             }
             else
             {
+                activity.IsVisible = true;
+                activity.IsRunning = true;
+
                 if (newDog.Text != null)
                 {
                     App.currentDog.DogName = newDog.Text;
@@ -62,12 +68,20 @@ namespace DogCare
                 {
                     App.currentDog.Gender = genderS.Text;
                 }
-                if (image.Source != ImageSource.FromFile("Dog.png"))
+                if (hasImageChanged)
                 {
                     App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
                 }
                 await manager.SaveTaskAsync(App.currentDog);
-                await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), "Ok");
+                activity.IsVisible = false;
+                activity.IsRunning = false;
+
+                bool answer = await DisplayAlert("", string.Format("{0} updated succefully", App.currentDog.DogName), null, "OK");
+                if (!answer)
+                {
+                    MasterDetailSideMenucs.CreateMasterPage();
+                    await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
+                }
             }
         }
     }

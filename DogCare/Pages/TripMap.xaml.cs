@@ -197,16 +197,20 @@ namespace DogCare
             }
             else
             {
-                await locator.StopListeningAsync();
-                isListening = false;
-                poopButton.IsEnabled = false;
-                poopButton.Image = "dogPoopUnable";
-                peeButton.IsEnabled = false;
-                peeButton.Image = "dogPeeUnable";
-                FinishButton.IsEnabled = false;
-                AddFinishFlag();
-                AddDistanceToDogTatalWalk();
-                UpdateMyTrips();
+                bool answer = await DisplayAlert("", string.Format("Are you sure you want to end the walk?"),"Cancel","OK");
+                if (!answer)
+                {
+                    await locator.StopListeningAsync();
+                    isListening = false;
+                    poopButton.IsEnabled = false;
+                    poopButton.Image = "dogPoopUnable";
+                    peeButton.IsEnabled = false;
+                    peeButton.Image = "dogPeeUnable";
+                    FinishButton.IsEnabled = false;
+                    AddFinishFlag();
+                    AddDistanceToDogTatalWalk();
+                    UpdateMyTrips();
+                }
             }
         }
 

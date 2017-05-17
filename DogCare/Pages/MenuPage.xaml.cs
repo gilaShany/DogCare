@@ -16,8 +16,18 @@ namespace DogCare
         {
             InitializeComponent();
             Title = "Master";
-            BackgroundColor = Color.Gray.WithLuminosity(0.9);
+            BackgroundColor = Color.FromHex("#e6e6e6");
             Icon = Device.OS == TargetPlatform.Android ? "menu.png" : null;
+
+            nameOfUser.Text = App.currentOwner.OwnerName;
+            var dogName = App.currentDog.DogName;
+            nameOfDog.Text = string.Format(" Edit {0}'s profile", dogName);
+
+            //Checking if the user and dog have an image. If not, showing default image.
+            if (App.currentOwner.ImageO != null)
+                profileImage.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(App.currentOwner.ImageO));
+            else
+                profileImage.Source = ImageSource.FromFile("User.png");
         }
 
         async private void MyDogs_Clicked(object sender, EventArgs e)
@@ -48,7 +58,7 @@ namespace DogCare
 
         async private void ChangePassword_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new ChangePasswordPage());
+            await Navigation.PushModalAsync(new NavigationPage(new ChangePasswordPage()));
 
         }
     }
