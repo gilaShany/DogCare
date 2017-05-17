@@ -17,6 +17,15 @@ namespace DogCare
         {
             InitializeComponent();
 
+            if (App.currentDog.ImageD != null)
+            {
+                image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(App.currentDog.ImageD));
+            }
+            else
+            {
+                image.Source = ImageSource.FromFile("Dog.png");
+            }
+
         }
 
         async private void Calendar_Clicked(object sender, EventArgs e)
