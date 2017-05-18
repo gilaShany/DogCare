@@ -14,7 +14,7 @@
 
     <StackLayout>
         <StackLayout BackgroundColor="#e6f9ff" Orientation="Horizontal" Padding="20" Margin="-5">
-            <ic:CircleImage x:Name="profileImage" BorderColor="Black" BorderThickness="1" />
+            <ic:CircleImage x:Name="profileImage" BorderColor="Black" BorderThickness="1" HeightRequest="70" WidthRequest="70" />
             <Label Text=" Hello" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" />
             <Label x:Name="nameOfUser" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" />
             <Label Text="!" VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold"/>
