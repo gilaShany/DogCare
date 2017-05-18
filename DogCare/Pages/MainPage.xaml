@@ -7,12 +7,40 @@
 
     <AbsoluteLayout>
         <Image Source="MainPage.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
-        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,0.4" AbsoluteLayout.LayoutFlags="All">
-            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="End"/>
-            <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
-            <Button Text="Go on a walk" Clicked="Walk_Clicked"/>
-            <Button Text="Competition" Clicked="Competition_Clicked"/>
-            <Button Text="My walks" Clicked="MyWalks_Clicked"/>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,0.5" AbsoluteLayout.LayoutFlags="All">
+            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center" Scale="0.5" />
+
+            <StackLayout Orientation="Horizontal"  AbsoluteLayout.LayoutBounds="0,1,1,0.9" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center">
+                <Image Source="Calendar.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                Tapped="Calendar_Clicked"  />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="trip.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                Tapped="Walk_Clicked"  />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" AbsoluteLayout.LayoutBounds="0,1,1,0.8" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center">
+            <Image Source="Trophy.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        
+                Tapped="Competition_Clicked"  />
+                </Image.GestureRecognizers>
+            </Image>
+           
+            <Image Source="Map.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                Tapped="MyWalks_Clicked"  />
+                </Image.GestureRecognizers>
+            </Image>
+                <Button Image="Map.png" BackgroundColor="White"/>
+            </StackLayout>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

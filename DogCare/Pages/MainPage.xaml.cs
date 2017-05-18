@@ -16,7 +16,7 @@ namespace DogCare
         public MainPage()
         {
             InitializeComponent();
-
+            BindingContext = App.currentDog;
             if (App.currentDog.ImageD != null)
             {
                 image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(App.currentDog.ImageD));
