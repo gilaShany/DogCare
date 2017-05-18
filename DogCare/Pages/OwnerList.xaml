@@ -14,7 +14,7 @@
             <Entry x:Name="password" IsPassword="True"
                   Placeholder="Password" PlaceholderColor="#595959" />
             <Button x:Name="pickPhoto" Text="Choose a profile picture (Optional)"/>
-            <Image x:Name="image" Margin="15"/>
+            <Image x:Name="image" HeightRequest="70" WidthRequest="70"/>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.75,0.87,0.1" AbsoluteLayout.LayoutFlags="All">
             <Button x:Name="addButton" Text="Create account" BackgroundColor="DarkGray"

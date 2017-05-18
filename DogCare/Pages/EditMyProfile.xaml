@@ -10,7 +10,7 @@
             <Label Text="Name:" FontSize="Medium" TextColor="#003399" FontAttributes="Bold"/>
             <Entry x:Name="ownerName" Placeholder="{Binding OwnerName}" PlaceholderColor="#595959"/>
             <Button x:Name="pickPhoto" Text="Change profile picture"/>
-            <Image x:Name="image"  Margin="25"/>
+            <Image x:Name="image" HeightRequest="70" WidthRequest="70"/>
         </StackLayout>
         
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.75,0.87,0.1" AbsoluteLayout.LayoutFlags="All">
