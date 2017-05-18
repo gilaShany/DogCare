@@ -10,6 +10,7 @@
                            Color="Black"  AbsoluteLayout.LayoutBounds="0.5,0.2,0.1,0.1" AbsoluteLayout.LayoutFlags="All"/>
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.6" AbsoluteLayout.LayoutFlags="All">
             <Entry x:Name="newDog"
+                   
                   Placeholder="Dog name" PlaceholderColor="#595959"/>
             <Entry x:Name="genderS"
                Placeholder="Gender" PlaceholderColor="#595959"/>
