@@ -10,14 +10,14 @@
                            Color="Black"  AbsoluteLayout.LayoutBounds="0.5,0.2,0.1,0.1" AbsoluteLayout.LayoutFlags="All"/>
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.15,0.85,0.6" AbsoluteLayout.LayoutFlags="All">
             <Entry x:Name="newDog"
+                   
                   Placeholder="Dog name" PlaceholderColor="#595959"/>
             <Entry x:Name="genderS"
                Placeholder="Gender" PlaceholderColor="#595959"/>
             <Entry x:Name="raceS"
                Placeholder="Race" PlaceholderColor="#595959"/>
             <Button x:Name="pickPhoto" Text="Choose a picture (Optional)"/>
-            <Image x:Name="image" Margin="20
-                   "/>
+            <Image x:Name="image" Margin="20" HeightRequest="70" WidthRequest="70"/>
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.75,0.87,0.1" AbsoluteLayout.LayoutFlags="All">
             <Button Text="Add" BackgroundColor="DarkGray"

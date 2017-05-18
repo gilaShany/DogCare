@@ -7,12 +7,41 @@
 
     <AbsoluteLayout>
         <Image Source="MainPage.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
-        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,0.4" AbsoluteLayout.LayoutFlags="All">
-            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="End"/>
-            <Button Text="My dog calendar" Clicked="Calendar_Clicked"/>
-            <Button Text="Go on a walk" Clicked="Walk_Clicked"/>
-            <Button Text="Competition" Clicked="Competition_Clicked"/>
-            <Button Text="My walks" Clicked="MyWalks_Clicked"/>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,0.53" AbsoluteLayout.LayoutFlags="All">
+            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center" Scale="0.7" />
+            <Grid RowSpacing = "30" AbsoluteLayout.LayoutBounds="0,0.9,1,0.8" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image Source="Calendar.png" Scale="1.3"  Grid.Row="0" Grid.Column="0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                Tapped="Calendar_Clicked"  />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="trip.png" Scale="1.3"  Grid.Row="0" Grid.Column="1">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                Tapped="Walk_Clicked"  />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image Source="Trophy.png" Scale="1.3" Grid.Row="1" Grid.Column="0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        
+                Tapped="Competition_Clicked"  />
+                </Image.GestureRecognizers>
+            </Image>
+
+                <Image Source="Map.png" Scale="1.3" Grid.Row="1" Grid.Column="1">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                Tapped="MyWalks_Clicked"  />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

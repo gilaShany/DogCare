@@ -13,10 +13,12 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
+                    //<StackLayout Orientation = "Horizontal"  AbsoluteLayout.LayoutBounds="0,1,1,0.9" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center">
+
         public MainPage()
         {
             InitializeComponent();
-
+            BindingContext = App.currentDog;
             if (App.currentDog.ImageD != null)
             {
                 image.Source = ImageSource.FromStream(() => Utils.ImageStream.ConvertStringToStream(App.currentDog.ImageD));
