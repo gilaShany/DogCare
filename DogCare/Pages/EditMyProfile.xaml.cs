@@ -69,11 +69,13 @@ namespace DogCare
                 if (hasImageChanged)
                 {
                     imageString = Utils.ImageStream.ConvertStreamToString(memStream);
+                    memStream.Dispose();
                 }
                 else
                 {
                     imageString = App.currentOwner.ImageO;
                 }
+
 
                 var owner = new Owner
                 {

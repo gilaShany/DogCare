@@ -59,6 +59,8 @@ namespace DogCare
                     Walk = 0,
                     ImageD = Utils.ImageStream.ConvertStreamToString(memStream)
                 };
+
+                memStream.Dispose();
                 await AddItem(dog);
                 activity.IsVisible = false;
                 activity.IsRunning = false;

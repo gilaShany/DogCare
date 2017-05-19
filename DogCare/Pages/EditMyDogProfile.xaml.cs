@@ -71,6 +71,7 @@ namespace DogCare
                 if (hasImageChanged)
                 {
                     App.currentDog.ImageD = Utils.ImageStream.ConvertStreamToString(memStream);
+                    memStream.Dispose();
                 }
                 await manager.SaveTaskAsync(App.currentDog);
                 activity.IsVisible = false;

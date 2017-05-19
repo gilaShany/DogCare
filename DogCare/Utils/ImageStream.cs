@@ -17,6 +17,7 @@ namespace DogCare.Utils
             {
                 memStream.Position = 0;
                 byte[] bytes = memStream.ToArray();
+                memStream.Dispose();
                 return Convert.ToBase64String(bytes);
             }
             else
@@ -44,6 +45,8 @@ namespace DogCare.Utils
                 byte[] bytes = ms.ToArray();
                 byte[] bytesOfResizeImage = ResizeImage(bytes, 200 , 200);
                 MemoryStream memStreamAfterResize = new MemoryStream(bytesOfResizeImage);
+                stream.Dispose();
+                ms.Dispose();
                 return memStreamAfterResize;
         }
 
@@ -59,12 +62,17 @@ namespace DogCare.Utils
 			// Load the bitmap
 			Bitmap originalImage = BitmapFactory.DecodeByteArray (imageData, 0, imageData.Length);
 			Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)width, (int)height, false);
+            originalImage.Dispose();
 
-			using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
 			{
 				resizedImage.Compress (Bitmap.CompressFormat.Jpeg, 100, ms);
-				return ms.ToArray ();
-			}
+                byte[] msArr = ms.ToArray();
+                ms.Dispose();
+                resizedImage.Dispose();
+                return msArr;
+
+            }
 		}
 
     }

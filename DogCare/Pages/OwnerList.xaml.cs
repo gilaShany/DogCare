@@ -88,8 +88,8 @@ namespace DogCare
                                 Password = password.Text,
                                 ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                             };
-                            if (memStream != null)
-                                memStream.Dispose();
+
+                            memStream.Dispose();
                             await AddItem(owner);
                             await SqliteConnectionSet._connection.InsertAsync(owner);
                             SqliteConnectionSet._user.Add(owner);
