@@ -245,14 +245,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable-hdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\layout\" />
     <Folder Include="Resources\values\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\menu.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\User.png" />
@@ -300,16 +299,16 @@
     <AndroidResource Include="Resources\drawable\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\updateDogAndCreateBackground.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\updateDogAndCreateBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\tabbedpagedog1.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tabbedpagedog1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\changePasswordBackground.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\changePasswordBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\account.png" />
@@ -330,19 +329,19 @@
     <AndroidResource Include="Resources\drawable\password.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\MainPage.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\MainPage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Calendar.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Calendar.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Map.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Map.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\trip.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\trip.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Trophy.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Trophy.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\trophyb.png" />

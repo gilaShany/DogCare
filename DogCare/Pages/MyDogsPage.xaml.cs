@@ -22,8 +22,7 @@ namespace DogCare
         {
             if (e.SelectedItem == null)
                 return;
-           
-            var dog = e.SelectedItem as DogAndImage;
+             var dog = e.SelectedItem as DogAndImage;
 
             bool answer = await DisplayAlert("", string.Format("{0} is selected", dog.Dog.DogName),"OK","Cancel");
             if (answer)
