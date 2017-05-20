@@ -53,11 +53,13 @@ namespace DogCare.Pages
 
                     BindingContext = new ObservableCollection<ObservableGroupCollection<string, Trips>>(groupedData);
 
+                    loading.IsVisible = false;
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
                 }
                 else
                 {
+                    loading.IsVisible = false;
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
                     var alertResult = await DisplayAlert("Oops!", "There are no recorded walks.", null, "Ok");

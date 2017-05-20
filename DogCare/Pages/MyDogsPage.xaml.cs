@@ -81,6 +81,7 @@ namespace DogCare
                         (listOfDogsWithImage.OrderBy(dog => dog.Dog.DogName).ToList());
 
                     BindingContext = orderedData;
+                    loading.IsVisible = false;
                     indicator.IsVisible = false;
                     indicator.IsRunning = false;
                 }

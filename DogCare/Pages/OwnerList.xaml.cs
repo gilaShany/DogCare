@@ -89,7 +89,6 @@ namespace DogCare
                                 ImageO = Utils.ImageStream.ConvertStreamToString(memStream)
                             };
 
-                            memStream.Dispose();
                             await AddItem(owner);
                             await SqliteConnectionSet._connection.InsertAsync(owner);
                             SqliteConnectionSet._user.Add(owner);

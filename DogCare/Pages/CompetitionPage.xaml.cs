@@ -98,6 +98,7 @@ namespace DogCare.Pages
                 numOfParticipants.Text = allDogs.Count.ToString();
                 myTotalDistance.Text = allDogs[position].Walk.ToString();
 
+                loading.IsVisible = false;
                 indicator.IsVisible = false;
                 indicator.IsRunning = false;
                 title.IsVisible = true;

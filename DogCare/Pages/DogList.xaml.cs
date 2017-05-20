@@ -60,13 +60,11 @@ namespace DogCare
                     ImageD = Utils.ImageStream.ConvertStreamToString(memStream)
                 };
 
-                memStream.Dispose();
                 await AddItem(dog);
                 activity.IsVisible = false;
                 activity.IsRunning = false;
                 await DisplayAlert("", string.Format("{0} added successfully", dog.DogName), "OK");
                 App.currentDog = dog;
-
                 MasterDetailSideMenucs.CreateMasterPage();
                 await Navigation.PushModalAsync(MasterDetailSideMenucs.MasterDetailPage);
             }

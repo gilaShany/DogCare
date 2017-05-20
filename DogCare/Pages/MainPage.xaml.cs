@@ -30,23 +30,31 @@ namespace DogCare
 
         async private void Calendar_Clicked(object sender, EventArgs e)
         {
+            calendar.BackgroundColor = Color.FromHex("#e6e6e6");
             await Navigation.PushAsync(new Schedule());
+            calendar.BackgroundColor = Color.Transparent;
         }
 
 
         async private void Walk_Clicked(object sender, EventArgs e)
         {
+            trip.BackgroundColor = Color.FromHex("#e6e6e6");
             await Navigation.PushAsync(new TripMap());
+            trip.BackgroundColor = Color.Transparent;
         }
 
         async private void MyWalks_Clicked(object sender, EventArgs e)
         {
+            map.BackgroundColor = Color.FromHex("#e6e6e6");
             await Navigation.PushAsync(new MyWalksPage());
+            map.BackgroundColor = Color.Transparent;
         }
 
         async private void Competition_Clicked(object sender, EventArgs e)
         {
+            trophy.BackgroundColor = Color.FromHex("#e6e6e6");
             await Navigation.PushAsync(new CompetitionPage());
+            trophy.BackgroundColor = Color.Transparent;
         }
     }
 }

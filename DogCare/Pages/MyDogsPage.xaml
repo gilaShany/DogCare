@@ -9,8 +9,11 @@
                             IsVisible="True" TextChanged="searchBar_TextChanged" WidthRequest="280" HorizontalOptions="Start"/>
             <Button Image="add.png" Clicked="Add_Clicked" BackgroundColor="#e6f2ff" VerticalOptions="Center"/>
         </StackLayout>
-        <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
-                           Color="Black" IsVisible="True" IsRunning="True" Margin="150"/>
+        <StackLayout >
+            <ActivityIndicator x:Name="indicator" VerticalOptions="Center"
+                           Color="Black" IsVisible="True" IsRunning="True" Margin="0,150,0,0"/>
+            <Label x:Name="loading" Text="Loading dogs' profiles..."  HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
         <ListView x:Name="listView" ItemSelected="Handle_ItemSelected" ItemsSource="{Binding}" SeparatorColor="#d9d9d9"
                   RowHeight="70">
             <ListView.ItemTemplate>
