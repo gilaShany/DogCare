@@ -34,35 +34,6 @@
                 <Button x:Name="map" Image="Map.png" Scale="0.9" Grid.Row="1" Grid.Column="1"
                         Clicked="MyWalks_Clicked" BackgroundColor="Transparent"/>
 
-                <!--
-                <Image Source="Calendar.png" Scale="0.9"  Grid.Row="0" Grid.Column="0">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                Tapped="Calendar_Clicked"  />
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image Source="trip.png" Scale="0.9"  Grid.Row="0" Grid.Column="1">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                Tapped="Walk_Clicked"  />
-                    </Image.GestureRecognizers>
-                </Image>
-
-                <Image Source="Trophy.png" Scale="0.9" Grid.Row="1" Grid.Column="0">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer
-                        
-                Tapped="Competition_Clicked"  />
-                </Image.GestureRecognizers>
-            </Image>
-
-                <Image Source="Map.png" Scale="0.9" Grid.Row="1" Grid.Column="1">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer
-                Tapped="MyWalks_Clicked"  />
-                    </Image.GestureRecognizers>
-                </Image>
-                   -->
             </Grid>
              
         </StackLayout>
