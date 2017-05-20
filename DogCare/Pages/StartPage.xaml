@@ -2,5 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DogCare.StartPage">
-    <ActivityIndicator Color="Black" HorizontalOptions="Center" IsRunning="True"/>
+    <AbsoluteLayout>
+        <Image Source="activityPage.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+        <ActivityIndicator Color="Black" HorizontalOptions="Center" IsRunning="True"
+                           AbsoluteLayout.LayoutBounds="0.5,0.8,0.87,0.1" AbsoluteLayout.LayoutFlags="All"/>
+    </AbsoluteLayout>
 </ContentPage>

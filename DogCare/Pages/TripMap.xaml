@@ -19,7 +19,7 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <AbsoluteLayout>
         <local:CustomMap x:Name="map" IsShowingUser="True" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
 

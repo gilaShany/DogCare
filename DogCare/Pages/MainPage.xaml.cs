@@ -13,8 +13,6 @@ namespace DogCare
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-                    //<StackLayout Orientation = "Horizontal"  AbsoluteLayout.LayoutBounds="0,1,1,0.9" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="Center">
-
         public MainPage()
         {
             InitializeComponent();

@@ -21,7 +21,8 @@
                                 <Image Source="{Binding Index.Source}" />
                             </StackLayout>
                             <StackLayout VerticalOptions="Center">
-                                <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"/>
+                                <ic:CircleImage Source="{Binding DogImage.Source}" BorderColor="Black" BorderThickness="1"
+                                                HeightRequest="70" WidthRequest="70"/>
                             </StackLayout>
                             <StackLayout Padding="5,0,0,0">
                                 <Label Text="{Binding Dog.DogName}" FontAttributes="Bold" FontSize="Large"/>
