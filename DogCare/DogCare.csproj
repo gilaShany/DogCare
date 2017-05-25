@@ -71,9 +71,6 @@
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DogMiddlePage.xaml.cs">
-      <DependentUpon>DogMiddlePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -96,12 +93,7 @@
     <Compile Include="Managers\OwnerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App.cs" />
-    <Compile Include="Pages\TodoList.xaml.cs">
-      <DependentUpon>TodoList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\Constants.cs" />
-    <Compile Include="Models\TodoItem.cs" />
-    <Compile Include="Managers\TodoItemManager.cs" />
     <Compile Include="Pages\TabbedLogin.xaml.cs">
       <DependentUpon>TabbedLogin.xaml</DependentUpon>
     </Compile>
@@ -214,11 +206,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\TodoList.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\DogList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -238,12 +225,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Login.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Pages\DogMiddlePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
