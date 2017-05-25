@@ -56,10 +56,6 @@ namespace DogCare
                 activity.IsVisible = true;
                 activity.IsRunning = true;
 
-                if (newDog.Text != null)
-                {
-                    App.currentDog.DogName = newDog.Text;
-                }
                 if (raceS.Text != null)
                 {
                     App.currentDog.Race = raceS.Text;

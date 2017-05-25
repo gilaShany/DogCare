@@ -56,5 +56,10 @@ namespace DogCare
             await Navigation.PushAsync(new CompetitionPage());
             trophy.BackgroundColor = Color.Transparent;
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
