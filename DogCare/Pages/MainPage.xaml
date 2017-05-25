@@ -8,15 +8,15 @@
     <AbsoluteLayout>
         <Image Source="MainPage.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
         <StackLayout AbsoluteLayout.LayoutBounds="0,0.87,1,0.44" AbsoluteLayout.LayoutFlags="All">
-            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center" Scale="0.9" Margin="-25"/>
-            <Grid RowSpacing = "15" ColumnSpacing="70" HorizontalOptions="Center">
+            <ic:CircleImage x:Name="image" BorderColor="Black" BorderThickness="1" HorizontalOptions="Center" Scale="0.9" Margin="-20"/>
+            <Grid RowSpacing = "15" ColumnSpacing="70" HorizontalOptions="Center" >
                 <Grid.RowDefinitions >
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="calendar" Image="Calendar.png" Scale="0.9"  Grid.Row="0" Grid.Column="0"
